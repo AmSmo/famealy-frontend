@@ -5,6 +5,7 @@ import NavBar from './NavBar/NavBar.js'
 import styled from 'styled-components'
 import User from './User/User.js'
 import Search from './Search/Search.js'
+import Recipes from './Recipes/Recipes.js'
 class App extends Component {
 
 
@@ -33,6 +34,7 @@ class App extends Component {
           <Switch>
 
             <Route path="/search" render={(routerprops) => <Search {...routerprops} />} />
+            <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} />} />
             <Route path="/user" component={User} />
 
           </Switch>

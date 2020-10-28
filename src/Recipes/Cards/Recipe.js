@@ -1,18 +1,21 @@
 import {withRouter} from 'react-router-dom'
 import React, { Component } from 'react'
-class Recipe extends Compontent{
+
+class Recipe extends Component{
     state = {
         recipe: {}
     }
     componentDidMount = () => {
-        fetch(`http://localhost:3001/recipes/spoon/${this.props.match.param.spoon_id}`)
+        fetch(`http://localhost:3001/recipes/spoon/${this.props.match.params.spoon_id}`)
         .then(resp=> resp.json())
-        .then(data => this.setState({recipe: data}))
+        .then(data => {
+            console.log(data)
+            this.setState({recipe: data})})
     }
     render(){
     return(
-        <div>Recipe</div>
+        <div>Recipe things</div>
     )}
 }
 
-export default Recipe
+export default withRouter(Recipe)
