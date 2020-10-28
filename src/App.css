@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  
+}
+body{
+  font-family: 'Raleway', sans-serif;
 }
 
 .App-logo {
@@ -9,6 +13,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
+    color:  #fabc0f;
     animation: App-logo-spin infinite 20s linear;
   }
 }
