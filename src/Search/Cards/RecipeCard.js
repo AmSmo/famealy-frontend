@@ -14,6 +14,7 @@ function RecipeCard(props){
             <p>Servings: {props.recipe.servings}</p>
 
                 {props.recipe.title}
+                
         </Recipe>
         
     )

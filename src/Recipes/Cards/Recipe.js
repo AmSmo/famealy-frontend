@@ -7,7 +7,8 @@ class Recipe extends Component{
             name: "",
             directions_json: [],
             image_url: "",
-            recipe_ingredients: []
+            recipe_ingredients: [],
+            spoon_id: 0
     }}
 
     ingredientList = () => {
@@ -37,7 +38,7 @@ class Recipe extends Component{
         return this.state.recipe != prevState.recipe
     }
     render(){
-        
+        console.log("render", this.props.info)
     return(
         <>
             {this.state.recipe.name !== "" ? 
@@ -55,14 +56,42 @@ class Recipe extends Component{
             <ul>
                 {this.directions()}
             </ul>
-            </>
+                    {this.props.info !== undefined ?
+                    <>
+                    
+                    { this.props.info.recipes.find(myrecipe => myrecipe.spoon_id === this.state.recipe.spoon_id) ? 
+                        <RecipeButton onClick={()=> this.props.deleteHandler(this.state.recipe.spoon_id)}>Delete</RecipeButton> 
+                        : 
+                        <>
+                            <RecipeButton onClick={() => this.props.addHandler(this.state.recipe.spoon_id)} >Save to my Recipes</RecipeButton>
+                        </>
+                        }
+                        <RecipeButton>Make for a Potluck</RecipeButton>
+                        </>
             : 
+            null
+                    }
+                    </>
+            :
             null }
-        </>
+    </> 
     )}
 }
 
 export default withRouter(Recipe)
+const RecipeButton = styled.button`
+    margin: 0 auto;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;`
+
 
 const Description = styled.div`
     width: 400px;

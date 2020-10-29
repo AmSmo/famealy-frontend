@@ -68,7 +68,7 @@ class NavBar extends React.Component{
                             active={this.state.activeItem === 'myrecipes'}
                             onClick={this.handleItemClick}
                             as={Link}
-                            to="/myrecipes"
+                            to="/recipes/myrecipes"
                         >
                             My Recipes
                         </Menu.Item>

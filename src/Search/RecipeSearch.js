@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import RecipeCard from './Cards/RecipeCard.js'
 import styled from 'styled-components'
+import { Pagination } from 'semantic-ui-react'
+
 class RecipeSearch extends Component {
     state = {
         recipes: [],
@@ -10,7 +12,7 @@ class RecipeSearch extends Component {
     }
 
     renderRecipes(){
-        return this.state.recipes.slice(0,9).map(recipe => <RecipeCard recipe={recipe }/ >)
+        return this.state.recipes.slice(this.state.list, (this.state.list + 9)).map(recipe => <RecipeCard recipe={recipe }/ >)
     }
 
     componentDidUpdate = (prevProps) => {
@@ -38,6 +40,7 @@ class RecipeSearch extends Component {
                     this.state.recipes.length > 0 ?
                     <>
                         <h1>Recipes</h1>
+                            <Pagination onPageChange={(event, data) => this.setState({list: data.activePage})} defaultActivePage={9} totalPages={Math.ceil(this.state.max/10) } />
                         <SearchContainer>
                             {this.renderRecipes()}
                         </SearchContainer>
