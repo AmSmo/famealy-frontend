@@ -1,15 +1,23 @@
 import styled from 'styled-components'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import {Message} from 'semantic-ui-react'
+import { Message } from 'semantic-ui-react'
 
 function Signup(props) {
 
     const [username, setUsername] = useState('')
+    const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
-    const [email, setEmail] = useState('')
+    const [emailAddress, setEmailAddress] = useState('')
     const [location, setLocation] = useState('')
+
+    const signupHandler = (e) => {
+        e.preventDefault()
+        const user = {username, name, password, email_address: emailAddress, location}
+        
+        props.signupHandler(e, user)
+    }
     const changeHandler = (e) => {
         switch (e.target.name) {
             case "username":
@@ -21,8 +29,11 @@ function Signup(props) {
             case "passwordConfirmation":
                 setPasswordConfirmation(e.target.value)
                 break;
-            case "email":
-                setEmail(e.target.value)
+            case "emailAddress":
+                setEmailAddress(e.target.value)
+                break;
+            case "name":
+                setName(e.target.value)
                 break;
             case "location":
                 setLocation(e.target.value)
@@ -35,19 +46,25 @@ function Signup(props) {
 
     const invalidPassword = (password !== passwordConfirmation && password !== "" && passwordConfirmation !== "")
 
-    const pwValidation = (e) => {
+    const pwValidation = () => {
+        
         if (invalidPassword) {
             alert("Passwords Do Not Match")
+            return false
         } else if (username === "") {
             alert("Must have a username")
-        } else if (email === "") {
-            alert("Must have an email")
+            return false
+        } else if (emailAddress === "") {
+            alert("Must have an email address")
+            return false
         } else if (location === "") {
             alert("Must have a location")
-        }
-
-        else {
-            return props.signupHandler(e)
+            return false
+        } else if (name === "") {
+            alert("Must have a name")
+            return false
+        } else {
+            return true
         }
     }
     let result = <></>
@@ -62,10 +79,11 @@ function Signup(props) {
                         <h2>
                             Signup for an account
                          </h2>
-                        <form size='large' onSubmit={props.loginHandler}>
+                        <form size='large' onSubmit={(e) => signupHandler(e)} >
                             <>
                                 <input type="text" onChange={changeHandler} value={username} name="username"  placeholder='Username' />
-                                <input type="email" onChange={changeHandler} value={email} name="email"  placeholder='Email' />
+                                <input type="text" onChange={changeHandler} value={name} name="name"  placeholder='Name' />
+                                <input type="email" onChange={changeHandler} value={emailAddress} name="emailAddress"  placeholder='Email Address' />
                                 <input type="text" onChange={changeHandler} value={location} name="location"  placeholder='Location' />
                                 <input type="password"
                                     
@@ -86,7 +104,7 @@ function Signup(props) {
                             />
                             {invalidPassword ? <Message size="tiny" color='red'>Passwords do not match</Message> : null} 
 
-                                <Button>
+                            <Button onClick={(e) => signupHandler(e)}>
                                     Signup
                                 </Button>
                             </>

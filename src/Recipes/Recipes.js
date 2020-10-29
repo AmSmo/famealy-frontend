@@ -4,6 +4,12 @@ import MyRecipes from './MyRecipes.js'
 import Recipe from './Cards/Recipe.js'
 class Recipes extends Component {
 
+    state= {recipes: [],
+            ingredients: []}
+
+    componentDidMount = () => {
+        console.log("stuffy stuff stuff")
+    }
 
     render() {
         return (

@@ -11,25 +11,25 @@ class Recipe extends Component{
     }}
 
     ingredientList = () => {
-        console.log("IL", this.state)
+        
         return this.state.recipe.recipe_ingredients.map(ingredient => {
             return <Ingredient>{ingredient.description}</Ingredient>
         })
     }
 
     directions = () => {
-        console.log("directions", this.state)
+        
         return this.state.recipe.directions_json.map(direction => {
             return <Direction>{direction.step}.  {direction.details}</Direction>
         })
     }
 
     componentDidMount = () => {
-        console.log("mounted")
+        
         fetch(`http://localhost:3001/recipes/spoon/${this.props.match.params.spoon_id}`)
         .then(resp=> resp.json())
         .then(data => {
-            console.log("recipe", data)
+            
             this.setState({recipe: {...data}})})
     }
 
@@ -37,7 +37,7 @@ class Recipe extends Component{
         return this.state.recipe != prevState.recipe
     }
     render(){
-        console.log("State", this.state)
+        
     return(
         <>
             {this.state.recipe.name !== "" ? 

@@ -2,9 +2,9 @@ import React from 'react'
 import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
 function RecipeCard(props){
-    console.log(props)
+    
     const navigate = (spoon_id) =>{
-        console.log(spoon_id)
+        
         props.history.push(`/recipes/${spoon_id}`)
     }
     return(

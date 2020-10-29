@@ -1,15 +1,16 @@
 import styled from 'styled-components'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { Message } from 'semantic-ui-react'
 
 function Login(props) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const loginHandler = (e, user) => {
-        props.loginHandler(e, user)
+        if (props.loginHandler(e, user)){
         setUsername("")
-        setPassword("")
+        setPassword("")}
     }
 
     const changeHandler = (e) => {
@@ -54,7 +55,7 @@ function Login(props) {
                                 <Button onClick={(e) => loginHandler(e, {username, password})}>
                                     Login
                                 </Button>
-                                { props.message !== "" ? <p>{props.message}</p> :null}
+                                { props.message !== "" ? <Message>{props.message}</Message> :null}
                             </>
                         </form>
                         <div>

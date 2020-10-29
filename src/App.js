@@ -34,6 +34,29 @@ class App extends Component {
     }
   }
 
+
+  signupHandler = (e, user) => {
+    e.preventDefault()
+    let configObj = {
+      method: "POST",
+      headers: {
+        "accepts": "application/json",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({ user })
+    }
+
+    fetch(BASE_API + 'users', configObj)
+      .then(resp => resp.json())
+      .then(data => {
+        
+        localStorage.setItem("token", data.jwt)
+        this.setState({ user: data.user })
+        this.props.history.push("/")
+      })
+  }
+
+
   logoutHandler = () => {
     this.setState({
       user: {
@@ -60,11 +83,13 @@ class App extends Component {
       .then(resp => resp.json())
       .then(data => {
         if (data.jwt){
-          console.log(data)
+          
         localStorage.setItem("token", data.jwt)
-        this.setState({ user: data.user })
+        this.setState({ user: data.user, message: "" })
+        return true
       }else{
-        return this.setState({message: data.message})
+        this.setState({message: data.message})
+        return false
       }
 
       })
@@ -72,7 +97,7 @@ class App extends Component {
   render(){
   return (
     <>
-      <NavBar user={this.state.user.username !== ""} logoutHandler={this.logoutHandler}/>
+      <NavBar user={this.state.user !== undefined} logoutHandler={this.logoutHandler}/>
     <Background>
       
         {this.state.user === null ?
@@ -95,7 +120,7 @@ class App extends Component {
 
             <Route path="/search" render={(routerprops) => <Search {...routerprops} />} />
             <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} />} />
-            <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} message={this.state.message}  />} />
+            <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message}  />} />
 
           </Switch>
         }

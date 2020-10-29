@@ -6,7 +6,7 @@ class RecipeSearch extends Component {
     }
 
     componentDidMount = () => {
-        console.log("potatos", this.props.match.params.ingredient)
+        
         fetch(`http://localhost:3001/ingredient_search/${this.props.match.params.ingredient}`)
             .then(response => response.json())
             .then(recipes => this.setState({ recipes: recipes }))
