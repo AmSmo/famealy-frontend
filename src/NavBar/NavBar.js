@@ -6,10 +6,15 @@ import { Menu, Input} from 'semantic-ui-react'
 class NavBar extends React.Component{
     state = { activeItem: 'bio', searchValue: "" }
 
-    handleItemClick = (e, { name }) => this.setState({ activeItem: name })
+    handleItemClick = (e, { name }) => {
+        if (name === "logout"){
+            this.props.logoutHandler()
+        }
+        return this.setState({ activeItem: name })}
     keyHandler = (e) => {
         if (e.keyCode === 13) {
-            this.props.searchHandler(this.state.searchValue)
+            this.props.history.push(`/search/recipe/${this.state.searchValue}`)
+            this.setState({searchvalue: ""})
         }
     }
 
@@ -24,19 +29,24 @@ class NavBar extends React.Component{
             
         <Menu tabular>
             
-            {   this.props.user ?
+            {   !this.props.user ?
                     <>
                     <Menu.Item
                         name='login'
                         active={this.state.activeItem === 'login'}
                         onClick={this.handleItemClick}
+                        as={Link}
+                        to="/user/login"
                     >
                         Login
                         </Menu.Item>
+                    
                     <Menu.Item
                         name='signup'
                         active={this.state.activeItem === 'signup'}
                         onClick={this.handleItemClick}
+                            as={Link}
+                            to="/user/signup"
                     >
 
                     Signup
@@ -49,9 +59,18 @@ class NavBar extends React.Component{
                             active={this.state.activeItem === 'logout'}
                             onClick={this.handleItemClick}
                             as={Link}
-                            to="/logout"
+                            to="/user/login"
                         >
                             Logout
+                        </Menu.Item>
+                        <Menu.Item
+                            name='myrecipes'
+                            active={this.state.activeItem === 'myrecipes'}
+                            onClick={this.handleItemClick}
+                            as={Link}
+                            to="/myrecipes"
+                        >
+                            My Recipes
                         </Menu.Item>
                         <Menu.Item
                             name='pantry'

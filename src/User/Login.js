@@ -6,6 +6,11 @@ function Login(props) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
+    const loginHandler = (e, user) => {
+        props.loginHandler(e, user)
+        setUsername("")
+        setPassword("")
+    }
 
     const changeHandler = (e) => {
         switch (e.target.name) {
@@ -33,7 +38,7 @@ function Login(props) {
                         <h2>
                             Log-in to your account
                         </h2>
-                        <form size='large' onSubmit={props.loginHandler}>
+                    <form onSubmit={(e) => loginHandler(e, { username, password })} size='large'>
                             <>
                                 <input type="text" onChange={changeHandler} value={username} name="username" placeholder='Username' />
                                 <input type="password"
@@ -46,13 +51,14 @@ function Login(props) {
                                     value={password}
                                 />
 
-                                <Button>
+                                <Button onClick={(e) => loginHandler(e, {username, password})}>
                                     Login
                                 </Button>
+                                { props.message !== "" ? <p>{props.message}</p> :null}
                             </>
                         </form>
                         <div>
-                            New to us? <NavLink to="/signup">Sign Up</NavLink>
+                            New to us? <NavLink to="/user/signup">Sign Up</NavLink>
                         </div>
                     </div>
                 

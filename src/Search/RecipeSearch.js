@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import RecipeCard from './Cards/RecipeCard.js'
-
+import styled from 'styled-components'
 class RecipeSearch extends Component {
     state = {
         recipes: [],
@@ -10,10 +10,14 @@ class RecipeSearch extends Component {
     }
 
     renderRecipes(){
-        return this.state.recipes.map(recipe => <RecipeCard recipe={recipe }/ >)
+        return this.state.recipes.slice(0,9).map(recipe => <RecipeCard recipe={recipe }/ >)
     }
+
+    componentDidUpdate = (prevProps) => {
+        return this.props.match.params.recipeTitle !== prevProps.match.params.recipeTitle
+    }
+    
     componentDidMount = () => {
-        console.log("potatos", this.props.match.params.recipeTitle)
         fetch(`http://localhost:3001/recipe_search/${this.props.match.params.recipeTitle}`)
             .then(response => response.json())
             .then(recipes => this.setState({
@@ -34,9 +38,9 @@ class RecipeSearch extends Component {
                     this.state.recipes.length > 0 ?
                     <>
                         <h1>Recipes</h1>
-                        <ul>
+                        <SearchContainer>
                             {this.renderRecipes()}
-                        </ul>
+                        </SearchContainer>
                     </>
                         :
                         <div>No Results</div>
@@ -47,3 +51,12 @@ class RecipeSearch extends Component {
 }
 
 export default withRouter(RecipeSearch)
+
+const SearchContainer = styled.div`
+    display: flex;
+    margin: 80px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+`

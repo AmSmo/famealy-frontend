@@ -92,7 +92,7 @@ function Signup(props) {
                             </>
                         </form>
                         <div>
-                            Already a Member? <NavLink to="/login">Login</NavLink>
+                            Already a Member? <NavLink to="/user/login">Login</NavLink>
                         </div>
                     </div>
 

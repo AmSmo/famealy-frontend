@@ -1,21 +1,81 @@
 import { Component } from 'react'
 import './App.css';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import NavBar from './NavBar/NavBar.js'
 import styled from 'styled-components'
 import User from './User/User.js'
 import Search from './Search/Search.js'
 import Recipes from './Recipes/Recipes.js'
+
+const BASE_API = 'http://localhost:3001/'
 class App extends Component {
+  state = {user: {
+    username: "",
+    name: "",
+    location: "",
+    email_address: ""
+  },
+  message: ""}
 
+  componentDidMount = () => {
+    let token = localStorage.getItem("token")
+    if (token) {
+      fetch(BASE_API + "auth", {
+        method: "GET",
+        headers:
+          { Authorization: `Bearer ${token}` }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          this.setState({ user: data.user })
 
+        })
+
+    }
+  }
+
+  logoutHandler = () => {
+    this.setState({
+      user: {
+        username: "",
+        name: "",
+        location: "",
+        email_address: ""
+      }
+    })
+    localStorage.removeItem("token")
+    this.props.history.push("/user/ login")
+  }
+  loginHandler = (e, user) => {
+    e.preventDefault()
+    let configObj = {
+      method: "POST",
+      headers: {
+        "accepts": "application/json",
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({ user })
+    }
+    fetch(BASE_API + 'login', configObj)
+      .then(resp => resp.json())
+      .then(data => {
+        if (data.jwt){
+          console.log(data)
+        localStorage.setItem("token", data.jwt)
+        this.setState({ user: data.user })
+      }else{
+        return this.setState({message: data.message})
+      }
+
+      })
+  }
   render(){
   return (
     <>
-      <NavBar />
+      <NavBar user={this.state.user.username !== ""} logoutHandler={this.logoutHandler}/>
     <Background>
       
-        {this.props.user === null ?
+        {this.state.user === null ?
           <Switch>
 
             {/* <Route path="/search/:keyword" render={(routerprops) => <SearchContainer {...routerprops} />} />
@@ -35,7 +95,7 @@ class App extends Component {
 
             <Route path="/search" render={(routerprops) => <Search {...routerprops} />} />
             <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} />} />
-            <Route path="/user" component={User} />
+            <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} message={this.state.message}  />} />
 
           </Switch>
         }
@@ -44,7 +104,7 @@ class App extends Component {
   );}
 }
 
-export default App;
+export default withRouter(App);
 
 const Background=styled.div`
 padding-top: 10px;
