@@ -18,7 +18,7 @@ class Search extends Component {
                         <Switch>
 
                             <Route path="/search/recipe/:recipeTitle" render={(routerprops) => <RecipeSearch {...routerprops} />} />
-                            <Route path="/search/ingredient/:ingredient" render={(routerprops) => <IngredientSearch {...routerprops} />} />
+            
                             <Route path="/search" render={(routerprops) => <SearchForm {...routerprops}  />} />
                         </Switch>
                     }

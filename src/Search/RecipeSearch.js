@@ -12,15 +12,39 @@ class RecipeSearch extends Component {
     }
 
     renderRecipes(){
-        return this.state.recipes.slice(this.state.list, (this.state.list + 9)).map(recipe => <RecipeCard recipe={recipe }/ >)
+        return this.state.recipes.slice(this.state.list * 9, (this.state.list * 9 + 9)).map(recipe => <RecipeCard recipe={recipe }/ >)
     }
 
-    componentDidUpdate = (prevProps) => {
-        return this.props.match.params.recipeTitle !== prevProps.match.params.recipeTitle
+    componentDidUpdate = (prevProps, prevState) => {
+        let keyword = this.props.match.params.recipeTitle
+        if (prevProps.match.params.recipeTitle !== keyword) {
+            let token = localStorage.getItem("token")
+            fetch(`http://localhost:3001/recipe_search/${keyword}`, {
+                headers:
+                    { Authorization: `Bearer ${token}` }
+            })
+
+                .then(resp => {
+
+                    return resp.json()
+                })
+                .then(recipes => {
+                    if (recipes.errors) {
+                        return this.setState({ api: [] })
+                    } else {return this.setState({
+                            recipes: recipes,
+                            list: 0,
+                            max: recipes.length
+                    })}
+                })
+                .catch(console.log)
+        }
     }
+
     
     componentDidMount = () => {
-        fetch(`http://localhost:3001/recipe_search/${this.props.match.params.recipeTitle}`)
+        let token= localStorage.getItem("token")
+        fetch(`http://localhost:3001/recipe_search/${this.props.match.params.recipeTitle}`, { headers: { Authorization: `Bearer ${token}`}})
             .then(response => response.json())
             .then(recipes => this.setState({
                 recipes: recipes,

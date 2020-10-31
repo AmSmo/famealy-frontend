@@ -26,8 +26,8 @@ class Recipe extends Component{
     }
 
     componentDidMount = () => {
-        
-        fetch(`http://localhost:3001/recipes/spoon/${this.props.match.params.spoon_id}`)
+        let token = localStorage.getItem("token")
+        fetch(`http://localhost:3001/recipes/spoon/${this.props.match.params.spoon_id}`, { headers: { Authorization: `Bearer ${ token }`}})
         .then(resp=> resp.json())
         .then(data => {
             
@@ -38,7 +38,7 @@ class Recipe extends Component{
         return this.state.recipe != prevState.recipe
     }
     render(){
-        console.log("render", this.props.info)
+        
     return(
         <>
             {this.state.recipe.name !== "" ? 
@@ -60,7 +60,8 @@ class Recipe extends Component{
                     <>
                     
                     { this.props.info.recipes.find(myrecipe => myrecipe.spoon_id === this.state.recipe.spoon_id) ? 
-                        <RecipeButton onClick={()=> this.props.deleteHandler(this.state.recipe.spoon_id)}>Delete</RecipeButton> 
+                        
+                                <RecipeButton onClick={() => this.props.deleteHandler(this.state.recipe.spoon_id)}>Delete </RecipeButton> 
                         : 
                         <>
                             <RecipeButton onClick={() => this.props.addHandler(this.state.recipe.spoon_id)} >Save to my Recipes</RecipeButton>

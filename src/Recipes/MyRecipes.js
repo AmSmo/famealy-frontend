@@ -1,9 +1,10 @@
 import React from 'react'
 import MyRecipeCard from './Cards/MyRecipeCard.js'
+import {withRouter} from 'react-router-dom'
 function MyRecipes(props){
-
+    
     const renderRecipes = () => {
-        return props.info.recipes.map(recipe => <MyRecipeCard key={recipe.id} recipe={recipe} />)
+        return props.info.recipes.map(recipe => <MyRecipeCard key={recipe.id} recipe={recipe} history={props.history}/>)
     }
     
     return(
@@ -11,4 +12,4 @@ function MyRecipes(props){
     )
 }
 
-export default MyRecipes
+export default withRouter(MyRecipes)
