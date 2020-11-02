@@ -1,18 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import PotluckCard from './card/PotluckCard'
 import {withRouter }from 'react-router-dom'
-
+import PotluckForm from './form/PotluckForm'
 function PotluckMain(props) {
     let [myPotlucks, setMyPotlucks] = useState([])
     let [friendPotlucks, setFriendPotlucks] = useState([])
+    
 
+    const createPotluck = (e) =>{
+        let token = localStorage.getItem("token")
+        let {name, location, date} = e.target
+        
+        let configObj={
+            method: "POST",
+            headers: {"content-type": "application/json",
+                    "accepts": "application/json",
+                Authorization: `Bearer ${token}`},
+                body: JSON.stringify({potluck: {name: name.value, date: date.value, location: location.value}})
+        }
+        fetch("http://localhost:3001/potlucks", configObj)
+        .then(resp=> resp.json())
+            .then(data => {
+
+                setMyPotlucks(data.my_potlucks)
+                setFriendPotlucks(data.friends_potlucks)
+    })
+    }
     const renderMyPotlucks = () => {
         return myPotlucks.map(currentPotluck => <PotluckCard potluck={currentPotluck} />)
     }
 
 
     const renderFriendsPotlucks = () => {
-        friendPotlucks.map(potluck => <PotluckCard potluck={potluck} join={true}/>)
+        return friendPotlucks.map(potluck => <PotluckCard potluck={potluck} join={true}/>)
     }
 
 
@@ -21,7 +41,7 @@ function PotluckMain(props) {
         const resp = await fetch("http://localhost:3001/potlucks", { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => resp.json())
             .then(data => {
-                console.log(data)
+                
                setMyPotlucks(data.my_potlucks)
                setFriendPotlucks(data.friends_potlucks)
             }
@@ -45,11 +65,13 @@ function PotluckMain(props) {
 
             {friendPotlucks.length > 0 ?
             <>
-                <div>Friends Potlucks You May Want To Join:</div>
+                <h3>Friends Potlucks You May Want To Join:</h3>
                     {renderFriendsPotlucks()}
             </>
                 :null
             }
+            <h2>Create a Potluck</h2>
+            <PotluckForm createPotluck={createPotluck}/>
         </>
     )
 }

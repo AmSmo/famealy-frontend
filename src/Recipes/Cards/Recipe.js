@@ -1,6 +1,7 @@
 import {withRouter} from 'react-router-dom'
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import { Divider, Grid, Image, Segment } from 'semantic-ui-react'
 class Recipe extends Component{
     state = {
         recipe: {
@@ -50,12 +51,25 @@ class Recipe extends Component{
                     {this.state.recipe.description}
                 </Description>
             </TopCard>
-            <ul>
-                {this.ingredientList()}
-            </ul>
-            <ul>
-                {this.directions()}
-            </ul>
+
+
+                    <Segment style={{ margin: "0 10px" }} inverted>
+                        <Grid columns={2} relaxed='very'>
+                            <Grid.Column >
+                                <ul style={{ background: "white", padding: "20px", listStyle:"none", textAlign: "left", marginLeft: "30px"}}>
+                                    {this.ingredientList()}
+                                </ul>
+                            </Grid.Column>
+                        
+                            <Grid.Column>
+                                <ul style={{ background: "white", padding: "20px", listStyle: "none", textAlign: "left", marginLeft: "30px" }}>
+                                    {this.directions()}
+                                </ul>
+
+                        
+                            </Grid.Column>
+                        </Grid>
+                    </Segment>
                     {this.props.info !== undefined ?
                     <>
                     

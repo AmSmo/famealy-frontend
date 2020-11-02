@@ -1,23 +1,24 @@
 import React, {useState} from 'react'
 import {withRouter} from 'react-router-dom'
 function MyRecipeCard(props) {
-    const [clicked, setClicked] = useState(false)
+    
+
+    const clickHandler = () => {
+            console.log(props.recipe)
+            return props.getDetails(props.recipe.recipe_ingredients, props.recipe.name, props.recipe.description)
+        
+        
+    }
+  
+
     return (
-        <div>
+        <div style={{width: "250px", margin: "20px"}}>
             
             <img onClick={()=> props.history.push(`/recipes/${props.recipe.spoon_id}`) }style={{width: "220px"}} src={props.recipe.image_url} />
             <div onClick={() => console.log(props)}>{props.recipe.name}</div>
 
-            {clicked ? 
-            <>
-                <ul>
-                    {props.recipe.recipe_ingredients.map(ing => {return <li>{(ing.ingredient.name)}</li>}) }
-                </ul>
-                    <button onClick={() => setClicked(!clicked)}>Hide Ingredients</button>
-            </>
-            :
-            <button onClick={() => setClicked(!clicked)}> Show Ingredients</button>
-            }
+
+            <button onClick={clickHandler}> Show Details</button>
         </div>
     )
 }

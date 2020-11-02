@@ -4,7 +4,7 @@ import { Card, Button } from 'semantic-ui-react'
 
 function PotluckCard(props) {
     
-
+    
     const navigate = (potluckId) => {
         props.history.push(`/potlucks/users/${potluckId}`)
     }

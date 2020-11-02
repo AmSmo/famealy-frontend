@@ -10,7 +10,8 @@ function Login(props) {
     const loginHandler = (e, user) => {
         if (props.loginHandler(e, user)){
         setUsername("")
-        setPassword("")}
+        setPassword("")
+        props.history.push("/")}
     }
 
     const changeHandler = (e) => {

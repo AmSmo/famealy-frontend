@@ -9,7 +9,7 @@ import Recipes from './Recipes/Recipes.js'
 import PantryContainer from './Pantry/PantryContainer.js'
 import FriendsContainer from './User/FriendsContainer'
 import PotluckContainer from './Potluck/PotluckContainer'
-
+import Profile from './User/Profile'
 const BASE_API = 'http://localhost:3001/'
 class App extends Component {
   state = { user: {
@@ -54,7 +54,7 @@ class App extends Component {
     fetch(BASE_API + 'users', configObj)
       .then(resp => resp.json())
       .then(data => {
-        
+        localStorage.setItem("user", data.user.id)
         localStorage.setItem("token", data.jwt)
         this.setState({ user: data.user })
         this.props.history.push("/")
@@ -64,6 +64,7 @@ class App extends Component {
 
   logoutHandler = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("user")
     
     this.setState({
           user: {
@@ -73,7 +74,7 @@ class App extends Component {
             email_address: ""
           }
         })
-    this.props.history.push("/user/login")
+    this.props.history.push("/")
   }
   
   loginHandler = (e, user) => {
@@ -92,7 +93,9 @@ class App extends Component {
         if (data.jwt){
           
         localStorage.setItem("token", data.jwt)
+          localStorage.setItem("user", data.user.id) 
         this.setState({ user: data.user, message: "" })
+        this.props.history.push("/")
         return true
       }else{
         this.setState({message: data.message})
@@ -110,6 +113,7 @@ class App extends Component {
         {this.state.user.username === "" ?
           <Switch>
             <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
+            <Route path="/" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
             
           </Switch>
 
@@ -122,7 +126,7 @@ class App extends Component {
             <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message}  />} />
             <Route path="/pantry" render={(routerprops) => <PantryContainer {...routerprops} /> } />
             <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} /> } />
-
+            <Route path="/" render={(routerprops) => <Profile {...routerprops} user={this.state.user}  />} />
           </Switch>
         }
     </Background>

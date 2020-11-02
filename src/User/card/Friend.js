@@ -4,7 +4,10 @@ import { Card, Button } from 'semantic-ui-react'
 function Friend(props) {
     return(
         <div>
-            <Card>
+            <Card style={{margin: "15px"}} onClick={() => {
+                console.log("pushed")
+                return props.history.push(`/user/profile/${props.person.id}`)}}
+            >
                 <Card.Content>
                     <Card.Header>{props.person.name}</Card.Header>
                     <Card.Meta>{props.person.email_address}</Card.Meta>
