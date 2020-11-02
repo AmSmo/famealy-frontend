@@ -7,6 +7,9 @@ import User from './User/User.js'
 import Search from './Search/Search.js'
 import Recipes from './Recipes/Recipes.js'
 import PantryContainer from './Pantry/PantryContainer.js'
+import FriendsContainer from './User/FriendsContainer'
+import PotluckContainer from './Potluck/PotluckContainer'
+
 const BASE_API = 'http://localhost:3001/'
 class App extends Component {
   state = { user: {
@@ -36,14 +39,16 @@ class App extends Component {
 
 
   signupHandler = (e, user) => {
+    
     e.preventDefault()
+    const data = new FormData(e.target)
     let configObj = {
       method: "POST",
       headers: {
         "accepts": "application/json",
-        "content-type": "application/json"
+        
       },
-      body: JSON.stringify({ user })
+      body: data
     }
 
     fetch(BASE_API + 'users', configObj)
@@ -112,9 +117,12 @@ class App extends Component {
           <Switch>
 
             <Route path="/search" render={(routerprops) => <Search {...routerprops} />} />
+            <Route path="/potlucks" render={(routerprops) => <PotluckContainer {...routerprops} />} />
             <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} />} />
             <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message}  />} />
             <Route path="/pantry" render={(routerprops) => <PantryContainer {...routerprops} /> } />
+            <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} /> } />
+
           </Switch>
         }
     </Background>
@@ -127,9 +135,10 @@ export default withRouter(App);
 const Background=styled.div`
 padding-top: 10px;
 background:  #fabc0f;
+background-size: 100%;
 height: 100vh;
 width: 100vw;
-display: block;
+display: inline-table;
 text-align: center;
 margin: 0 auto;
 `

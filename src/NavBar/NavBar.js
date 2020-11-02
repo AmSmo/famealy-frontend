@@ -95,7 +95,7 @@ class NavBar extends React.Component{
                             active={this.state.activeItem === 'potlucks'}
                             onClick={this.handleItemClick}
                             as={Link}
-                            to="/potlucks"
+                            to="/potlucks/main"
                         >
                             Potlucks
                         </Menu.Item>

@@ -1,6 +1,8 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
+import {Card} from 'semantic-ui-react'
+
 function RecipeCard(props){
     
     const navigate = (spoon_id) =>{
@@ -8,14 +10,14 @@ function RecipeCard(props){
         props.history.push(`/recipes/${spoon_id}`)
     }
     return(
-        <Recipe onClick={() => navigate(props.recipe.id)}>
-            <Photo src={`https://spoonacular.com/recipeImages/${props.recipe.image}`}/>
-            <p>Ready in {props.recipe.readyInMinutes} minutes   </p>
-            <p>Servings: {props.recipe.servings}</p>
-
-                {props.recipe.title}
+        <Card 
+            onClick={() => navigate(props.recipe.id)}
+            image={`https://spoonacular.com/recipeImages/${props.recipe.image}`}
+            header={props.recipe.title}
+            meta= {`Ready in ${props.recipe.readyInMinutes} minutes`  }
+            description= {`Servings: ${props.recipe.servings}`}
                 
-        </Recipe>
+        />
         
     )
 }

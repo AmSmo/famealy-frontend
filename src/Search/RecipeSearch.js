@@ -8,7 +8,8 @@ class RecipeSearch extends Component {
     state = {
         recipes: [],
         list: 0,
-        max: 1
+        max: 1,
+        searched: false
     }
 
     renderRecipes(){
@@ -64,7 +65,7 @@ class RecipeSearch extends Component {
                     this.state.recipes.length > 0 ?
                     <>
                         <h1>Recipes</h1>
-                            <Pagination onPageChange={(event, data) => this.setState({list: data.activePage})} defaultActivePage={9} totalPages={Math.ceil(this.state.max/10) } />
+                            <Pagination onPageChange={(event, data) => this.setState({list: (data.activePage-1)})} defaultActivePage={1} totalPages={Math.ceil(this.state.max/10) } />
                         <SearchContainer>
                             {this.renderRecipes()}
                         </SearchContainer>

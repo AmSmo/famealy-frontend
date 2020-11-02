@@ -29,7 +29,7 @@ function Signup(props) {
             case "passwordConfirmation":
                 setPasswordConfirmation(e.target.value)
                 break;
-            case "emailAddress":
+            case "email_address":
                 setEmailAddress(e.target.value)
                 break;
             case "name":
@@ -83,7 +83,7 @@ function Signup(props) {
                             <>
                                 <input type="text" onChange={changeHandler} value={username} name="username"  placeholder='Username' />
                                 <input type="text" onChange={changeHandler} value={name} name="name"  placeholder='Name' />
-                                <input type="email" onChange={changeHandler} value={emailAddress} name="emailAddress"  placeholder='Email Address' />
+                                <input type="email" onChange={changeHandler} value={emailAddress} name="email_address"  placeholder='Email Address' />
                                 <input type="text" onChange={changeHandler} value={location} name="location"  placeholder='Location' />
                                 <input type="password"
                                     
@@ -102,11 +102,11 @@ function Signup(props) {
                                 
                                 placeholder='Password Confirmation'
                             />
+                            {/* <input type="file" name="profile_pic" / > */}
                             {invalidPassword ? <Message size="tiny" color='red'>Passwords do not match</Message> : null} 
 
-                            <Button onClick={(e) => signupHandler(e)}>
-                                    Signup
-                                </Button>
+                            <input type="submit" />
+                                  
                             </>
                         </form>
                         <div>
