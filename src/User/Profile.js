@@ -72,14 +72,14 @@ function Profile(props) {
     </Divider>
             <Segment inverted style={{display: "grid"}}>
                 <h2>Their Recipes</h2>
-                    <div style={{display:"flex"}}>
+                    <div style={{display:"flex", flexWrap: "wrap", justifyContent: "center"}}>
                         {renderRecipes()}
                     </div>
 
                 <Divider inverted />
                 <h2>Their Friends</h2>
                 
-                    <div style={{display:"flex"}}>
+                <div style={{ display: "flex", flexWrap: "wrap"}}>
                         {renderFriends()}
                     </div>
                 

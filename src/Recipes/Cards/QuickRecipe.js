@@ -6,7 +6,7 @@ function QuickRecipe(props) {
 
     return (
         <>
-            <Card onClick={() => props.history.push(`/recipes/${props.recipe.spoon_id}`)}>
+            <Card onClick={() => props.history.push(`/recipes/${props.recipe.spoon_id}`)} style={{margin: "20px"}}>
                 <Card.Content>
                     <Image src={props.recipe.image_url} />
                     <Card.Header>{props.recipe.name}</Card.Header>

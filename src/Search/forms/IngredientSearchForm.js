@@ -10,12 +10,15 @@ function IngredientSearchForm(props) {
     }
     
         return (
+            <>
+            <h3>Find Ingredient</h3>
         <form onSubmit={e => {
             e.preventDefault()
             return props.searchHandler(e, ingredientSearch)}}>
             <input type="text" name="query" placeholder="Ingredient" onChange={changeHandler}></input>
             <input type="submit" value="Search" onClick={(e) => props.searchHandler(e, ingredientSearch)} />
         </form>
+        </>
     )
 
 }
