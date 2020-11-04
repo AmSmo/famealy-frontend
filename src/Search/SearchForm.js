@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 function SearchForm(props) {
     const [recipeKeyword, setRecipeKeyword] = useState('')
@@ -69,18 +69,7 @@ const Button = styled.button`
     font-weight: 500;
     border-radius: 20px;
 `
-const imgStyle = {
-    // height: "600px",
-    left: "50%",
-    marginTop: "-31vh",
-    marginLeft: "-600px",
-    position: "absolute",
-    top: "50%",
-    width: "1200px",
 
-
-
-}
 const head = {
     fontSize: "4em",
 }

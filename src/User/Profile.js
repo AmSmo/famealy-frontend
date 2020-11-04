@@ -9,7 +9,7 @@ function Profile(props) {
     const [random, setRandom] = useState({})
     
     const renderFriends = () => {
-        return props.user.friends.map(person => <Friend person={person} />)
+        return props.user.friends.map((person, idx) => <Friend key={idx} person={person} />)
     }
 
     useEffect(()=>{
@@ -43,7 +43,7 @@ function Profile(props) {
         fetchRandom()
     }, [])
 
-    console.log(props.match)
+    
     return (<div>
         <h1>{props.user.username}'s Profile</h1>
         <Segment>
@@ -73,14 +73,14 @@ function Profile(props) {
             <Segment inverted style={{display: "grid"}}>
                 <h2>Their Recipes</h2>
                     <div style={{display:"flex", flexWrap: "wrap", justifyContent: "center"}}>
-                        {renderRecipes()}
+                        {props.user.recipes ? renderRecipes() : null}
                     </div>
 
                 <Divider inverted />
                 <h2>Their Friends</h2>
                 
                 <div style={{ display: "flex", flexWrap: "wrap"}}>
-                        {renderFriends()}
+                        {props.user.friends ? renderFriends() : null}
                     </div>
                 
             </Segment>

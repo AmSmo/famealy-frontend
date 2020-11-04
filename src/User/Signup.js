@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Message } from 'semantic-ui-react'
@@ -122,31 +122,7 @@ function Signup(props) {
 }
 export default Signup
 
-const Button = styled.button`
-    margin: 0 auto;
-    background-color: #22D9E3;
-    border: 2px solid white;
-    color: black;
-    padding: 2px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 20px;
-`
-const imgStyle = {
-    // height: "600px",
-    left: "50%",
-    marginTop: "-31vh",
-    marginLeft: "-600px",
-    position: "absolute",
-    top: "50%",
-    width: "1200px",
 
-
-
-}
 const head = {
     fontSize: "4em",
 }

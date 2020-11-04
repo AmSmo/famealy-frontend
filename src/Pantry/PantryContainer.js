@@ -1,8 +1,8 @@
 import React, { Component} from 'react'
 import {withRouter} from 'react-router-dom'
-import { Route, Switch } from 'react-router-dom';
+
 import MyIngredients from './MyIngredients.js'
-import IngredientSearch from '../Search/IngredientSearch'
+
 
 class PantryContainer extends Component {
 
@@ -20,11 +20,15 @@ class PantryContainer extends Component {
                     "content-type": "application/json",
                     "accepts": "application/json"},
                 body: JSON.stringify({pantry: {amount_type, amount}, other_info:{ingredient_id: ingredient_id}})}
-        console.log(configObj)
+        
         fetch("http://localhost:3001/users/add_pantry", configObj)
         .then(resp => resp.json())
         .then(data => this.setState({ myIngredients: data }))
     }
+
+    
+    
+
 
     componentDidMount= () =>{
         let token= localStorage.getItem("token")
@@ -33,11 +37,12 @@ class PantryContainer extends Component {
         .then(data=> this.setState({myIngredients: data}))
     }
 
-    render(){
+    render(){   
+        
         
         return(
             <>
-            <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry}/>
+            <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry} editIngredient={this.editIngredient} convertIngredient={this.convertIngredient} />
         </>)
     }
 

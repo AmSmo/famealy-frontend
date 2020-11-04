@@ -6,7 +6,7 @@ function PotluckRecipeCard(props) {
     let supplier = props.recipe.user
     return (
         <div>
-            <Card>
+             <Card style={{margin: "10px"}}>
                 <Card.Content>
                     <Image onClick={() => props.history.push(`/recipes/${recipe.spoon_id}`)} src={recipe.image_url} />
                     <Card.Header>{recipe.name}</Card.Header>

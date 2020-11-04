@@ -15,7 +15,7 @@ function FriendsContainer(props) {
     }
 
     const addFriend = (friendId) => {
-        console.log(friendId)
+        
         let token = localStorage.getItem("token")
         let configObj = {
             method: "POST",
@@ -32,7 +32,7 @@ function FriendsContainer(props) {
 
     async function fetchFriends(){
         let token = localStorage.getItem("token")
-        const resp = await fetch("http://localhost:3001/users/friends", { headers: { Authorization: `Bearer ${token}` } })
+        await fetch("http://localhost:3001/users/friends", { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => resp.json())
             .then(data => setFriends(data)
             )
@@ -63,7 +63,7 @@ function FriendsContainer(props) {
         e.preventDefault()
 
     } 
-    console.log(searchedFriends)
+    
     return(
         <>
         <FriendSearchForm searchHandler= {searchHandler} />

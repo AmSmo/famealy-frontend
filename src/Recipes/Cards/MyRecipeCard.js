@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {withRouter} from 'react-router-dom'
 function MyRecipeCard(props) {
     
 
     const clickHandler = () => {
-            console.log(props.recipe)
+            
             return props.getDetails(props.recipe.recipe_ingredients, props.recipe.name, props.recipe.description)
         
         
@@ -14,7 +14,7 @@ function MyRecipeCard(props) {
     return (
         <div style={{width: "250px", margin: "20px"}}>
             
-            <img onClick={()=> props.history.push(`/recipes/${props.recipe.spoon_id}`) }style={{width: "220px"}} src={props.recipe.image_url} />
+            <img alt={`${props.recipe.name}`} onClick={()=> props.history.push(`/recipes/${props.recipe.spoon_id}`) }style={{width: "220px"}} src={props.recipe.image_url} />
             <div onClick={() => console.log(props)}>{props.recipe.name}</div>
 
 

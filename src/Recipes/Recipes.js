@@ -55,7 +55,7 @@ class Recipes extends Component {
         
         return (
             <>
-            <div>LALSLAS</div>
+            
 
                     <Switch>
                         <Route path="/recipes/myrecipes" render={(routerprops) => <MyRecipes {...routerprops} info={this.state}  />} />

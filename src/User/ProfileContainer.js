@@ -7,10 +7,10 @@ function ProfileContainer(props) {
     
     async function fetchUser() {
         let token = localStorage.getItem("token")
-        const resp = await fetch(`http://localhost:3001/users/${props.match.params.userId}`, { headers: { Authorization: `Bearer ${token}` } })
+        await fetch(`http://localhost:3001/users/${props.match.params.userId}`, { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => resp.json())
             .then(data => {
-                console.log(data)
+                
                 setUser(data)
             setLoad(true)})
     }

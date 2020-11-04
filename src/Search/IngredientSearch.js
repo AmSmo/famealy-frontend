@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-import { List, Divider, Segment } from 'semantic-ui-react'
+import { List } from 'semantic-ui-react'
 import AddIngredientCard from '../Pantry/card/AddIngredientCard'
 import IngredientSearchForm from './forms/IngredientSearchForm'
 class IngredientSearch extends Component {
@@ -9,7 +9,7 @@ class IngredientSearch extends Component {
     }
 
     pantryAdd = (e) => {
-        console.log(e.target)
+        
     }
     search = (ingredient) => {
         let token = localStorage.getItem("token")

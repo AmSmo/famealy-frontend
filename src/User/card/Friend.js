@@ -5,7 +5,7 @@ function Friend(props) {
     return(
         <div>
             <Card style={{margin: "15px"}} onClick={() => {
-                console.log("pushed")
+                
                 return props.history.push(`/user/profile/${props.person.id}`)}}
             >
                 <Card.Content>

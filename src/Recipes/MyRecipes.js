@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import MyRecipeCard from './Cards/MyRecipeCard.js'
 import {withRouter} from 'react-router-dom'
-import { Divider, Grid, Image, Segment } from 'semantic-ui-react'
+import { Divider, Grid, Segment } from 'semantic-ui-react'
 function MyRecipes(props){
     const [ingredients, setIngredients] = useState([])
     const [currentRecipe, setCurrentRecipe] = useState("")

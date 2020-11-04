@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { Route, Switch } from 'react-router-dom';
 import RecipeSearch from './RecipeSearch.js'
-import IngredientSearch from './IngredientSearch.js'
+
 import SearchForm from './SearchForm.js'
 
 class Search extends Component {

@@ -1,7 +1,7 @@
 import {withRouter} from 'react-router-dom'
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { Divider, Grid, Image, Segment } from 'semantic-ui-react'
+import { Grid, Segment, Dropdown, Button } from 'semantic-ui-react'
 class Recipe extends Component{
     state = {
         recipe: {
@@ -10,8 +10,43 @@ class Recipe extends Component{
             image_url: "",
             recipe_ingredients: [],
             spoon_id: 0
-    }}
+    },
+    bringing: false,
+    potluck: 0}
+    
+    makingIt = (e) => {
+        console.log(this.state.potluck)
+        let token = localStorage.getItem("token")
+        let configObj = {
+            method: "POST",
+            headers: {"content-type": "application/json",
+                "accepts": "application/json",
+            Authorization: `Bearer ${token}`},
+            body: JSON.stringify({bringing: {potluck_id: this.state.potluck, recipe: this.state.recipe.spoon_id}})
+        }
+        fetch("http://localhost:3001/potlucks/bring_food", configObj)
+        .then(resp => resp.json())
+        .then(data => this.props.history.push(`/potlucks/users/${data.id}`))
+    }
 
+    openForm = () => {
+        this.setState(prevState =>  {return {bringing: !prevState.bringing}})
+        
+    }
+
+    options = () => {
+        return this.props.info.potlucks.map(potluck => {
+        return {
+            key: potluck.id,
+            text: potluck.name,
+            value: potluck.id
+        }
+        })}
+
+    onChange = (e, result) => {
+       this.setState({potluck: result.value})
+       
+    }
     ingredientList = () => {
         
         return this.state.recipe.recipe_ingredients.map(ingredient => {
@@ -19,6 +54,7 @@ class Recipe extends Component{
         })
     }
 
+    
     directions = () => {
         
         return this.state.recipe.directions_json.map(direction => {
@@ -36,7 +72,7 @@ class Recipe extends Component{
     }
 
     componentDidUpdate = (prevProps, prevState)=> {
-        return this.state.recipe != prevState.recipe
+        return this.state.recipe !== prevState.recipe
     }
     render(){
         
@@ -81,7 +117,7 @@ class Recipe extends Component{
                             <RecipeButton onClick={() => this.props.addHandler(this.state.recipe.spoon_id)} >Save to my Recipes</RecipeButton>
                         </>
                         }
-                        <RecipeButton>Make for a Potluck</RecipeButton>
+                        <RecipeButton onClick={this.openForm}>Make for a Potluck</RecipeButton>
                         </>
             : 
             null
@@ -89,6 +125,23 @@ class Recipe extends Component{
                     </>
             :
             null }
+            {this.state.bringing ? 
+            <>
+            <form>
+                
+                        <Dropdown
+                            selection
+                            name="potluck"
+                            options={this.options()}
+                            onChange={this.onChange}
+                            // defaultValue={"oz"}
+                            // placeholder="Amount Type"
+                        />
+            </form>
+                        <Button onClick={this.makingIt}>Bring It!</Button>
+            </>
+            : 
+            null}
     </> 
     )}
 }

@@ -16,7 +16,8 @@ class App extends Component {
     username: "",
     name: "",
     location: "",
-    email_address: ""
+    email_address: "",
+    recipes: []
   },
   message: ""}
 
