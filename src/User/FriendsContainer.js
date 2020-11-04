@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
+import {Segment} from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 import FriendSearchForm from '../Search/forms/FriendSearchForm'
 import Friend from './card/Friend'
 
@@ -7,8 +9,26 @@ function FriendsContainer(props) {
     let [friends, setFriends]= useState([])
     let [searchedFriends, setSearchedFriends]= useState([])
 
+    // const unFriend = (friend_id) => {
+    //     let token= localStorage.getItem("token")
+    //     let configObj = {
+    //         method: "POST",
+    //         headers: {"content-type": "application/json",
+    //                 "accepts": "application/json",
+    //                 Authorization: `Bearer ${token}`},
+    //         body: JSON.stringify({user:{friend_id}})
+    //     }
+    //     fetch("http://localhost:3001/users/unfriend", configObj)
+    //     .then(resp=> resp.json())
+    //     .then(data => setFriends(data))
+
+    // }
     const renderFriends = (people) => {
-        return people.map(person => <Friend person={person} />)
+        return people.map(person =>{
+            return( <div>
+            <Friend person={person} />
+            {/* <button onClick={() => unFriend(person.friendship)}>Delete Friend</button> */}
+            </div>)})
     }
     const renderSearchedFriends = (people) => {
         return people.map(person => <Friend person={person} add={"true"} addFriend={addFriend}/>)
@@ -66,22 +86,30 @@ function FriendsContainer(props) {
     
     return(
         <>
-        <FriendSearchForm searchHandler= {searchHandler} />
-        {searchedFriends.length > 0 ? 
-            <div>
-                <h2>Found friends</h2>
-                {renderSearchedFriends(searchedFriends)}
-        </div>
-            : 
-        null}
+        
+        <Corner>
+            <h4>Search Members</h4>
+            <FriendSearchForm searchHandler= {searchHandler} />
+            
+            {searchedFriends.length > 0 ? 
+                    
+                    <Result style={{paddingLeft: "30px"}}>
+                        {renderSearchedFriends(searchedFriends)}
+                    </Result>
+                : 
+            null}
+        </Corner>
+                <h2 style={{marginTop: "15px"}}>Friends</h2>
+        <Middle>
+          
         {friends.length > 0 ? 
         <>
-        <h2>Friends</h2>
             {renderFriends(friends)}
             </>
             :
             <div>No Friends Added.... yet</div>}
-
+            
+        </Middle>
             </>
     )
     
@@ -89,3 +117,27 @@ function FriendsContainer(props) {
 }
 
 export default withRouter(FriendsContainer)
+const Result = styled.div`
+display: flexbox;
+flex-wrap: wrap;
+flex-shrink:2;
+width: 100px;
+`
+const Corner= styled.div`
+display: block;
+width: 220px;
+float: left;
+height: 80vh;
+padding-top: 40px;
+padding-left: 30px;
+margin: 0px auto;
+
+`
+
+const Middle = styled.div`
+padding-left: 100px;
+margin: 0 auto;
+maxWidth: 80vw;
+display: flexbox;
+flex-wrap: wrap
+`

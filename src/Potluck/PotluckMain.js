@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import PotluckCard from './card/PotluckCard'
 import {withRouter }from 'react-router-dom'
 import PotluckForm from './form/PotluckForm'
+import {Segment, Divider} from 'semantic-ui-react'
 function PotluckMain(props) {
     let [myPotlucks, setMyPotlucks] = useState([])
     let [friendPotlucks, setFriendPotlucks] = useState([])
-    
+
 
     const createPotluck = (e) =>{
         let token = localStorage.getItem("token")
@@ -55,14 +56,17 @@ function PotluckMain(props) {
     
     return (
         <>
+            <h2>Create a Potluck</h2>
+            <PotluckForm createPotluck={createPotluck} />
+            <Segment >
             {myPotlucks.length > 0 ?
                 <>
-                    <div>My Potlucks</div>
+                    <h3>My Potlucks</h3>
                     {renderMyPotlucks()}
                 </>
-                :null
+                :<h4>You aren't a part of any Potlucks.  You should Create or Join one.</h4>
             }
-
+                <Divider  />
             {friendPotlucks.length > 0 ?
             <>
                 <h3>Friends Potlucks You May Want To Join:</h3>
@@ -70,8 +74,7 @@ function PotluckMain(props) {
             </>
                 :null
             }
-            <h2>Create a Potluck</h2>
-            <PotluckForm createPotluck={createPotluck}/>
+            </Segment>
         </>
     )
 }

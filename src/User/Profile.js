@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import { Card, Image, Divider, Grid, Segment } from 'semantic-ui-react'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import Friend from '../User/card/Friend'
 import QuickRecipe from '../Recipes/Cards/QuickRecipe.js'
 
@@ -9,7 +9,18 @@ function Profile(props) {
     const [random, setRandom] = useState({})
     
     const renderFriends = () => {
-        return props.user.friends.map((person, idx) => <Friend key={idx} person={person} />)
+        return props.user.friends.map((person, idx) => {
+            let back = idx % 2 === 0 ? "white" : "#D3D3D3"
+            return (
+                <Link style={{ textDecoration: 'none' }}>
+                <li onClick={() => props.history.push(`/user/profile/${person.id}`)}key={idx} style={{background: back, margin:"2px 0"}}> 
+                    {person.name} 
+                    <span style={{color: "grey", float:"right"}}> 
+                        {person.email_address}
+                    </span>
+                </li>
+            </Link>
+            )})
     }
 
     useEffect(()=>{
@@ -46,11 +57,15 @@ function Profile(props) {
     
     return (<div>
         <h1>{props.user.username}'s Profile</h1>
-        <Segment>
-            <Segment inverted>
-    <Grid columns={2} relaxed='very'>
-                <Grid.Column inverted style={{textAlign: "left", marginTop:"20px"}}>
-                        <div style={{ marginLeft: "5% 25%"}}>
+        
+           
+            <Grid columns={4} style={{border: "none", width: "95vw", margin: "10px auto"}}>
+                <Grid.Column style={{paddingLeft: "30px"}} >
+                    <h2>Recommended for Them:</h2>
+                    {renderRandom()}
+                </Grid.Column>
+                <Grid.Column  style={{textAlign: "center", marginTop:"50px"}}>
+                        <div style={{ marginLeft: ""}}>
                     <p>Name: {props.user.name}</p>
                     <p>Username: {props.user.username}</p>
                     <p>Email: {props.user.email_address}</p>
@@ -58,33 +73,39 @@ function Profile(props) {
                     </div>
                 </Grid.Column>
                 <Grid.Column >
-                    {renderRandom()}
+                <h2>Their Friends</h2>
+
+                <ul style={{ listStyle: "none", textAlign: "left", display: "block", flexWrap: "wrap", height: "200px", overflowY:"scroll", maxWidth: "250px", marginLeft: "50px" }}>
+                    {props.user.friends ? renderFriends() : null}
+                </ul>
+                </Grid.Column>
+                <Grid.Column >
+                <h2>Their Potlucks</h2>
+
+                <ul style={{ listStyle: "none", textAlign: "left", display: "block", flexWrap: "wrap", height: "200px", overflowY:"scroll", maxWidth: "250px", marginLeft: "50px" }}>
+                    {props.user.potlucks ? renderFriends() : <li>None</li>}
+                </ul>
                 </Grid.Column>
             </Grid>
-            <Divider vertical style={{left:"45%"}}>They May Like</Divider>
+            
 
-        </Segment>
-            <Divider inverted />
+        
+            
 
-            <h3>Some Details</h3>
-            <Divider horizontal inverted>
-                Horizontal
-    </Divider>
-            <Segment inverted style={{display: "grid"}}>
+            
+         
+    
+        
                 <h2>Their Recipes</h2>
                     <div style={{display:"flex", flexWrap: "wrap", justifyContent: "center"}}>
                         {props.user.recipes ? renderRecipes() : null}
                     </div>
 
                 <Divider inverted />
-                <h2>Their Friends</h2>
+            
                 
-                <div style={{ display: "flex", flexWrap: "wrap"}}>
-                        {props.user.friends ? renderFriends() : null}
-                    </div>
-                
-            </Segment>
-        </Segment>
+            
+        
     </div>
     )
 }

@@ -139,11 +139,13 @@ export default withRouter(App);
 
 const Background=styled.div`
 padding-top: 10px;
-background:  #fabc0f;
-background-size: 100%;
-height: 100vh;
+
+
+top: 60px;
+height: 90vh;
 width: 100vw;
 display: inline-table;
 text-align: center;
 margin: 0 auto;
+position: relative;
 `

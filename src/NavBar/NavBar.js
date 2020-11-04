@@ -27,7 +27,7 @@ class NavBar extends React.Component{
             
         return(
             
-        <Menu tabular>
+        <Menu tabular style={{position: "fixed", width: "100vw", zIndex: "3", background: "white"}}>
             
             {   !this.props.user ?
                     <>

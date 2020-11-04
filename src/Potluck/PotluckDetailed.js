@@ -46,7 +46,7 @@ function PotluckDetailed(props) {
     }
 
     const sendToPopUp =(ingredient) =>{
-        console.log(popUp)
+        
         setPopUp(ingredient)
         popUp.message = false
     }
@@ -67,7 +67,7 @@ function PotluckDetailed(props) {
             .then(resp => resp.json())
             .then(data => {
                 let pot = data
-                console.log(pot.supplied_ingredientss)
+                console.log(pot)
                 setName(pot.name)
                 setPotId(pot.id)
                 setLocation(pot.location)
@@ -140,7 +140,7 @@ function PotluckDetailed(props) {
             <button onClick={()=> leavePotluck()}>Leave Potluck</button>:
             <button onClick= {()=> joinPotluck()}>Join Potluck</button>
             }
-            <Segment style={{margin: "0 10px"}}inverted>
+            <Segment style={{margin: "0 10px"}}>
                 {guests.length > 0 ?
                     <>
                         <h2>Guests</h2>
@@ -151,7 +151,7 @@ function PotluckDetailed(props) {
                     :
                     <div>No Ones Coming!</div>
                 }
-                <Divider style={{margin: "10px"}} inverted />
+                <Divider style={{margin: "10px"}}  />
                 {recipes.length > 0 ?
                     <>
                         <h2>Recipes</h2>
@@ -162,7 +162,7 @@ function PotluckDetailed(props) {
                     :
                     <div>No one has decided what to make... Be The First!</div>
                 }
-                <Divider horizontal inverted>
+                <Divider horizontal >
                     
     </Divider>
             </Segment>

@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom'
 import IngredientShow from './card/IngredientShow'
 import IngredientSearch from '../Search/IngredientSearch'
 import { Grid, Divider, Segment} from 'semantic-ui-react'
+import styled from 'styled-components'
 import ConvertForm from './form/ConvertForm'
 import EditUserIngredient from './form/EditUserIngredient'
 function MyIngredients(props){
@@ -28,7 +29,7 @@ function MyIngredients(props){
     return(
         
         <>
-            <Segment inverted>
+            <Segment >
                 <Grid column={2} style={{margin:"auto", justifyContent: "center"}} >
                     <Grid.Column style={{ display: "block", width: "30vw" }}>
                         <IngredientSearch addPantry={props.addPantry} myIngredients={myIngredients} />
@@ -43,19 +44,28 @@ function MyIngredients(props){
     null}
                     </Grid.Column>
                 </Grid>
-                <Divider inverted />
+                
 
     
             
         <div>INGREDIENTS</div>
         
         {renderMyIngredients()}
-                <Divider horizontal inverted>
     
-    </Divider>
             </Segment>
         </>
     )
 }
 
 export default withRouter(MyIngredients)
+
+const LeftCorner = styled.div`
+display: block;
+width: 220px;
+float: left;
+height: 80vh;
+padding-top: 40px;
+padding-left: 30px;
+margin: 0px auto;
+
+`

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import {withRouter} from 'react-router-dom'
 function SearchForm(props) {
     const [recipeKeyword, setRecipeKeyword] = useState('')
     const [ingredientKeyword, setIngredientKeyword] = useState('')
@@ -10,18 +11,19 @@ function SearchForm(props) {
             case "recipeKeyword":
                 setRecipeKeyword(e.target.value)
                 break;
-            case "ingredientKeyword":
-                setIngredientKeyword(e.target.value)
-                break;
             default:
-
                 break;
 
         }
     }
+
+    const search = (e) => {
+        e.preventDefault()
+        props.history.push(`/search/recipe/${recipeKeyword}`)
+    }
     return(
                 <>
-                <p style={head}>Welcome to FaMealy</p>
+
                 
                 <div style={loginStyle}>
                 
@@ -29,20 +31,11 @@ function SearchForm(props) {
                         <h2>
                            Recipe Search
                         </h2>
-                        <form size='large'>
+                        <form size='large' onSubmit={search}>
                             <>
                                 <input type="text" onChange={changeHandler} value={recipeKeyword} name="recipeKeyword" placeholder='Recipe Keyword' />
-                                <input type="text"
-                                    
-                                    icon='lock'
-                                    name="ingredientKeyword"
-                                    
-                                    placeholder='ingredientKeyword'
-                                    onChange={changeHandler}
-                                    value={ingredientKeyword}
-                                />
-
-                                <Button>
+                                
+                                <Button onClick={search}>
                                     Search
                                 </Button>
                             </>
@@ -54,7 +47,7 @@ function SearchForm(props) {
             </>
 )
 }
-export default SearchForm
+export default withRouter(SearchForm)
 
 const Button = styled.button`
     margin: 0 auto;
@@ -68,6 +61,7 @@ const Button = styled.button`
     font-size: 16px;
     font-weight: 500;
     border-radius: 20px;
+    
 `
 
 const head = {
@@ -76,7 +70,7 @@ const head = {
 const loginStyle = {
     background: "#4CD4A9",
     width: "250px",
-    height: "300px",
+    height: "150px",
     border: ".1px solid black",
     display: "block",
     margin: "30px auto",

@@ -3,13 +3,13 @@ import styled from 'styled-components'
 import { Popup, Grid, Header, Button } from 'semantic-ui-react'
 import SupplyIngredientForm from '../form/SupplyIngredientForm'
 function SuppliedIngredient(props) {
-    console.log("sup", props)
+    
 
     return (
 
 
         
-            <Ingredient onClick={() => props.sendToPopUp(props.ingredient)} >
+            <Ingredient >
                 {props.ingredient.amount} {props.ingredient.amount_type}{props.ingredient.amount > 1 && props.ingredient.amount_type !== "" && props.ingredient.amount_type[props.ingredient.amount_type.length - 1] !== "s" ? "s" : null} <span style={{ textTransform: 'capitalize' }}><strong>{props.ingredient.ingredient_name}</strong></span>
             </Ingredient>
           

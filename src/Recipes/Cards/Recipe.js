@@ -15,7 +15,7 @@ class Recipe extends Component{
     potluck: 0}
     
     makingIt = (e) => {
-        console.log(this.state.potluck)
+        
         let token = localStorage.getItem("token")
         let configObj = {
             method: "POST",
