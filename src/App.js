@@ -38,7 +38,11 @@ class App extends Component {
     }
   }
 
+  fixTop = (friends) => {
 
+    return this.setState(prevState => {
+      return {user:{...prevState.user, friends: friends}}})
+  }
   signupHandler = (e, user) => {
     
     e.preventDefault()
@@ -126,7 +130,7 @@ class App extends Component {
             <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} />} />
             <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message}  />} />
             <Route path="/pantry" render={(routerprops) => <PantryContainer {...routerprops} /> } />
-            <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} /> } />
+            <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} fixTop={this.fixTop}/> } />
             <Route path="/" render={(routerprops) => <Profile {...routerprops} user={this.state.user}  />} />
           </Switch>
         }

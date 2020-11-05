@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {Segment} from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import FriendSearchForm from '../Search/forms/FriendSearchForm'
@@ -47,7 +46,8 @@ function FriendsContainer(props) {
         .then(resp => resp.json())
         .then(data=> {
             setFriends(data)
-            setSearchedFriends([])})
+            setSearchedFriends([])
+            props.fixTop(data)})
     }
 
     async function fetchFriends(){
@@ -88,7 +88,7 @@ function FriendsContainer(props) {
         <>
         
         <Corner>
-            <h4>Search Members</h4>
+            <h4>Search For Members You Don't Know</h4>
             <FriendSearchForm searchHandler= {searchHandler} />
             
             {searchedFriends.length > 0 ? 
@@ -128,7 +128,7 @@ display: block;
 width: 220px;
 float: left;
 height: 80vh;
-padding-top: 40px;
+padding-top: 20px;
 padding-left: 30px;
 margin: 0px auto;
 

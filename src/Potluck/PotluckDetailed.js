@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { withRouter } from 'react-router-dom'
 import Friend from '../User/card/Friend'
 import styled from 'styled-components'
 import PotluckRecipeCard from './card/PotluckRecipeCard.js'
-import { Divider, Grid, Image, Segment } from 'semantic-ui-react'
+import { Divider, Grid, Segment } from 'semantic-ui-react'
 import RequiredIngredient from './card/RequiredIngredient'
 import SuppliedIngredient from './card/SuppliedIngredient'
 
@@ -14,10 +13,10 @@ function PotluckDetailed(props) {
     const [ingredients, setIngredients] =useState([])
     const [recipes, setRecipes] =useState([])
     const [guests, setGuests] = useState([])
-    const [user, setUser] = useState({})
+    
     const [invited, setInvited] = useState()
     const [potId, setPotId] = useState(0)
-    const [button, setButton] = useState()
+    
     const [suppliedIngredients, setSuppliedIngredients] =useState([])
     const [popUp, setPopUp] =useState({})
     
@@ -63,7 +62,7 @@ function PotluckDetailed(props) {
         let token = localStorage.getItem("token")
         let currentPotluck = props.match.params.potluckId
         
-        const resp = await fetch(`http://localhost:3001/potlucks/${currentPotluck}`, { headers: { Authorization: `Bearer ${token}` } })
+        await fetch(`http://localhost:3001/potlucks/${currentPotluck}`, { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => resp.json())
             .then(data => {
                 let pot = data
@@ -105,7 +104,9 @@ function PotluckDetailed(props) {
                 }
                 
                 setGuests(data)
-            setInvited(!invited)})
+            setInvited(!invited)}
+            )
+        props.history.push('/potlucks/main')
     }
     const joinPotluck = () => {
         let token = localStorage.getItem("token")
@@ -137,8 +138,8 @@ function PotluckDetailed(props) {
             <h1>{name}</h1>
             <h3>{location}, {date}</h3>
             {invited ? 
-            <button onClick={()=> leavePotluck()}>Leave Potluck</button>:
-            <button onClick= {()=> joinPotluck()}>Join Potluck</button>
+            <Button onClick={()=> leavePotluck()}>Leave Potluck</Button>:
+            <Button onClick= {()=> joinPotluck()}>Join Potluck</Button>
             }
             <Segment style={{margin: "0 10px"}}>
                 {guests.length > 0 ?
@@ -225,3 +226,18 @@ const Ingredients = styled.div`
     margin-left: 55px;
 `
 export default PotluckDetailed
+
+const Button = styled.button`
+    margin: 5px auto;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    
+`

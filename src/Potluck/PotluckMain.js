@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react'
 import PotluckCard from './card/PotluckCard'
 import {withRouter }from 'react-router-dom'
 import PotluckForm from './form/PotluckForm'
-import {Segment, Divider} from 'semantic-ui-react'
+import {Header, Radio} from 'semantic-ui-react'
+import styled from 'styled-components'
 function PotluckMain(props) {
     let [myPotlucks, setMyPotlucks] = useState([])
     let [friendPotlucks, setFriendPotlucks] = useState([])
-
+    let [viewPotluck, setViewPotluck] = useState(false)
+    const doSomething = (e, result) => {
+        
+        setViewPotluck(result.checked)
+    }
 
     const createPotluck = (e) =>{
         let token = localStorage.getItem("token")
@@ -39,7 +44,7 @@ function PotluckMain(props) {
 
     async function fetchPotlucks() {
         let token = localStorage.getItem("token")
-        const resp = await fetch("http://localhost:3001/potlucks", { headers: { Authorization: `Bearer ${token}` } })
+        await fetch("http://localhost:3001/potlucks", { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => resp.json())
             .then(data => {
                 
@@ -56,27 +61,75 @@ function PotluckMain(props) {
     
     return (
         <>
+        <LeftCorner>
             <h2>Create a Potluck</h2>
             <PotluckForm createPotluck={createPotluck} />
-            <Segment >
-            {myPotlucks.length > 0 ?
+        </LeftCorner>
+
+            <Middle>
+                    <Choice>My Potlucks
+                
+                    <Radio slider onChange={doSomething} />
+                
+                   Friends Potlucks</Choice>
+                
+            { !viewPotluck ?
                 <>
-                    <h3>My Potlucks</h3>
+            {myPotlucks.length > 0 ?
+                <PotluckDiv>
+                    
                     {renderMyPotlucks()}
-                </>
+                </PotluckDiv>
                 :<h4>You aren't a part of any Potlucks.  You should Create or Join one.</h4>
             }
-                <Divider  />
+                </>
+             :   
+             <>
             {friendPotlucks.length > 0 ?
             <>
-                <h3>Friends Potlucks You May Want To Join:</h3>
+                <PotluckDiv>
                     {renderFriendsPotlucks()}
+                                </PotluckDiv>
             </>
-                :null
+                : <h4>No Potlucks to see here</h4>
             }
-            </Segment>
+            </>
+            
+        }
+            
+            </Middle>
         </>
     )
 }
 
 export default withRouter(PotluckMain)
+
+const LeftCorner = styled.div`
+display: block;
+width: 220px;
+float: left;
+height: 80vh;
+padding-top: 40px;
+padding-left: 30px;
+margin: 0px auto;
+
+`
+
+const Middle = styled.div`
+    padding: 0 50px;
+    margin: 0 220px 0 220px;
+    maxWidth: 80vw;
+    display: flow-root;
+    flex-wrap: wrap;
+    text-align: center;
+`
+
+const Choice = styled.h3`
+    margin: 0 auto;
+    display: block;
+`
+
+const PotluckDiv = styled.div`
+    display: flexbox;
+    justify-content: space-around
+`

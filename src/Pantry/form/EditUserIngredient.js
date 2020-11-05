@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Dropdown } from 'semantic-ui-react'
+import styled from 'styled-components'
+
 function EditUserIngredient(props) {
     let [toType, setToType] = useState("oz")
     let [ingredient, setIngredient] = useState("")
@@ -47,7 +49,7 @@ function EditUserIngredient(props) {
 
     const editUserIngredient = (e, result) => {
         e.preventDefault()
-
+        console.log(uiId)
         let token = localStorage.getItem("token")
         let configObj = {
             method: "PATCH",
@@ -56,40 +58,55 @@ function EditUserIngredient(props) {
                 "content-type": "application/json",
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({ convert: { amount, toType, ingredient } })
+            body: JSON.stringify({ update: { amount, amount_type: toType} })
         }
-        // fetch(`http://localhost:3001/user_ingredients/${props.userIngredient.id`, configObj)
-        //     .then(resp => resp.json())
-        //     .then(data => setAnswer(data["answer"]))
+        
+        fetch(`http://localhost:3001/user_ingredient/${uiId}`, configObj)
+            .then(resp => resp.json())
+            .then(data => props.editIngredient(data))
     }
 
     return (
         <>
             <h3>Edit My Pantry</h3>
-            <form onSubmit={(e) => e.preventDefault()} style={{ textAlign: "left" }}>
+            <form onSubmit={(e) => editUserIngredient(e)} style={{ textAlign: "left" }}>
                 <div style={{ margin: "3px auto", display: "flex", justifyContent: "space-evenly" }}>
-                    <input type="text" name="ingredient" value={ingredient} placeholder="Ingredient" required onChange={onTypeChange} /><br></br>
+                    <div style={{textTransform: "capitalize", fontSize:"20px"}}>{ingredient}</div>
+                    </div>
+                <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                     <input style={{ width: "60px" }} value={amount} type="number" name="amount" step="0.1" required onChange={onTypeChange} />
 
-                </div>
-                <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                     <Dropdown
-                        simple
-                        item
+                        
                         value={toType}
                         name="toType"
                         options={options}
                         onChange={onChange}
-
-                    />
+                        
+                        />
                 </div>
 
 
                 <br></br>
-                <center><input type="submit" value="Calculate" /></center>
+               <Button>Update Pantry</Button>
             </form>
         </>
     )
 }
 
 export default EditUserIngredient
+
+const Button = styled.button`
+    margin: 5px auto;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    
+`

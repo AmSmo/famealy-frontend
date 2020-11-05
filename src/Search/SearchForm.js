@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {withRouter} from 'react-router-dom'
 function SearchForm(props) {
     const [recipeKeyword, setRecipeKeyword] = useState('')
-    const [ingredientKeyword, setIngredientKeyword] = useState('')
+    
 
 
     const changeHandler = (e) => {
@@ -63,10 +63,6 @@ const Button = styled.button`
     border-radius: 20px;
     
 `
-
-const head = {
-    fontSize: "4em",
-}
 const loginStyle = {
     background: "#4CD4A9",
     width: "250px",

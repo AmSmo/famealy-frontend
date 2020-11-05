@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Dropdown} from 'semantic-ui-react'
+import styled from 'styled-components'
 function ConvertForm(props) {
     let [fromType, setFromType] = useState("oz")
     let [toType, setToType] = useState("oz")
@@ -86,9 +87,7 @@ function ConvertForm(props) {
                 <div style={{display: "flex",justifyContent: "space-evenly"}}>
                     <span>Convert to</span>
                
-                <Dropdown
-                    simple
-                    item
+                <Dropdown 
                     value={toType}
                     name="toType"
                     options={options}
@@ -99,7 +98,7 @@ function ConvertForm(props) {
                 
                 
                 <br></br>
-                <center><input type="submit" value="Calculate" /></center>
+                <Button>Calculate</Button>
             </form>
             {answer !== "" ?
             <div>{answer.slice(0, answer.length-1)}s</div>
@@ -110,3 +109,18 @@ function ConvertForm(props) {
 }
 
 export default ConvertForm
+
+const Button = styled.button`
+    margin: 0 auto;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    
+`

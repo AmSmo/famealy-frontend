@@ -14,7 +14,7 @@ class NavBar extends React.Component{
     keyHandler = (e) => {
         if (e.keyCode === 13) {
             this.props.history.push(`/search/recipe/${this.state.searchValue}`)
-            this.setState({searchvalue: ""})
+            this.setState({searchValue: ""})
         }
     }
 

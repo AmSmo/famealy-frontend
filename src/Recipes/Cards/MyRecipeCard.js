@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import {withRouter, Link} from 'react-router-dom'
 import {Popup, Grid, Divider} from 'semantic-ui-react'
 function MyRecipeCard(props) {
@@ -18,7 +19,7 @@ function MyRecipeCard(props) {
             </Popup>
             <div>{props.recipe.name}</div>
 
-            <Popup trigger={<button> Quick Details</button>} flowing hoverable on='click'>
+            <Popup trigger={<Button> Quick Details</Button>} flowing hoverable on='click'>
                     <Grid columns={2}>
                         <Grid.Column style={{width:"320px", listStyle: "none", textTransform: "capitalize", marginLeft: "43px"}}>
                             
@@ -47,3 +48,18 @@ const style = {
     opacity: 0.7,
     padding: '2em',
 }
+
+const Button = styled.button`
+    margin: 0 auto;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    
+`

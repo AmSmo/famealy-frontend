@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import { Card, Image, Divider, Grid, Segment } from 'semantic-ui-react'
+import { Card, Image, Divider, Grid } from 'semantic-ui-react'
 import {withRouter, Link} from 'react-router-dom'
-import Friend from '../User/card/Friend'
+
 import QuickRecipe from '../Recipes/Cards/QuickRecipe.js'
 
 function Profile(props) {
@@ -45,7 +45,7 @@ function Profile(props) {
     }
     async function fetchRandom() {
         let token = localStorage.getItem("token")
-        const resp = await fetch('http://localhost:3001/recipes/random', {headers: {Authorization: `Bearer ${token}`}})
+        await fetch('http://localhost:3001/recipes/random', {headers: {Authorization: `Bearer ${token}`}})
         .then(resp=> resp.json())
         .then(data => setRandom(data))
     }

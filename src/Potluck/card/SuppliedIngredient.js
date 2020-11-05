@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Popup, Grid, Header, Button } from 'semantic-ui-react'
-import SupplyIngredientForm from '../form/SupplyIngredientForm'
+
 function SuppliedIngredient(props) {
     
 

@@ -7,8 +7,21 @@ import MyIngredients from './MyIngredients.js'
 class PantryContainer extends Component {
 
     state = {
-        myIngredients: []
+        myIngredients: [],
+        edited: {},
+        mySuppliedIngredients: []
     }
+    
+    editIngredient = (ing) => {
+        console.log("edited", ing)
+        let arrayCopy = this.state.myIngredients
+        console.log(arrayCopy)
+        let idx = arrayCopy.findIndex( ingredient => ingredient.id === ing.id)
+        arrayCopy[idx] = ing
+        return this.setState({myIngredients: arrayCopy })
+    }
+    
+
 
     addPantry = (e, amount_type) => {
         let token = localStorage.getItem("token")
@@ -31,21 +44,26 @@ class PantryContainer extends Component {
 
 
     componentDidMount= () =>{
+        
         let token= localStorage.getItem("token")
         fetch("http://localhost:3001/users/ingredients",{headers:{ Authorization: `Bearer ${token}`}})
         .then(resp => resp.json())
-        .then(data=> this.setState({myIngredients: data}))
+        .then(data=> {
+            console.log("check it", data)
+            this.setState({myIngredients: data.my_ingredients, mySuppliedIngredients: data.my_supplied_ingredients})})
     }
 
     render(){   
         
-        
+        console.log("round1", this.state.myIngredients)
         return(
             <>
-            <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry} editIngredient={this.editIngredient} convertIngredient={this.convertIngredient} />
-        </>)
+                <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry} editIngredient={this.editIngredient} convertIngredient={this.convertIngredient} mySuppliedIngredients={this.state.mySuppliedIngredients} />
+            </>)
     }
 
 }
 
 export default withRouter(PantryContainer)
+
+

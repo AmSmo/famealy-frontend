@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import MyRecipeCard from './Cards/MyRecipeCard.js'
 import {withRouter} from 'react-router-dom'
 import { Segment } from 'semantic-ui-react'

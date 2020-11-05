@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-
+import styled from 'styled-components'
 function PotluckForm(props) {
     const [name, setName] = useState("")
     const [location, setLocation] = useState("")
@@ -34,9 +34,24 @@ function PotluckForm(props) {
             <input type="text" placeholder="Name of Potluck" value={name} name="name" onChange={changeHandler}/>
             <input type="text" placeholder="Location of Potluck" value={location} name="location" onChange={changeHandler}/>
             <input type="date" name="date" onChange={changeHandler}/>
-            <input type="submit" value="Create Potluck" />
+            <Button>Create Potluck </Button>
         </form>
     )
 }
 
 export default PotluckForm
+
+const Button = styled.button`
+    margin: 5px auto;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    
+`
