@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
+
 function IngredientSearchForm(props) {
     const [ingredientSearch, setIngredientSearch] = useState('')
     const [myIngredientSearch, setMyIngredientSearch] = useState('')
@@ -31,6 +32,7 @@ function IngredientSearchForm(props) {
             <input type="text" name="query" placeholder="Ingredient" onChange={changeHandler}></input>
             <Button>Search </Button>
         </form>
+            
         </>
     )
 

@@ -60,7 +60,7 @@ function PotluckMain(props) {
     }, [])
     
     return (
-        <>
+        <Background>
         <LeftCorner>
             <h2>Create a Potluck</h2>
             <PotluckForm createPotluck={createPotluck} />
@@ -98,7 +98,7 @@ function PotluckMain(props) {
         }
             
             </Middle>
-        </>
+        </Background>
     )
 }
 
@@ -132,4 +132,18 @@ const Choice = styled.h3`
 const PotluckDiv = styled.div`
     display: flexbox;
     justify-content: space-around
+`
+
+const Background = styled.div`
+padding-top: 10px;
+
+background: url("/assets/farm-dinner.png");
+position: absolute;
+height: 90vh;
+width: 100vw;
+background-size: cover;
+background-repeat: no-repeat;
+text-align: center;
+margin: 0 auto;
+position: relative;
 `

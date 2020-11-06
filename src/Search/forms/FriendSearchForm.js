@@ -22,7 +22,8 @@ export default withRouter(FriendSearchForm)
 
 const Radio = styled.div`
 width: 80px;
-padding: 2px 0;
+input{
+vertical-align:middle;}
 `
 
 const submitButton = {

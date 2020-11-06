@@ -64,10 +64,11 @@ const Button = styled.button`
     
 `
 const loginStyle = {
-    background: "#4CD4A9",
+    background: "rgba(255,255,255,0.5)",
     width: "250px",
-    height: "150px",
-    border: ".1px solid black",
+    height: "200px",
+    border: ".1px solid grey",
+    borderRadius: "10px",
     display: "block",
     margin: "30px auto",
     padding: "20px"

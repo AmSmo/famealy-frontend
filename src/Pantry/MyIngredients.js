@@ -6,7 +6,8 @@ import IngredientSearch from '../Search/IngredientSearch'
 import styled from 'styled-components'
 import ConvertForm from './form/ConvertForm'
 import EditUserIngredient from './form/EditUserIngredient'
-import {Radio, Pagination } from 'semantic-ui-react'
+import BulkAdd from './form/BulkAdd'
+import {Radio, Pagination, Popup } from 'semantic-ui-react'
 function MyIngredients(props){
     let [myIngredients, setMyIngredients] = useState([])
     let [sortedIngredients, setSortedIngredients] = useState([])
@@ -17,11 +18,46 @@ function MyIngredients(props){
     let [toSort, setToSort] = useState(myIngredients)
     let [max, setMax] = useState(0)
     let [list, setList] = useState(0)
+    let [frequent, setFrequent] = useState([])
+    let [toBulk, setToBulk] = useState([])
     useEffect(() => {
         setMyIngredients(props.myIngredients)
         setMySuppliedIngredients(props.mySuppliedIngredients)
+     
     });
+    useEffect(() => {
+        getFrequent()
+    },[]);
     
+    const addBulk = (e) => {
+        e.preventDefault()
+        console.log(toBulk)
+    }
+    const addList = (e) => {   
+        console.log("EFE",e) 
+        if (toBulk.length > 0){
+            console.log("length big")
+            let idx = (toBulk.findIndex(item => item.spoon_id === e.spoon_id))
+                console.log(idx)
+                if (idx === -1){
+                    setToBulk([...toBulk, e])
+                }else{
+                    let newArray = toBulk
+                    console.log("DSADKASFA")
+                    newArray[idx] = e
+                    setToBulk(newArray)
+        }
+        }else{   
+            setToBulk([e])
+        }
+    }
+
+    const getFrequent = () => {
+        let token = localStorage.getItem("token")
+        fetch("http://localhost:3001/ingredients/frequent", {headers: {Authorization: `Bearer ${token}`}})
+        .then(resp => resp.json())
+        .then(data => setFrequent(data))
+    }
     useEffect (() => {
         setSortedIngredients(myIngredients)
         setSortedSupplied(mySuppliedIngredients)
@@ -84,7 +120,9 @@ function MyIngredients(props){
         
         <>
         <LeftCorner>
+            
             <IngredientSearch addPantry={props.addPantry} myIngredients={myIngredients} sortIngredients={sortIngredients} />
+                
         </LeftCorner>
 
         <RightCorner>
@@ -94,6 +132,7 @@ function MyIngredients(props){
 
                     <EditUserIngredient userIngredient={toEdit} editIngredient={props.editIngredient}/> :
                     null}
+                
         </RightCorner>
             <Pagination onPageChange={(event, data) => setList(data.activePage - 1)} defaultActivePage={1} totalPages={Math.ceil(max / 10)} />
                     <h3>Personal Pantry
@@ -101,7 +140,11 @@ function MyIngredients(props){
                     <Radio slider onChange={changeMine} />
                 
                     Potluck Pantry</h3>
-       
+            <Popup position='bottom center' trigger={<Button>Bulk Add Form</Button>} on='click'>
+                <div style={{display: "flex", width:"500px", flexWrap: "wrap"}}>
+                <BulkAdd ingredients={frequent} myIngredients={myIngredients} addBulk={addBulk} addList={addList}/>
+                </div>
+            </Popup>
             <Middle>
         {!mine? 
         <>
@@ -126,6 +169,11 @@ height: 80vh;
 padding-top: 40px;
 padding-left: 30px;
 margin: 0px auto;
+background: url("/assets/fork2.png");
+background-repeat: no-repeat;
+background-size: contain;
+background-position-x: 80px;
+// background-position-y: 20px;
 
 `
 
@@ -135,7 +183,8 @@ padding: 0 50px;
 margin: 0 auto;
 maxWidth: 80vw;
 display: flexbox;
-flex-wrap: wrap
+flex-wrap: wrap;
+
 `
 
 const RightCorner = styled.div`
@@ -147,4 +196,25 @@ padding-top: 40px;
 
 margin: 0px auto;
 margin-right: 30px;
+background: url("/assets/knife2.png");
+background-repeat: no-repeat;
+background-size: contain;
+background-position-x: 80px;
+// background-position-y: 20px;
+`
+
+
+const Button = styled.button`
+    margin: 0 auto;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    
 `

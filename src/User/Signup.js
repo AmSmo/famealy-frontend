@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Message } from 'semantic-ui-react'
-
+import styled from 'styled-components'
 function Signup(props) {
 
     const [username, setUsername] = useState('')
@@ -70,7 +70,7 @@ function Signup(props) {
     let result = <></>
     if (!localStorage.getItem("token")) {
         result =
-            <>
+            <Background>
                 <p style={head}>Welcome to FaMealy</p>
 
                 <div style={loginStyle}>
@@ -80,7 +80,7 @@ function Signup(props) {
                             Signup for an account
                          </h2>
                         <form size='large' onSubmit={(e) => signupHandler(e)} >
-                            <>
+                            <Fields>
                                 <input type="text" onChange={changeHandler} value={username} name="username"  placeholder='Username' />
                                 <input type="text" onChange={changeHandler} value={name} name="name"  placeholder='Name' />
                                 <input type="email" onChange={changeHandler} value={emailAddress} name="email_address"  placeholder='Email Address' />
@@ -105,17 +105,17 @@ function Signup(props) {
                             {/* <input type="file" name="profile_pic" / > */}
                             {invalidPassword ? <Message size="tiny" color='red'>Passwords do not match</Message> : null} 
 
-                            <input type="submit" />
+                            <Button>Sign Up</Button>
                                   
-                            </>
+                            </Fields>
                         </form>
-                        <div>
+                    <div style={{ fontSize: "17px", fontWeight: "600" }}>
                             Already a Member? <NavLink to="/user/login">Login</NavLink>
                         </div>
                     </div>
 
                 </div>
-            </>
+            </Background>
 
     }
     return (result)
@@ -126,12 +126,42 @@ export default Signup
 const head = {
     fontSize: "4em",
 }
+const Button = styled.button`
+    margin: 0 auto;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+`
 const loginStyle = {
-    background: "#4CD4A9",
+    background: "rgba(255,255,255,0.5)",
     width: "250px",
-    height: "300px",
+    height: "330px",
     border: ".1px solid black",
     display: "block",
     margin: "30px auto",
-    padding: "20px"
+    padding: "20px",
+    borderRadius: "10px"
 }
+
+const Background = styled.div`
+    background-image: url("/assets/splashback.jpg");
+    height: 91vh;
+    width: 100vw;
+    
+`
+
+const Fields = styled.div`
+    line-height: 2.2em;
+    input{
+         
+         border-radius: 8px; 
+         height: 1.8em  
+     }
+`

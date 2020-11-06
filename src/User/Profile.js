@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import { Card, Image, Divider, Grid } from 'semantic-ui-react'
 import {withRouter, Link} from 'react-router-dom'
-
+import styled from 'styled-components'
 import QuickRecipe from '../Recipes/Cards/QuickRecipe.js'
 
 function Profile(props) {
@@ -69,11 +69,11 @@ function Profile(props) {
     }, [])
     console.log(props.user)
     
-    return (<div>
+    return (<Background>
         <h1>{props.user.username}'s Profile</h1>
         
            
-            <Grid columns={4} style={{border: "none", width: "95vw", margin: "10px auto"}}>
+        <Grid columns={4} style={{ border: "none", width: "95vw", margin: "10px auto", background: "#F8F8F8", borderRadius: "10px"}}>
                 <Grid.Column style={{paddingLeft: "30px"}} >
                     <h2>Recommended for Them:</h2>
                     {renderRandom()}
@@ -120,8 +120,21 @@ function Profile(props) {
                 
             
         
-    </div>
+    </Background>
     )
 }
 
 export default withRouter(Profile)
+
+const Background = styled.div`
+padding-top: 10px;
+background: url("/assets/farm-dinner.png");
+display: inline-table;   
+height: 90vh;
+width: 100vw;
+background-size: cover;
+background-repeat: no-repeat;
+text-align: center;
+margin: 0 auto;
+position: relative;
+`

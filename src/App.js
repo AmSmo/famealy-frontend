@@ -9,6 +9,7 @@ import Recipes from './Recipes/Recipes.js'
 import PantryContainer from './Pantry/PantryContainer.js'
 import FriendsContainer from './User/FriendsContainer'
 import PotluckContainer from './Potluck/PotluckContainer'
+import MainCalendar from './Calendar/MainCalendar'
 import Profile from './User/Profile'
 const BASE_API = 'http://localhost:3001/'
 class App extends Component {
@@ -148,6 +149,7 @@ class App extends Component {
               <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
               <Route path="/pantry" render={(routerprops) => <PantryContainer {...routerprops} />} />
               <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} fixTop={this.fixTop} />} />
+              <Route path="/calendar" render={(routerprops) => <MainCalendar {...routerprops} user={this.state.user} />} />
               <Route path="/" render={(routerprops) => <Profile {...routerprops} user={this.state.user} />} />
             </Switch>
           }
@@ -163,7 +165,7 @@ const Background = styled.div`
 padding-top: 10px;
 
 
-top: 60px;
+top: 39px;
 height: 90vh;
 width: 100vw;
 display: inline-table;

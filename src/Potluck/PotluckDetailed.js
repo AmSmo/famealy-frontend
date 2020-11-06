@@ -154,8 +154,8 @@ function PotluckDetailed(props) {
 
     
     return (
-        <>  
-        <Top>
+        <Background>  
+            <Top style={{ border: "none", width: "95vw", margin: "10px auto", background: "#F8F8F8", borderRadius: "10px" }}>
             <LeftCorner>
             <h1 >{name}</h1>
             <h3 >{location}, {date}</h3>
@@ -197,17 +197,17 @@ function PotluckDetailed(props) {
             
             </Top>
             {invited ? 
-            <Segment style={{ margin: "10px 40px" }}>
-                <Grid columns={2} relaxed='very' >
-                    <Grid.Column>
+            <Segment style={{ margin: "10px 40px"}}>
+                    <Grid columns={2} relaxed='very' style={{display: "flex", flexWrap: "wrap"}} >
+                    <Grid.Column  >
                         {recipes.length > 0 ?
-                            <>
+                                <div style={{ borderRight: "0.2px solid #F8F2F2"}}>
                                 <Ing>Ingredients Required</Ing>
                                 <Sub>(hover over to add) </Sub>
                                 <Recipes>
                                     {renderIngredients()}
                                 </Recipes>
-                            </>
+                            </div>
                             :
                             <>
                             <Ing>Ingredients Required</Ing>
@@ -218,6 +218,8 @@ function PotluckDetailed(props) {
                         }
 
                     </Grid.Column>
+                        
+                    
                     <Grid.Column>
                         <h2>In Stock</h2>
                         <Ingredients>                            
@@ -229,7 +231,7 @@ function PotluckDetailed(props) {
                 </Grid>
 
                 
-                <Divider vertical>Accounted For:</Divider>
+                
             </Segment>
             :           
             <>
@@ -242,7 +244,7 @@ function PotluckDetailed(props) {
             
             
 
-        </>
+        </Background>
         )
     }
 
@@ -252,9 +254,10 @@ const Guests = styled.div`
     justify-content: center;
 `
 const Recipes = styled.ul`
-    display: block;
+    display: flex;
     list-style: none;
     overflowY: scroll;
+    flex-wrap: wrap
 
 `
 const Ingredients = styled.div`
@@ -321,3 +324,17 @@ const Sub = styled.h6`
 const Ing = styled.h2`
     margin: 0;
 `
+
+const Background = styled.div`
+padding-top: 10px;
+background: url("/assets/farm-dinner.png");
+display: inline-table;   
+height: 90vh;
+width: 100vw;
+background-size: cover;
+background-repeat: no-repeat;
+text-align: center;
+margin: 0 auto;
+position: relative;
+`
+

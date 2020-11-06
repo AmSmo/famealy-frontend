@@ -31,8 +31,9 @@ function Login(props) {
     let result = <></>
     if (!localStorage.getItem("token")) {
         result =
-                <>
+                <Background>
                 <p style={head}>Welcome to FaMealy</p>
+                <p style={{fontWeight: "700", fontSize: "2em"}}>Let's Start Cooking!</p>
                 
                 <div style={loginStyle}>
                 
@@ -41,7 +42,7 @@ function Login(props) {
                             Log-in to your account
                         </h2>
                     <form onSubmit={(e) => loginHandler(e, { username, password })} size='large'>
-                            <>
+                            <Fields>
                                 <input type="text" onChange={changeHandler} value={username} name="username" placeholder='Username' />
                                 <input type="password"
                                     
@@ -57,15 +58,15 @@ function Login(props) {
                                     Login
                                 </Button>
                                 { props.message !== "" ? <Message>{props.message}</Message> :null}
-                            </>
+                            </Fields>
                         </form>
-                        <div>
+                        <div style={{fontSize:"17px", fontWeight: "600"}}>
                             New to us? <NavLink to="/user/signup">Sign Up</NavLink>
                         </div>
                     </div>
                 
             </div>
-            </>
+            </Background>
 
     }
     return (result)
@@ -88,9 +89,10 @@ const Button = styled.button`
 
 const head = {
     fontSize: "4em",
+    fontWeight: "600"
 }
 const loginStyle = {
-    background: "#4CD4A9",
+    background: "rgba(255,255,255,0.5)",
     width: "250px",
     height: "300px",
     border: ".1px solid black",
@@ -98,3 +100,20 @@ const loginStyle = {
     margin: "30px auto",
     padding: "20px"
 }
+
+const Background = styled.div`
+    background-image: url("/assets/splashback.jpg");
+    height: 91vh;
+    width: 100vw;
+    
+`
+
+
+const Fields = styled.div`
+    line-height: 2.2em;
+    input{
+         
+         border-radius: 8px; 
+         height: 1.8em  
+     }
+`

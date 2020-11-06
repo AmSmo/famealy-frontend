@@ -1,6 +1,6 @@
 import React, { Component} from 'react'
 import {withRouter} from 'react-router-dom'
-
+import styled from 'styled-components'
 import MyIngredients from './MyIngredients.js'
 
 
@@ -23,7 +23,10 @@ class PantryContainer extends Component {
         return this.setState({myIngredients: arrayCopy })
     }
     
-
+    addBulk = (e, result) => {
+        e.preventDefault()
+        console.log(e)
+    }
 
     addPantry = (e, amount_type) => {
         let token = localStorage.getItem("token")
@@ -59,9 +62,9 @@ class PantryContainer extends Component {
         
         console.log("round1", this.state.myIngredients)
         return(
-            <>
-                <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry} editIngredient={this.editIngredient} convertIngredient={this.convertIngredient} mySuppliedIngredients={this.state.mySuppliedIngredients} />
-            </>)
+            <Background>
+                <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry} editIngredient={this.editIngredient} convertIngredient={this.convertIngredient} mySuppliedIngredients={this.state.mySuppliedIngredients} addBulk={this.addBulk} />
+            </Background>)
     }
 
 }
@@ -69,3 +72,16 @@ class PantryContainer extends Component {
 export default withRouter(PantryContainer)
 
 
+const Background = styled.div`
+padding-top: 10px;
+
+background: url("/assets/tablefull2.png");
+position: absolute;
+height: 93vh;
+width: 100vw;
+background-size: cover;
+background-repeat: no-repeat;
+text-align: center;
+margin: 0 auto;
+display:table;  
+`

@@ -85,7 +85,7 @@ function FriendsContainer(props) {
     } 
     
     return(
-        <>
+        <Background>
         
         <Corner>
             <h4>Search For Members You Don't Know</h4>
@@ -110,7 +110,7 @@ function FriendsContainer(props) {
             <div>No Friends Added.... yet</div>}
             
         </Middle>
-            </>
+            </Background>
     )
     
 
@@ -140,4 +140,18 @@ margin: 0 auto;
 maxWidth: 80vw;
 display: flexbox;
 flex-wrap: wrap
+`
+
+const Background = styled.div`
+padding-top: 10px;
+
+background: url("/assets/farm-dinner.png");
+position: absolute;
+height: 90vh;
+width: 100vw;
+background-size: cover;
+background-repeat: no-repeat;
+text-align: center;
+margin: 0 auto;
+position: relative;
 `
