@@ -5,12 +5,12 @@ import PotluckDetailed from './PotluckDetailed.js'
 
 function PotluckContainer(props) {
     
-    
+    console.log("PLC", props)
     return (
         <>
            <Switch>
-                <Route path="/potlucks/main" render={(routerprops) => <PotluckMain {...routerprops} /> } /> 
-                <Route path="/potlucks/users/:potluckId" render={(routerprops) => <PotluckDetailed {...routerprops} /> } /> 
+                <Route path="/potlucks/main" render={(routerprops) => <PotluckMain {...routerprops} changeTop={props.changeTop}/> } /> 
+                <Route path="/potlucks/users/:potluckId" render={(routerprops) => <PotluckDetailed {...routerprops} changeTop={props.changeTop} fixGuests={props.fixGuests} /> } /> 
            </Switch>
         </>
     )

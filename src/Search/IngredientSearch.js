@@ -48,7 +48,7 @@ class IngredientSearch extends Component {
     render() {
         return (
             <>
-                <IngredientSearchForm searchHandler={this.searchHandler} />
+                <IngredientSearchForm searchHandler={this.searchHandler} sortIngredients={this.props.sortIngredients} />
                 { this.props.match.keyword === null ?
                     <>
                         

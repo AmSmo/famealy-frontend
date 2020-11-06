@@ -7,13 +7,15 @@ import { Pagination } from 'semantic-ui-react'
 class RecipeSearch extends Component {
     state = {
         recipes: [],
+        sorted: [],
         list: 0,
         max: 1,
-        searched: false
+        searched: false,
+        sortValue: ""
     }
 
     renderRecipes(){
-        return this.state.recipes.slice(this.state.list * 9, (this.state.list * 9 + 9)).map(recipe => <RecipeCard recipe={recipe }/ >)
+        return this.state.sorted.slice(this.state.list * 9, (this.state.list * 9 + 9)).map(recipe => <RecipeCard recipe={recipe }/ >)
     }
 
     componentDidUpdate = (prevProps, prevState) => {
@@ -34,6 +36,7 @@ class RecipeSearch extends Component {
                         return this.setState({ api: [] })
                     } else {return this.setState({
                             recipes: recipes,
+                            sorted: recipes,
                             list: 0,
                             max: recipes.length
                     })}
@@ -49,14 +52,21 @@ class RecipeSearch extends Component {
             .then(response => response.json())
             .then(recipes => this.setState({
                 recipes: recipes,
+                sorted: recipes,
                 list: 0,
                 max: recipes.length
             })
             )
     }
-
-    renderRecipes
+    
+    sortChange = (e) => {
+        this.setState({[e.target.name]: e.target.value})
+        let sorted = this.state.recipes.filter(recipe => recipe.title.toLowerCase().includes(e.target.value.toLowerCase()))
+        this.setState({ sorted: sorted, max: sorted.length })
+    }
+    
     render() {
+        
         return (
             <>
                 { this.props.match.keyword === null ?
@@ -64,8 +74,11 @@ class RecipeSearch extends Component {
                     :
                     this.state.recipes.length > 0 ?
                     <>
+                    {console.log(this.state)}
                         <h1>Recipes</h1>
-                            <Pagination onPageChange={(event, data) => this.setState({list: (data.activePage-1)})} defaultActivePage={1} totalPages={Math.ceil(this.state.max/10) } />
+                        <input type="text" value={this.state.sortValue} placeholder="Filter Further" name="sortValue" onChange={this.sortChange}/>
+                        <br></br>
+                          {this.state.max > 10 ?  <Pagination onPageChange={(event, data) => this.setState({list: (data.activePage-1)})} defaultActivePage={1} totalPages={Math.ceil(this.state.max/10) } /> : null}
                         <SearchContainer>
                             {this.renderRecipes()}
                         </SearchContainer>

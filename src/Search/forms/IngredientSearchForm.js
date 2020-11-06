@@ -3,16 +3,29 @@ import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 function IngredientSearchForm(props) {
     const [ingredientSearch, setIngredientSearch] = useState('')
+    const [myIngredientSearch, setMyIngredientSearch] = useState('')
 
 
     const changeHandler = (e) => {
-        setIngredientSearch(e.target.value)
+        switch (e.target.name){
+            case "query":
+                setIngredientSearch(e.target.value)
+                break;
+            case "myIngredients":
+                setMyIngredientSearch(e.target.value)
+                props.sortIngredients(e.target.value)
+                break;
+                default:
+                    break;
+                }
     }
     
         return (
             <>
-            <h3>Find Ingredient</h3>
-        <form onSubmit={e => {
+            <h3>Search My Ingredients</h3>
+            <input type="text" name="myIngredients" onChange={changeHandler} value={myIngredientSearch} />
+            <h3>Find New Ingredient</h3>
+         <form onSubmit={e => {
             e.preventDefault()
             return props.searchHandler(e, ingredientSearch)}}>
             <input type="text" name="query" placeholder="Ingredient" onChange={changeHandler}></input>

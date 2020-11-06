@@ -12,9 +12,9 @@ function MyRecipeCard(props) {
 
 
     return (
-        <div style={{width: "250px", margin: "20px"}}>
+        <div style={{width: "250px", margin: "20px", display: "grid"}}>
             
-            <Popup trigger={<Link><img alt={`${props.recipe.name}`} onClick={() => props.history.push(`/recipes/${props.recipe.spoon_id}`)} style={{ width: "220px" }} src={props.recipe.image_url} /></Link>} hoverable style={style}>
+            <Popup trigger={<Link><img alt={`${props.recipe.name}`} onClick={() => props.history.push(`/recipes/${props.recipe.spoon_id}`)} style={{ width: "220px", maxHeight:"180px" }} src={props.recipe.image_url} /></Link>} basic hoverable style={style}>
                 Head to Recipe
             </Popup>
             <div>{props.recipe.name}</div>
@@ -61,5 +61,5 @@ const Button = styled.button`
     font-size: 16px;
     font-weight: 500;
     border-radius: 20px;
-    
+    height: 40px;
 `

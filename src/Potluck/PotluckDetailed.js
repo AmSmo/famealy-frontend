@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Friend from '../User/card/Friend'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PotluckRecipeCard from './card/PotluckRecipeCard.js'
 import { Divider, Grid, Segment } from 'semantic-ui-react'
 import RequiredIngredient from './card/RequiredIngredient'
 import SuppliedIngredient from './card/SuppliedIngredient'
-
+import SlideShow from './card/SlideShow'
 function PotluckDetailed(props) {
     const [name, setName] =useState("")
     const [date, setDate] =useState("")
@@ -19,13 +20,29 @@ function PotluckDetailed(props) {
     
     const [suppliedIngredients, setSuppliedIngredients] =useState([])
     const [popUp, setPopUp] =useState({})
-    
+    console.log("PLD", props)
+    // const renderGuests = () => {
+    //     return guests.map(guest => <Friend person={guest} />)
+    // }
+
     const renderGuests = () => {
-        return guests.map(guest => <Friend person={guest} />)
+        return guests.map((person, idx) => {
+            let back = idx % 2 === 0 ? "white" : "#D3D3D3"
+            return (
+                <Link style={{ textDecoration: 'none' }}>
+                    <li onClick={() => props.history.push(`/user/profile/${person.id}`)} key={idx} style={{ background: back, margin: "2px 0" }}>
+                        {person.name}
+                        <span style={{ color: "grey", float: "right" }}>
+                            {person.email_address}
+                        </span>
+                    </li>
+                </Link>
+            )
+        })
     }
 
     const renderRecipes = () => {
-        return recipes.map(recipe => <PotluckRecipeCard recipe={recipe}  / >)
+        return recipes.map((recipe, idx) => <PotluckRecipeCard key={idx} idx={idx}  recipe={recipe}  / >)
     }
 
     const supplyIngredient = (e,result) =>{
@@ -106,6 +123,7 @@ function PotluckDetailed(props) {
                 setGuests(data)
             setInvited(!invited)}
             )
+            props.changeTop(potId)
         props.history.push('/potlucks/main')
     }
     const joinPotluck = () => {
@@ -121,7 +139,9 @@ function PotluckDetailed(props) {
         fetch("http://localhost:3001/users/join_potluck", configObj)
         .then(resp => resp.json())
         .then(data => {setGuests(data)
-            setInvited(!invited)})
+            setInvited(!invited)
+            props.fixGuests(data)}
+            )
     }
 
     useEffect(()=> {
@@ -134,52 +154,63 @@ function PotluckDetailed(props) {
 
     
     return (
-        <>
-            <h1>{name}</h1>
-            <h3>{location}, {date}</h3>
-            {invited ? 
-            <Button onClick={()=> leavePotluck()}>Leave Potluck</Button>:
-            <Button onClick= {()=> joinPotluck()}>Join Potluck</Button>
+        <>  
+        <Top>
+            <LeftCorner>
+            <h1 >{name}</h1>
+            <h3 >{location}, {date}</h3>
+                    {invited ?
+                        <Button onClick={() => leavePotluck()}>Leave Potluck</Button> :
+                       null
+                    }
+                
+            </LeftCorner>
+        <Middle>
+            {guests.length > 0 ?
+            <>
+                <h3>Guests</h3>
+                <ul style={{ listStyle: "none", textAlign: "left", display: "block", flexWrap: "wrap", height: "100px", overflowY: "scroll", maxWidth: "250px", marginLeft: "50px" }}>
+                
+                    {guests ? renderGuests() : null}
+                </ul>
+                </>
+                :
+                <div>No Ones Coming!</div>
             }
-            <Segment style={{margin: "0 10px"}}>
-                {guests.length > 0 ?
-                    <>
-                        <h2>Guests</h2>
-                        <Guests>
-                        {renderGuests()}
-                    </Guests>
-                    </>
-                    :
-                    <div>No Ones Coming!</div>
-                }
-                <Divider style={{margin: "10px"}}  />
-                {recipes.length > 0 ?
-                    <>
-                        <h2>Recipes</h2>
-                        <Recipes>
-                            {renderRecipes()}
-                        </Recipes>
+        </Middle>
+        <MidRight>
+                    {recipes.length > 0 ?
+                        <>
+                            <h3>Recipes</h3>
+                            <Recipes>
+                                {renderRecipes()}
+                            </Recipes>
                         </>
-                    :
-                    <div>No one has decided what to make... Be The First!</div>
-                }
-                <Divider horizontal >
-                    
-    </Divider>
-            </Segment>
+                        :
+                        <div>No one has decided what to make... Be The First!</div>
+                    }
+            </MidRight>
+            <OuterRight>
+                    <h3>What You'll Be Eating</h3>
+                    <SlideShow images={recipes} />
+            </OuterRight>
+            
+            </Top>
+            {invited ? 
             <Segment style={{ margin: "10px 40px" }}>
                 <Grid columns={2} relaxed='very' >
                     <Grid.Column>
                         {recipes.length > 0 ?
                             <>
-                                <h2>Ingredients Required</h2>
+                                <Ing>Ingredients Required</Ing>
+                                <Sub>(hover over to add) </Sub>
                                 <Recipes>
                                     {renderIngredients()}
                                 </Recipes>
                             </>
                             :
                             <>
-                            <h2>Ingredients Required</h2>
+                            <Ing>Ingredients Required</Ing>
                             <br></br>
                             <br></br>
                             <div>No recipes means no Ingredients... You might get hungry</div>
@@ -200,7 +231,13 @@ function PotluckDetailed(props) {
                 
                 <Divider vertical>Accounted For:</Divider>
             </Segment>
-
+            :           
+            <>
+                        <h2> No Details Available</h2>
+                        <h4>Join Event to Find Out More</h4>
+                    <Button onClick={() => joinPotluck()}>Join Potluck</Button>
+                        </>
+                    }
 
             
             
@@ -214,10 +251,11 @@ const Guests = styled.div`
     flex-wrap: wrap;
     justify-content: center;
 `
-const Recipes = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+const Recipes = styled.ul`
+    display: block;
+    list-style: none;
+    overflowY: scroll;
+
 `
 const Ingredients = styled.div`
     display: flex;
@@ -240,4 +278,46 @@ const Button = styled.button`
     font-weight: 500;
     border-radius: 20px;
     
+`
+
+const LeftCorner = styled.div`
+display: block;
+width: 300px;
+float: left;
+
+width: 23%;
+margin-left: 30px;
+
+`
+const Top=styled.div`
+display: flex;
+justify-content: space-around;
+`
+const Middle = styled.div`
+
+
+width: 23%;
+display: block;
+margin: 30px auto;
+`
+
+const MidRight = styled.div`
+display: block;
+
+width: 23%;
+margin: 30px auto;
+`
+const OuterRight = styled.div`
+display: block;
+width: 23%;
+
+`
+
+const Sub = styled.h6`
+    margin: 0;
+    padding: 0
+`
+
+const Ing = styled.h2`
+    margin: 0;
 `

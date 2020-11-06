@@ -8,7 +8,7 @@ function PotluckMain(props) {
     let [myPotlucks, setMyPotlucks] = useState([])
     let [friendPotlucks, setFriendPotlucks] = useState([])
     let [viewPotluck, setViewPotluck] = useState(false)
-    const doSomething = (e, result) => {
+    const changeView = (e, result) => {
         
         setViewPotluck(result.checked)
     }
@@ -69,7 +69,7 @@ function PotluckMain(props) {
             <Middle>
                     <Choice>My Potlucks
                 
-                    <Radio slider onChange={doSomething} />
+                    <Radio slider onChange={changeView} />
                 
                    Friends Potlucks</Choice>
                 

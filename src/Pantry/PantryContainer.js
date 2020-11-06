@@ -9,7 +9,9 @@ class PantryContainer extends Component {
     state = {
         myIngredients: [],
         edited: {},
-        mySuppliedIngredients: []
+        mySuppliedIngredients: [],
+        list: 0,
+        max: 1
     }
     
     editIngredient = (ing) => {

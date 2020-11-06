@@ -12,16 +12,23 @@ import PotluckContainer from './Potluck/PotluckContainer'
 import Profile from './User/Profile'
 const BASE_API = 'http://localhost:3001/'
 class App extends Component {
-  state = { user: {
-    username: "",
-    name: "",
-    location: "",
-    email_address: "",
-    recipes: []
-  },
-  message: ""}
+  state = {
+    user: {
+      username: "",
+      name: "",
+      location: "",
+      email_address: "",
+      recipes: [],
+      potlucks: []
+    },
+    message: ""
+  }
 
   componentDidMount = () => {
+    this.getUser()
+  }
+
+  getUser = () => {
     let token = localStorage.getItem("token")
     if (token) {
       fetch(BASE_API + "auth", {
@@ -38,20 +45,26 @@ class App extends Component {
     }
   }
 
+  fixGuests = (guest) => {
+    this.getUser()
+      
+  }
+
   fixTop = (friends) => {
 
     return this.setState(prevState => {
-      return {user:{...prevState.user, friends: friends}}})
+      return { user: { ...prevState.user, friends: friends } }
+    })
   }
   signupHandler = (e, user) => {
-    
+
     e.preventDefault()
     const data = new FormData(e.target)
     let configObj = {
       method: "POST",
       headers: {
         "accepts": "application/json",
-        
+
       },
       body: data
     }
@@ -66,22 +79,25 @@ class App extends Component {
       })
   }
 
+  changeTop = (potId) => {
+    this.getUser()
+  }
 
   logoutHandler = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
-    
+
     this.setState({
-          user: {
-            username: "",
-            name: "",
-            location: "",
-            email_address: ""
-          }
-        })
+      user: {
+        username: "",
+        name: "",
+        location: "",
+        email_address: ""
+      }
+    })
     this.props.history.push("/")
   }
-  
+
   loginHandler = (e, user) => {
     e.preventDefault()
     let configObj = {
@@ -95,53 +111,55 @@ class App extends Component {
     fetch(BASE_API + 'login', configObj)
       .then(resp => resp.json())
       .then(data => {
-        if (data.jwt){
-          
-        localStorage.setItem("token", data.jwt)
-          localStorage.setItem("user", data.user.id) 
-        this.setState({ user: data.user, message: "" })
-        this.props.history.push("/")
-        return true
-      }else{
-        this.setState({message: data.message})
-        return false
-      }
+        if (data.jwt) {
+
+          localStorage.setItem("token", data.jwt)
+          localStorage.setItem("user", data.user.id)
+          this.setState({ user: data.user, message: "" })
+          this.props.history.push("/")
+          return true
+        } else {
+          this.setState({ message: data.message })
+          return false
+        }
 
       })
   }
-  render(){
-  return (
-    <>
-      <NavBar user={this.state.user.username !== ""} logoutHandler={this.logoutHandler}/>
-    <Background>
-      
-        {this.state.user.username === "" ?
-          <Switch>
-            <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
-            <Route path="/" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
-            
-          </Switch>
+  render() {
+    console.log("app", this.state)
+    return (
+      <>
+        <NavBar user={this.state.user.username !== ""} logoutHandler={this.logoutHandler} />
+        <Background>
 
-          :
-          <Switch>
+          {this.state.user.username === "" ?
+            <Switch>
+              <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
+              <Route path="/" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
 
-            <Route path="/search" render={(routerprops) => <Search {...routerprops} />} />
-            <Route path="/potlucks" render={(routerprops) => <PotluckContainer {...routerprops} />} />
-            <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} />} />
-            <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message}  />} />
-            <Route path="/pantry" render={(routerprops) => <PantryContainer {...routerprops} /> } />
-            <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} fixTop={this.fixTop}/> } />
-            <Route path="/" render={(routerprops) => <Profile {...routerprops} user={this.state.user}  />} />
-          </Switch>
-        }
-    </Background>
-    </>
-  );}
+            </Switch>
+
+            :
+            <Switch>
+
+              <Route path="/search" render={(routerprops) => <Search {...routerprops} />} />
+              <Route path="/potlucks" render={(routerprops) => <PotluckContainer {...routerprops} changeTop={this.changeTop} fixGuests={this.fixGuests} />} />
+              <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} />} />
+              <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
+              <Route path="/pantry" render={(routerprops) => <PantryContainer {...routerprops} />} />
+              <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} fixTop={this.fixTop} />} />
+              <Route path="/" render={(routerprops) => <Profile {...routerprops} user={this.state.user} />} />
+            </Switch>
+          }
+        </Background>
+      </>
+    );
+  }
 }
 
 export default withRouter(App);
 
-const Background=styled.div`
+const Background = styled.div`
 padding-top: 10px;
 
 
