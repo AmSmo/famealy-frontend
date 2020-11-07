@@ -1,7 +1,7 @@
 import React from 'react'
 import MyRecipeCard from './Cards/MyRecipeCard.js'
 import {withRouter} from 'react-router-dom'
-import { Segment } from 'semantic-ui-react'
+
 import SearchForm from '../Search/SearchForm'
 import styled from 'styled-components'
 function MyRecipes(props){

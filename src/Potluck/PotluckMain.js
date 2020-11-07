@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import PotluckCard from './card/PotluckCard'
 import {withRouter }from 'react-router-dom'
 import PotluckForm from './form/PotluckForm'
-import {Header, Radio} from 'semantic-ui-react'
+import { Radio} from 'semantic-ui-react'
 import styled from 'styled-components'
 function PotluckMain(props) {
     let [myPotlucks, setMyPotlucks] = useState([])
@@ -89,7 +89,7 @@ function PotluckMain(props) {
             <>
                 <PotluckDiv>
                     {renderFriendsPotlucks()}
-                                </PotluckDiv>
+                </PotluckDiv>
             </>
                 : <h4>No Potlucks to see here</h4>
             }
@@ -131,7 +131,8 @@ const Choice = styled.h3`
 
 const PotluckDiv = styled.div`
     display: flexbox;
-    justify-content: space-around
+    justify-content: space-around;
+    flex-wrap: wrap;
 `
 
 const Background = styled.div`

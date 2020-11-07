@@ -194,7 +194,7 @@ function PotluckDetailed(props) {
                     {recipes.length > 0 ?
                         <>
                             <h3>Recipes</h3>
-                            <Recipes style={{display: "block", width: "300px", textAlign: "left", display: "flex", overflowY: "scroll"}} >
+                            <Recipes style={{ width: "300px", textAlign: "left", display: "flex", overflowY: "scroll"}} >
                                 {renderRecipes()}
                             </Recipes>
                         </>
@@ -216,7 +216,7 @@ function PotluckDetailed(props) {
                                 <div style={{ borderRight: "0.2px solid #F8F2F2"}}>
                                 <Ing>Ingredients Required</Ing>
                                 <Sub>(click to add) </Sub>
-                                <Recipes>
+                                <Recipes style={{display: "flexbox"}}>
                                     {renderIngredients()}
                                 </Recipes>
                             </div>
@@ -269,11 +269,7 @@ function PotluckDetailed(props) {
         )
     }
 
-const Guests = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-`
+
 const Recipes = styled.ul`
     display: flex;
     list-style: none;

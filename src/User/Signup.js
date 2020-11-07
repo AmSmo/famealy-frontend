@@ -102,7 +102,7 @@ function Signup(props) {
                                 
                                 placeholder='Password Confirmation'
                             />
-                            {/* <input type="file" name="profile_pic" / > */}
+                            {/* <input type="file" name="profile" / > */}
                             {invalidPassword ? <Message size="tiny" color='red'>Passwords do not match</Message> : null} 
 
                             <Button>Sign Up</Button>

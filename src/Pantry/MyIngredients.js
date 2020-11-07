@@ -37,6 +37,8 @@ function MyIngredients(props){
         e.preventDefault()
         setIsOpen(false)
         props.addBulk(toBulk)
+        return setToBulk([])
+
     }
     const addList = (e) => {   
         

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Dropdown, Segment, Grid } from 'semantic-ui-react'
+import React from 'react'
+import { Segment, Grid } from 'semantic-ui-react'
 import styled from 'styled-components'
 import IndieAdd from './IndieAdd'
 function BulkAdd(props) {

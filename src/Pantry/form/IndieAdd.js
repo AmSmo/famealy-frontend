@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { Dropdown, Segment, Grid } from 'semantic-ui-react'
-import styled from 'styled-components'
+import React, { useState} from 'react'
+import { Dropdown } from 'semantic-ui-react'
+
 function IndieAdd(props){
     let [spoonId, setSpoonId] = useState(0)
     let [amount, setAmount] = useState(0)

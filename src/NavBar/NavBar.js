@@ -27,7 +27,7 @@ class NavBar extends React.Component{
             
         return(
             
-        <Menu tabular style={{position: "fixed", width: "100vw", zIndex: "3", background: "white"}}>
+        <Menu tabular style={{position: "fixed", width: "100vw", zIndex: "10", background: "white"}}>
             
             {   !this.props.user ?
                     <>
@@ -113,7 +113,7 @@ class NavBar extends React.Component{
                             active={this.state.activeItem === 'calendar'}
                             onClick={this.handleItemClick}
                             as={Link}
-                            to="/calendar"
+                            to="/calendar/main"
                         >
                             Calendar
                         </Menu.Item>
