@@ -84,7 +84,7 @@ class Recipe extends Component {
         return (
             <>
                 {this.state.recipe.name !== "" ?
-                    <>
+                    <Background>
                         <h2>{this.state.recipe.name}</h2>
                         <TopCard>
                             <Photo src={this.state.recipe.image_url} />
@@ -161,7 +161,7 @@ class Recipe extends Component {
 
 
 
-                    </>
+                    </Background>
                     :
                     null}
 
@@ -189,6 +189,8 @@ const Description = styled.div`
     width: 400px;
     border: 1px solid whitesmoke;
     margin: 20px 20px;
+    background: whitesmoke;
+    border-radius: 10px;
 
 `
 
@@ -209,4 +211,18 @@ display:block;
 margin: 60px auto;
 padding-left: 30px;
 width: 220px;   
+`
+
+const Background = styled.div`
+padding-top: 10px;
+
+background: url("/assets/tablefull2.png");
+position: absolute;
+height: 93vh;
+width: 100vw;
+background-size: cover;
+background-repeat: no-repeat;
+text-align: center;
+margin: 0 auto;
+display:table;  
 `

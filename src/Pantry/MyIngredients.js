@@ -20,6 +20,10 @@ function MyIngredients(props){
     let [list, setList] = useState(0)
     let [frequent, setFrequent] = useState([])
     let [toBulk, setToBulk] = useState([])
+    let [isOpen, setIsOpen] = useState(false)
+
+    const handleOpen = () => setIsOpen(true)
+    const handleClose = () => setIsOpen(false)
     useEffect(() => {
         setMyIngredients(props.myIngredients)
         setMySuppliedIngredients(props.mySuppliedIngredients)
@@ -31,6 +35,7 @@ function MyIngredients(props){
     
     const addBulk = (e) => {
         e.preventDefault()
+        setIsOpen(false)
         props.addBulk(toBulk)
     }
     const addList = (e) => {   
@@ -141,8 +146,13 @@ function MyIngredients(props){
                 
                     Potluck Pantry</h3>
                     {!mine ?
-            <Popup position='bottom center' trigger={<Button>Bulk Add Form</Button>} on='click'>
-                <div style={{display: "flex", width:"500px", flexWrap: "wrap"}}>
+            <Popup position='bottom center'
+                
+                
+                open={isOpen}
+                
+                    trigger={<Button onClick={() => setIsOpen(!isOpen)}>Bulk Add Form</Button>} on='click'>
+                <div style={{display: "flex", width:"560px", flexWrap: "wrap"}}>
                 <BulkAdd ingredients={frequent} myIngredients={myIngredients} addBulk={addBulk} addList={addList}/>
                 </div>
             </Popup> :

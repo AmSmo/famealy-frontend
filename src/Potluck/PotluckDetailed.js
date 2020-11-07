@@ -33,7 +33,7 @@ function PotluckDetailed(props) {
                 <Link style={{ textDecoration: 'none' }}>
                     <li onClick={() => props.history.push(`/user/profile/${person.id}`)} key={idx} style={{ background: back, margin: "2px 0" }}>
                         {person.name}
-                        <span style={{ color: "grey", float: "right" }}>
+                        <span style={{ color: "grey", float: "right", marginRight:"15px" }}>
                             {person.email_address}
                         </span>
                     </li>
@@ -181,7 +181,7 @@ function PotluckDetailed(props) {
             {guests.length > 0 ?
             <>
                 <h3>Guests</h3>
-                <ul style={{ listStyle: "none", textAlign: "left", display: "block", flexWrap: "wrap", height: "100px", overflowY: "scroll", maxWidth: "250px", marginLeft: "50px" }}>
+                <ul style={{ listStyle: "none", textAlign: "left", display: "block", flexWrap: "wrap", height: "100px", overflowY: "scroll",maxWidth: "250px",  }}>
                 
                     {guests ? renderGuests() : null}
                 </ul>
@@ -194,7 +194,7 @@ function PotluckDetailed(props) {
                     {recipes.length > 0 ?
                         <>
                             <h3>Recipes</h3>
-                            <Recipes >
+                            <Recipes style={{display: "block", width: "300px", textAlign: "left", display: "flex", overflowY: "scroll"}} >
                                 {renderRecipes()}
                             </Recipes>
                         </>
@@ -209,13 +209,13 @@ function PotluckDetailed(props) {
             
             </Top>
             {invited ? 
-            <Segment style={{ margin: "10px 40px"}}>
+            <Segment style={{ margin: "10px 40px", height: "400px", overflowY:"scroll", overflowX: "hidden"}}>
                     <Grid columns={2} relaxed='very' style={{display: "flex", flexWrap: "wrap"}} >
-                    <Grid.Column  >
+                        <Grid.Column style={{ height: "380px", overflowY: "scroll"}} >
                         {recipes.length > 0 ?
                                 <div style={{ borderRight: "0.2px solid #F8F2F2"}}>
                                 <Ing>Ingredients Required</Ing>
-                                <Sub>(hover over to add) </Sub>
+                                <Sub>(click to add) </Sub>
                                 <Recipes>
                                     {renderIngredients()}
                                 </Recipes>
@@ -232,7 +232,7 @@ function PotluckDetailed(props) {
                     </Grid.Column>
                         
                     
-                    <Grid.Column>
+                        <Grid.Column style={{ height: "380px", overflowY: "scroll", overflowX: "hidden" }} >
                             <Ing>In Stock</Ing>
                             <Sub>(hover over to see who's bringing it) </Sub>
                             <span style={{float:"right"}}>
@@ -278,7 +278,8 @@ const Recipes = styled.ul`
     display: flex;
     list-style: none;
     overflowY: scroll;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    height: 150px;
 
 `
 const Ingredients = styled.div`

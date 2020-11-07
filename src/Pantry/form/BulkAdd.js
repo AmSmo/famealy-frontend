@@ -3,7 +3,9 @@ import { Dropdown, Segment, Grid } from 'semantic-ui-react'
 import styled from 'styled-components'
 import IndieAdd from './IndieAdd'
 function BulkAdd(props) {
-    
+
+
+
 
     let sortedIngredients = props.ingredients.filter(ingredient => !props.myIngredients.some(mine => {
         return (ingredient.spoon_id  === mine.ingredient.spoon_id)}

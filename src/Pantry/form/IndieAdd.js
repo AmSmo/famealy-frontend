@@ -40,7 +40,7 @@ function IndieAdd(props){
                         <input type="checkbox" name="add" />
                         <span style={{ paddingTop: "4px", paddingLeft: "3px" }}> {props.ingredient.name}</span>
 
-                        <p style={{ float: "right", marginLeft: "auto", marginRight: "35px" }}>
+                        <p style={{ float: "right", marginLeft: "auto", marginRight: "20px" }}>
                             <input type="number" min="0" value={amount} name="amount" step="0.1" style={{ width: "45px" }} />
                             <Dropdown
                                 style={{width: "65px"}}

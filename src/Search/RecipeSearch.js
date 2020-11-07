@@ -68,7 +68,7 @@ class RecipeSearch extends Component {
     render() {
         
         return (
-            <>
+            <Background>
                 { this.props.match.keyword === null ?
                     <div>Search Form Here</div>
                     :
@@ -76,9 +76,9 @@ class RecipeSearch extends Component {
                     <>
                     
                         <h1>Recipes</h1>
-                        <input type="text" value={this.state.sortValue} placeholder="Filter Further" name="sortValue" onChange={this.sortChange}/>
-                        <br></br>
                           {this.state.max > 10 ?  <Pagination onPageChange={(event, data) => this.setState({list: (data.activePage-1)})} defaultActivePage={1} totalPages={Math.ceil(this.state.max/10) } /> : null}
+                        <br></br>
+                        <input style={{margin: "10px"}} type="text" value={this.state.sortValue} placeholder="Filter Further" name="sortValue" onChange={this.sortChange}/>
                         <SearchContainer>
                             {this.renderRecipes()}
                         </SearchContainer>
@@ -86,7 +86,7 @@ class RecipeSearch extends Component {
                         :
                         <div>No Results</div>
                 }
-            </>
+            </Background>
         )
     }
 }
@@ -100,4 +100,18 @@ const SearchContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     text-align: center;
+`
+
+const Background = styled.div`
+padding-top: 10px;
+
+background: url("/assets/tablefull2.png");
+position: absolute;
+height: 93vh;
+width: 100vw;
+background-size: cover;
+background-repeat: no-repeat;
+text-align: center;
+margin: 0 auto;
+display:table;  
 `

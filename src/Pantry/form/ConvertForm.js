@@ -75,7 +75,7 @@ function ConvertForm(props) {
                 <div style={{ margin: "3px auto", display: "block", textAlign:"center" }}>
                 <input type="text" name="ingredient" value={ingredient} placeholder="Ingredient" required  onChange={onTypeChange}/><br></br>
                 
-                <input style={{ width: "60px" }} value={amount} type="number" min="0" name="amount" step="0.1" required onChange={onTypeChange}/>
+                <input style={{ width: "60px" }} value={amount} type="number" min="0" name="amount" step="0.05" required onChange={onTypeChange}/>
                 
                 <Dropdown
                     value={fromType}
