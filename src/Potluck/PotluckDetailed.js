@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Friend from '../User/card/Friend'
+
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import PotluckRecipeCard from './card/PotluckRecipeCard.js'
-import { Divider, Grid, Segment } from 'semantic-ui-react'
+import { Icon, Grid, Segment, Popup } from 'semantic-ui-react'
 import RequiredIngredient from './card/RequiredIngredient'
 import SuppliedIngredient from './card/SuppliedIngredient'
 import SlideShow from './card/SlideShow'
+import PotluckIngredientSearch from './form/PotluckIngredientSearch'
 function PotluckDetailed(props) {
     const [name, setName] =useState("")
     const [date, setDate] =useState("")
@@ -20,7 +21,7 @@ function PotluckDetailed(props) {
     
     const [suppliedIngredients, setSuppliedIngredients] =useState([])
     const [popUp, setPopUp] =useState({})
-    console.log("PLD", props)
+    
     // const renderGuests = () => {
     //     return guests.map(guest => <Friend person={guest} />)
     // }
@@ -50,6 +51,7 @@ function PotluckDetailed(props) {
         let amount = e.target.amount.value
         let spoon_id = e.target.id.value
         let amount_type = result
+        debugger
         let token = localStorage.getItem("token")
         let configObj = {method: "POST",
         headers: {"content-type": "application/json",
@@ -61,6 +63,16 @@ function PotluckDetailed(props) {
            setSuppliedIngredients([...suppliedIngredients, data])})
     }
 
+    const deleteSupplied = (ingredient) => {
+        let token = localStorage.getItem("token")
+        fetch(`http://localhost:3001/potlucks/eat_ingredient/${ingredient.id}`, {
+            method: "POST",
+            headers:{"content-type": "application/json",
+                "accents": "application/json",
+            Authorization: `Bearer ${token}`}
+        }).then(resp=> resp.json())
+        .then(fetchPotluck())
+    }
     const sendToPopUp =(ingredient) =>{
         
         setPopUp(ingredient)
@@ -72,7 +84,7 @@ function PotluckDetailed(props) {
     }
 
     const renderSupplied = () => {
-        return suppliedIngredients.map(ingredient => <SuppliedIngredient ingredient={ingredient} />)
+        return suppliedIngredients.map(ingredient => <SuppliedIngredient ingredient={ingredient} deleteSupplied={deleteSupplied} />)
     }
 
     async function fetchPotluck() {
@@ -83,7 +95,7 @@ function PotluckDetailed(props) {
             .then(resp => resp.json())
             .then(data => {
                 let pot = data
-                console.log(pot)
+                
                 setName(pot.name)
                 setPotId(pot.id)
                 setLocation(pot.location)
@@ -182,7 +194,7 @@ function PotluckDetailed(props) {
                     {recipes.length > 0 ?
                         <>
                             <h3>Recipes</h3>
-                            <Recipes>
+                            <Recipes >
                                 {renderRecipes()}
                             </Recipes>
                         </>
@@ -221,10 +233,19 @@ function PotluckDetailed(props) {
                         
                     
                     <Grid.Column>
-                        <h2>In Stock</h2>
+                            <Ing>In Stock</Ing>
+                            <Sub>(hover over to see who's bringing it) </Sub>
+                            <span style={{float:"right"}}>
+                                <Popup style={{ textAlign: "center" }} trigger={<Link><Icon name="plus" size="large" /></Link>} on='click'>
+                                    <PotluckIngredientSearch addPantry={supplyIngredient} / >
+                                </Popup>
+                            </span>
+                            
                         <Ingredients>                            
                             {renderSupplied()}
+                            
                         </Ingredients>
+                            
                     </Grid.Column>
                     
                     

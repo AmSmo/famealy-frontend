@@ -80,7 +80,7 @@ class Recipe extends Component {
         return this.state.recipe !== prevState.recipe
     }
     render() {
-        console.log("rec",this.props.info.ingredients)
+        
         return (
             <>
                 {this.state.recipe.name !== "" ?

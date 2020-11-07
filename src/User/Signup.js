@@ -71,13 +71,13 @@ function Signup(props) {
     if (!localStorage.getItem("token")) {
         result =
             <Background>
-                <p style={head}>Welcome to FaMealy</p>
-
+                <p style={head}>Welcome to</p>
+            <img src={"/assets/famealy.png"} style={{ width: "40vw" }} />
                 <div style={loginStyle}>
 
                     <div style={{ maxWidth: 450 }}>
                         <h2>
-                            Signup for an account
+                            Signup for an Account
                          </h2>
                         <form size='large' onSubmit={(e) => signupHandler(e)} >
                             <Fields>
@@ -125,6 +125,8 @@ export default Signup
 
 const head = {
     fontSize: "4em",
+    marginBottom: "0px",
+    fontWeight: "600"
 }
 const Button = styled.button`
     margin: 0 auto;

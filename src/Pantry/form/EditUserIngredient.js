@@ -49,7 +49,7 @@ function EditUserIngredient(props) {
 
     const editUserIngredient = (e, result) => {
         e.preventDefault()
-        console.log(uiId)
+        
         let token = localStorage.getItem("token")
         let configObj = {
             method: "PATCH",
@@ -74,7 +74,7 @@ function EditUserIngredient(props) {
                     <div style={{textTransform: "capitalize", fontSize:"20px"}}>{ingredient}</div>
                     </div>
                 <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-                    <input style={{ width: "60px" }} value={amount} type="number" name="amount" step="0.1" required onChange={onTypeChange} />
+                    <input style={{ width: "60px" }} value={amount} type="number" min="0" name="amount" step="0.1" required onChange={onTypeChange} />
 
                     <Dropdown
                         
@@ -90,6 +90,7 @@ function EditUserIngredient(props) {
                 <br></br>
                <Button>Update Pantry</Button>
             </form>
+               <Button onClick={() => props.deleteIngredient(props.userIngredient.id)}>Delete From Pantry</Button>
         </>
     )
 }

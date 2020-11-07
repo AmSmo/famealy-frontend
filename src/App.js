@@ -127,7 +127,7 @@ class App extends Component {
       })
   }
   render() {
-    console.log("app", this.state)
+    
     return (
       <>
         <NavBar user={this.state.user.username !== ""} logoutHandler={this.logoutHandler} />

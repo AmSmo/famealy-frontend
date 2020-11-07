@@ -31,19 +31,19 @@ function MyIngredients(props){
     
     const addBulk = (e) => {
         e.preventDefault()
-        console.log(toBulk)
+        props.addBulk(toBulk)
     }
     const addList = (e) => {   
-        console.log("EFE",e) 
+        
         if (toBulk.length > 0){
-            console.log("length big")
+            
             let idx = (toBulk.findIndex(item => item.spoon_id === e.spoon_id))
-                console.log(idx)
+                
                 if (idx === -1){
                     setToBulk([...toBulk, e])
                 }else{
                     let newArray = toBulk
-                    console.log("DSADKASFA")
+                    
                     newArray[idx] = e
                     setToBulk(newArray)
         }
@@ -130,7 +130,7 @@ function MyIngredients(props){
                 <ConvertForm convertIngredient={props.convertIngredient} toEdit={toEdit} />
                 {toEdit ?
 
-                    <EditUserIngredient userIngredient={toEdit} editIngredient={props.editIngredient}/> :
+                    <EditUserIngredient userIngredient={toEdit} editIngredient={props.editIngredient} deleteIngredient={props.deleteIngredient} /> :
                     null}
                 
         </RightCorner>
@@ -140,11 +140,13 @@ function MyIngredients(props){
                     <Radio slider onChange={changeMine} />
                 
                     Potluck Pantry</h3>
+                    {!mine ?
             <Popup position='bottom center' trigger={<Button>Bulk Add Form</Button>} on='click'>
                 <div style={{display: "flex", width:"500px", flexWrap: "wrap"}}>
                 <BulkAdd ingredients={frequent} myIngredients={myIngredients} addBulk={addBulk} addList={addList}/>
                 </div>
-            </Popup>
+            </Popup> :
+            null}
             <Middle>
         {!mine? 
         <>

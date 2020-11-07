@@ -74,7 +74,7 @@ class RecipeSearch extends Component {
                     :
                     this.state.recipes.length > 0 ?
                     <>
-                    {console.log(this.state)}
+                    
                         <h1>Recipes</h1>
                         <input type="text" value={this.state.sortValue} placeholder="Filter Further" name="sortValue" onChange={this.sortChange}/>
                         <br></br>

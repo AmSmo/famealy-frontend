@@ -26,7 +26,7 @@ function AddIngredientCard(props) {
                 <br></br>
                 <form onSubmit={(e) => props.addPantry(e, amountType)}>
                     <input type="hidden" name="id" value={ingredient.spoon_id}/>
-                    Add <input style={{width: "80px"}}type="number" step=".05" placeholder="Amount" name="amount" />{' '}
+                    Add <input style={{width: "80px"}}type="number" min="0" step=".05" placeholder="Amount" name="amount" />{' '}
                     <Dropdown
                         inline
                         name="amountType"

@@ -5,7 +5,7 @@ import PotluckDetailed from './PotluckDetailed.js'
 
 function PotluckContainer(props) {
     
-    console.log("PLC", props)
+    
     return (
         <>
            <Switch>

@@ -67,7 +67,7 @@ function Profile(props) {
     useEffect(()=> {
         fetchRandom()
     }, [])
-    console.log(props.user)
+    
     
     return (<Background>
         <h1>{props.user.username}'s Profile</h1>

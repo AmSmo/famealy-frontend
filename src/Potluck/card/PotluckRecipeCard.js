@@ -29,10 +29,10 @@ function PotluckRecipeCard(props) {
     
     let back = props.idx % 2 === 0 ? "white" : "#D3D3D3"
     
-        console.log(props.idx)
+        
              return (
                  <Link style={{ textDecoration: 'none' }}>
-                     <li onClick={() => props.history.push(`/recipes/${recipe.spoon_id}`)} style={{ background: back, margin: "2px 0" }}>
+                     <li onClick={() => props.history.push(`/recipes/${recipe.spoon_id}`)} style={{ background: back, margin: "2px 0", width: "200px" }}>
                          {recipe.name}
                          <span style={{ color: "grey", float: "right" }}>
                              {supplier.name}

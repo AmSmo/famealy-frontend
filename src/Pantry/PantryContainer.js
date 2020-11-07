@@ -15,19 +15,38 @@ class PantryContainer extends Component {
     }
     
     editIngredient = (ing) => {
-        console.log("edited", ing)
+        
         let arrayCopy = this.state.myIngredients
-        console.log(arrayCopy)
+        
         let idx = arrayCopy.findIndex( ingredient => ingredient.id === ing.id)
         arrayCopy[idx] = ing
         return this.setState({myIngredients: arrayCopy })
     }
     
-    addBulk = (e, result) => {
-        e.preventDefault()
-        console.log(e)
+    addBulk = (bulk) => {
+        let token = localStorage.getItem("token")
+        let configObj = {method: "POST",
+        headers: {"content-type": "application/json",
+                "accepts": "application/json",
+            Authorization: `Bearer ${token}`},
+        body: JSON.stringify({bulk: {ingredients: [...bulk]}})}
+        fetch("http://localhost:3001/ingredients/bulk_add", configObj)
+        .then(resp=> resp.json())
+        .then(data => {
+            return this.setState({ myIngredients: data.my_ingredients, mySuppliedIngredients: data.my_supplied_ingredients })
+        })
     }
 
+    deleteIngredient = (userIngredientId) => {
+        let token = localStorage.getItem("token")
+        fetch(`http://localhost:3001/ingredients/eat/${userIngredientId}`,{method: "POST", headers:{
+            "content-type":"application/json",
+            "accepts":"application/json",
+            Authorization: `Bears ${token}`
+        }}).then(resp=> resp.json())
+            .then(data => {
+                return this.setState({ myIngredients: data.my_ingredients, mySuppliedIngredients: data.my_supplied_ingredients })}
+            )}
     addPantry = (e, amount_type) => {
         let token = localStorage.getItem("token")
         e.preventDefault()
@@ -54,16 +73,16 @@ class PantryContainer extends Component {
         fetch("http://localhost:3001/users/ingredients",{headers:{ Authorization: `Bearer ${token}`}})
         .then(resp => resp.json())
         .then(data=> {
-            console.log("check it", data)
+            
             this.setState({myIngredients: data.my_ingredients, mySuppliedIngredients: data.my_supplied_ingredients})})
     }
 
     render(){   
         
-        console.log("round1", this.state.myIngredients)
+        
         return(
             <Background>
-                <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry} editIngredient={this.editIngredient} convertIngredient={this.convertIngredient} mySuppliedIngredients={this.state.mySuppliedIngredients} addBulk={this.addBulk} />
+                <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry} editIngredient={this.editIngredient} convertIngredient={this.convertIngredient} mySuppliedIngredients={this.state.mySuppliedIngredients} addBulk={this.addBulk} deleteIngredient={this.deleteIngredient} />
             </Background>)
     }
 

@@ -32,7 +32,8 @@ function Login(props) {
     if (!localStorage.getItem("token")) {
         result =
                 <Background>
-                <p style={head}>Welcome to FaMealy</p>
+                <p style={head}>Welcome to</p>
+                <img src={"/assets/famealy.png"} style={{width: "40vw"}} />
                 <p style={{fontWeight: "700", fontSize: "2em"}}>Let's Start Cooking!</p>
                 
                 <div style={loginStyle}>
@@ -89,7 +90,8 @@ const Button = styled.button`
 
 const head = {
     fontSize: "4em",
-    fontWeight: "600"
+    fontWeight: "600",
+    marginBottom: "0px"
 }
 const loginStyle = {
     background: "rgba(255,255,255,0.5)",
