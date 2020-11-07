@@ -10,24 +10,50 @@ class PotluckCalendar extends Component {
     state = {
         name: "",
         date: null,
-        events: []
+        events: [],
+        potluck_id: 0
     }
 
-    CustomToolbar = () => {
-    return (
-        <Button onClick={()=> this.props.history.push("/calendar/main")}>Back to Main Calendar</Button>
-    )
-}
+    moveHandle = ({ event, start, end, isAllDay })=>{
+        
+        let token = localStorage.getItem("token")
+        console.log("start", start, "end", end, "event", event)
+        let idx = (this.state.events.findIndex(ri => ri.potluck_recipe_id === event.potluck_recipe_id))
+        let toEdit = this.state.events
+        
+        let newObj = { allDay: false, title: event.title, start: start, end: end, potluck_recipe_id: event.potluck_recipe_id, allDay: isAllDay, supplier: event.supplier, ingredients: event.ingredients }
+        let time = start + 1
+        if (isAllDay){
+            time = null
+            
+        }
+        console.log("final time", newObj)
+        toEdit[idx] = newObj
+        this.setState({events: toEdit})
+        let configObj = {method: "POST", headers:{
+            "accepts": "application/json",
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`
+                },
+            body: JSON.stringify({potluck_recipe: {time: time}})}
+        fetch(`http://localhost:3001/potluck/change_recipe_time/${event.potluck_recipe_id}`, configObj)
+        .then(resp=> resp.json())
+        .then(console.log)
+    }
+
+
 
     recipeEvents = (recipes, date) => {
         return recipes.map((recipe, idx) => {
-            console.log("check here", recipe.start_time)
+            
             if (recipe.start_time === null){
                 
                 let start = new Date(date)
                 let finish = new Date(start)
-                finish.setMinutes(finish.getMinutes() + recipe.recipe.time)
-                return {allDay: true, title: recipe.recipe.name, start: start, end: finish }
+                let fullTime = recipe.recipe.time < 30 ? 30 : recipe.recipe.time
+                
+                finish.setMinutes(finish.getMinutes() + fullTime)
+                return { allDay: true, title: recipe.recipe.name, start: start, end: finish, potluck_recipe_id: recipe.potluck_recipe_id, supplier: recipe.user.name, ingredients: recipe.recipe.recipe_ingredients }
             }else{
 
                 let dateMath = date.split("-")
@@ -40,11 +66,12 @@ class PotluckCalendar extends Component {
                 let minute = timed[1]
                 let start = new Date(year, month, day, hour, minute)
                 let finish = new Date(start)
-                finish.setMinutes(finish.getMinutes() + recipe.recipe.time)
+                let fullTime = recipe.recipe.time < 30 ? 25 : recipe.recipe.time
+
+                finish.setMinutes(finish.getMinutes() + fullTime)
                 
-                console.log("fin", finish)
                 
-                return { allDay: false, title: recipe.recipe.name, start: start, end: finish }
+                return { allDay: false, title: recipe.recipe.name, start: start, end: finish, potluck_recipe_id: recipe.potluck_recipe_id, supplier: recipe.user.name, ingredients: recipe.recipe.recipe_ingredients }
             }
         })
     }
@@ -58,18 +85,18 @@ class PotluckCalendar extends Component {
         .then(resp=> resp.json())
         .then(data=>{
             let events = this.recipeEvents(data.potluck_recipes, data.date)
-            return this.setState({name: data.name, date: data.date, events: events})
+            return this.setState({name: data.name, date: data.date, events: events, potluck_id: data.id})
         })
     }
 
 
 
     render() {
-        console.log("why",this.state)
+        
         return(
             <>
             {this.state.date ? 
-            <Detailed info={this.state}/>
+            <Detailed info={this.state} moveHandle={this.moveHandle}/>
                 :
                 null}
                 </>
@@ -83,23 +110,4 @@ const Head= styled.div`
     font-weight: 600;
     line-height: 36px;
     height:80px;
-`
-
-const Button = styled.button`
-    display: block;
-    right: 10px;
-    top: 55px;
-    position: absolute;
-    margin: 0 auto;
-    background-color: #22D9E3;
-    border: 2px solid white;
-    color: black;
-    padding: 2px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: block;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 20px;
-    
 `

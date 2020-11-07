@@ -11,7 +11,7 @@ class MainCalendar extends Component{
         let events = this.props.user.potlucks.map(potluck => {
             let day = moment(potluck.date)
             let dayAfter = moment(potluck.date).add(1, 'day')
-            console.log("momentum", day.toString(), "plus", dayAfter.toString())
+            
             return({
             start: day.toString(), end: dayAfter.toString(), allDay:true, title: potluck.name, potluck_id: potluck.id})})
         console.log(events)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import PotluckRecipeCard from './card/PotluckRecipeCard.js'
 import { Icon, Grid, Segment, Popup } from 'semantic-ui-react'
@@ -51,7 +51,7 @@ function PotluckDetailed(props) {
         let amount = e.target.amount.value
         let spoon_id = e.target.id.value
         let amount_type = result
-        debugger
+        
         let token = localStorage.getItem("token")
         let configObj = {method: "POST",
         headers: {"content-type": "application/json",
@@ -172,7 +172,11 @@ function PotluckDetailed(props) {
             <h1 >{name}</h1>
             <h3 >{location}, {date}</h3>
                     {invited ?
-                        <Button onClick={() => leavePotluck()}>Leave Potluck</Button> :
+                    <>
+                        <Button onClick={() => leavePotluck()}>Leave Potluck</Button> 
+                        <Button onClick={() => props.history.push(`/calendar/potluck/${potId}`)}>Go To Potluck Schedule</Button> 
+                    </>
+                        :
                        null
                     }
                 
@@ -268,6 +272,10 @@ function PotluckDetailed(props) {
         </Background>
         )
     }
+    
+    
+export default withRouter(PotluckDetailed)
+
 
 
 const Recipes = styled.ul`
@@ -284,7 +292,6 @@ const Ingredients = styled.div`
     justify-content: center;
     margin-left: 55px;
 `
-export default PotluckDetailed
 
 const Button = styled.button`
     margin: 5px auto;
