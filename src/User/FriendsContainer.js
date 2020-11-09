@@ -125,26 +125,30 @@ width: 100px;
 `
 const Corner= styled.div`
 display: block;
-width: 220px;
+width: 270px;
 float: left;
-height: 80vh;
+max-height: 92vh;
 padding-top: 20px;
 padding-left: 30px;
 margin: 0px auto;
+overflow-Y: scroll;
 
 `
 
 const Middle = styled.div`
+
 padding-left: 100px;
 margin: 0 auto;
-maxWidth: 80vw;
+max-height: 88vh;
+max-width: 80vw;
 display: flexbox;
-flex-wrap: wrap
+flex-wrap: wrap;
+overflow-Y: scroll;
 `
 
 const Background = styled.div`
 padding-top: 10px;
-
+display: inline-table;
 background: url("/assets/farm-dinner.png");
 position: absolute;
 height: 90vh;

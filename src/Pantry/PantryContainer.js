@@ -1,6 +1,7 @@
 import React, { Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
+
 import MyIngredients from './MyIngredients.js'
 
 
@@ -15,12 +16,18 @@ class PantryContainer extends Component {
     }
     
     editIngredient = (ing) => {
-        
-        let arrayCopy = this.state.myIngredients
-        
-        let idx = arrayCopy.findIndex( ingredient => ingredient.id === ing.id)
-        arrayCopy[idx] = ing
-        return this.setState({myIngredients: arrayCopy })
+        console.log("top level", ing)
+        let arrayCopy
+        if (ing.potluck_id){
+            arrayCopy = this.state.mySuppliedIngredients
+            let idx = arrayCopy.findIndex( ingredient => ingredient.id === ing.id)
+            arrayCopy[idx] = ing
+            return this.setState({mySuppliedIngredients: arrayCopy })
+        }else{
+            arrayCopy = this.state.myIngredients
+            let idx = arrayCopy.findIndex( ingredient => ingredient.id === ing.id)
+            arrayCopy[idx] = ing
+            return this.setState({myIngredients: arrayCopy })}
     }
     
     addBulk = (bulk) => {
@@ -82,7 +89,10 @@ class PantryContainer extends Component {
         
         return(
             <Background>
+                
                 <MyIngredients myIngredients={this.state.myIngredients} addPantry={this.addPantry} editIngredient={this.editIngredient} convertIngredient={this.convertIngredient} mySuppliedIngredients={this.state.mySuppliedIngredients} addBulk={this.addBulk} deleteIngredient={this.deleteIngredient} />
+                
+    
             </Background>)
     }
 

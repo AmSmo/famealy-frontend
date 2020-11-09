@@ -17,3 +17,26 @@ input {
   border-radius: 8px;
   border: .05px solid grey;
 }
+
+a:hover {
+  color: none;
+}
+
+
+
+::-webkit-file-upload-button {
+  
+    display: block;
+    width: 115px;
+    background-color: #22D9E3;
+    border: 2px solid white;
+    color: black;
+    padding: 2px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    margin-left: -10px
+}

@@ -12,6 +12,9 @@ body{
   background-size: ;
 }
 
+a:hover {
+  color: none;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

@@ -9,9 +9,9 @@ function FriendSearchForm(props){
             <input type="text" name="query" placeholder="Search"></input>
             <div style={{textAlign: "left", paddingLeft: "15px"}}>
                 <Radio> <input type="radio" name="type" defaultChecked="true" value="name" /> Name</Radio>
-            <Radio><input type="radio" name="type" value="email" /> Email</Radio>
-            <Radio><input type="radio" name="type" value="username" /> Username</Radio>
-            <input style={submitButton} type="submit" value="Search" />
+                <Radio><input type="radio" name="type" value="email" /> Email</Radio>
+                <Radio><input type="radio" name="type" value="username" /> Username</Radio>
+                <input style={submitButton} type="submit" value="Search" />
             </div>
         </form>
     )

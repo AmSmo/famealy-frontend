@@ -102,7 +102,9 @@ function Signup(props) {
                                 
                                 placeholder='Password Confirmation'
                             />
-                            {/* <input type="file" name="profile" / > */}
+                            
+                            <input type="file" className="photo" name="profile" style={{width:"95px", border: "none", marginTop: "10px", marginBottom: "30px", textAlign: "center"}}  / >
+                            
                             {invalidPassword ? <Message size="tiny" color='red'>Passwords do not match</Message> : null} 
 
                             <Button>Sign Up</Button>
@@ -144,7 +146,7 @@ const Button = styled.button`
 const loginStyle = {
     background: "rgba(255,255,255,0.5)",
     width: "250px",
-    height: "330px",
+    height: "400px",
     border: ".1px solid black",
     display: "block",
     margin: "30px auto",
@@ -167,3 +169,4 @@ const Fields = styled.div`
          height: 1.8em  
      }
 `
+

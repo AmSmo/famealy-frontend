@@ -16,6 +16,7 @@ class MainCalendar extends Component{
             start: day.toString(), end: dayAfter.toString(), allDay:true, title: potluck.name, potluck_id: potluck.id})})
         console.log(events)
     return (
+        <div style={{height: "93vh"}}>
         <Calendar
             selectable
             onSelectEvent={(potluck,e) => this.props.history.push(`/calendar/potluck/${potluck.potluck_id}`)}
@@ -29,6 +30,7 @@ class MainCalendar extends Component{
             localizer={momentLocalizer(moment)}
             views={['week', 'month']}
         />
+        </div>
     )}
 }
 export default withRouter(MainCalendar)

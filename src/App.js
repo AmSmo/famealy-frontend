@@ -11,6 +11,7 @@ import FriendsContainer from './User/FriendsContainer'
 import PotluckContainer from './Potluck/PotluckContainer'
 import Calendar from './Calendar/Calendar'
 import Profile from './User/Profile'
+import Edit from './User/Edit'
 const BASE_API = 'http://localhost:3001/'
 class App extends Component {
   state = {
@@ -76,8 +77,11 @@ class App extends Component {
         localStorage.setItem("user", data.user.id)
         localStorage.setItem("token", data.jwt)
         this.setState({ user: data.user })
-        this.props.history.push("/")
+        
       })
+      .then(()=>{
+        this.getUser()
+        this.props.history.push("/")})
   }
 
   changeTop = (potId) => {
@@ -145,11 +149,13 @@ class App extends Component {
 
               <Route path="/search" render={(routerprops) => <Search {...routerprops} />} />
               <Route path="/potlucks" render={(routerprops) => <PotluckContainer {...routerprops} changeTop={this.changeTop} fixGuests={this.fixGuests} />} />
-              <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} />} />
+              <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} changeTop={this.getUser}  />} />
               <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
               <Route path="/pantry" render={(routerprops) => <PantryContainer {...routerprops} />} />
               <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} fixTop={this.fixTop} />} />
               <Route path="/calendar" render={(routerprops) => <Calendar {...routerprops} user={this.state.user} />} />
+              <Route path="/edit" render={(routerprops) => <Edit {...routerprops} user={this.state.user} />} />
+
               <Route path="/" render={(routerprops) => <Profile {...routerprops} user={this.state.user} />} />
             </Switch>
           }

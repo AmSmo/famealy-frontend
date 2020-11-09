@@ -8,6 +8,7 @@ import ConvertForm from './form/ConvertForm'
 import EditUserIngredient from './form/EditUserIngredient'
 import BulkAdd from './form/BulkAdd'
 import {Radio, Pagination, Popup } from 'semantic-ui-react'
+import CardPlaceHolder from '../PlaceHolders/CardPlaceHolder.js'
 function MyIngredients(props){
     let [myIngredients, setMyIngredients] = useState([])
     let [sortedIngredients, setSortedIngredients] = useState([])
@@ -21,16 +22,18 @@ function MyIngredients(props){
     let [frequent, setFrequent] = useState([])
     let [toBulk, setToBulk] = useState([])
     let [isOpen, setIsOpen] = useState(false)
+    let [loaded, setLoaded] = useState(false)
 
     const handleOpen = () => setIsOpen(true)
     const handleClose = () => setIsOpen(false)
     useEffect(() => {
         setMyIngredients(props.myIngredients)
         setMySuppliedIngredients(props.mySuppliedIngredients)
-     
+        
     });
     useEffect(() => {
         getFrequent()
+        setLoaded(true)
     },[]);
     
     const addBulk = (e) => {
@@ -91,7 +94,7 @@ function MyIngredients(props){
 
     const editSupplied = (ingredient) => {
         
-        ingredient["ingredient"] = {name : ingredient.ingredient_name, spoon_id: ingredient.ingredient_id, possible_units: ingredient.possible_units}
+        ingredient["ingredient"] = {name : ingredient.ingredient_name, spoon_id: ingredient.ingredient_id, possible_units: ingredient.possible_units, supplied_id: ingredient.id}
         setToEdit(ingredient)
     }
     const changeMine = (e, result) =>{
@@ -159,6 +162,7 @@ function MyIngredients(props){
                 </div>
             </Popup> :
             null}
+            {loaded ? 
             <Middle>
         {!mine? 
         <>
@@ -169,6 +173,11 @@ function MyIngredients(props){
                 {renderSuppliedIngredients()}
             </>}
             </Middle>
+            :
+            
+            <CardPlaceHolder />
+            
+            }
         </>
     )
 }

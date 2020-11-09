@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import PotluckRecipeCard from './card/PotluckRecipeCard.js'
-import { Icon, Grid, Segment, Popup } from 'semantic-ui-react'
+import { Icon, Grid, Segment, Popup, Dimmer, Loader, Image } from 'semantic-ui-react'
 import RequiredIngredient from './card/RequiredIngredient'
 import SuppliedIngredient from './card/SuppliedIngredient'
 import SlideShow from './card/SlideShow'
@@ -15,12 +15,13 @@ function PotluckDetailed(props) {
     const [ingredients, setIngredients] =useState([])
     const [recipes, setRecipes] =useState([])
     const [guests, setGuests] = useState([])
-    
     const [invited, setInvited] = useState()
     const [potId, setPotId] = useState(0)
     
     const [suppliedIngredients, setSuppliedIngredients] =useState([])
     const [popUp, setPopUp] =useState({})
+    const [ingredientLoaded, setIngredientLoaded] = useState(false)
+    const [topLoaded, setTopLoaded] = useState(false)
     
     // const renderGuests = () => {
     //     return guests.map(guest => <Friend person={guest} />)
@@ -60,6 +61,7 @@ function PotluckDetailed(props) {
         fetch("http://localhost:3001/potlucks/bring_ingredient", configObj)
         .then(resp=> resp.json())
         .then(data => {
+        
            setSuppliedIngredients([...suppliedIngredients, data])})
     }
 
@@ -80,11 +82,11 @@ function PotluckDetailed(props) {
     }
 
     const renderIngredients = () => {
-        return ingredients.map(ingredient => <RequiredIngredient ingredient={ingredient} suppliedIngredients={suppliedIngredients} sendToPopUp={sendToPopUp} supplyIngredient={supplyIngredient}/>)
+        return ingredients.map((ingredient ,idx) => <RequiredIngredient key={idx} ingredient={ingredient} suppliedIngredients={suppliedIngredients} sendToPopUp={sendToPopUp} supplyIngredient={supplyIngredient}/>)
     }
 
     const renderSupplied = () => {
-        return suppliedIngredients.map(ingredient => <SuppliedIngredient ingredient={ingredient} deleteSupplied={deleteSupplied} />)
+        return suppliedIngredients.map((ingredient , idx) => <SuppliedIngredient key={idx} ingredient={ingredient} deleteSupplied={deleteSupplied} />)
     }
 
     async function fetchPotluck() {
@@ -104,13 +106,23 @@ function PotluckDetailed(props) {
                 setGuests(pot.users)
                 setDate(pot.date)
                 setSuppliedIngredients(pot.supplied_ingredients)
-
+                setTopLoaded(true)
             }
         )
         .then(() => {
-            (guests.filter(guest => guest.id === parseInt(localStorage.getItem("user"))
-            ).length>0 ? setInvited(true) : setInvited(false))})
+            if (guests.filter(guest => guest.id === parseInt(localStorage.getItem("user"))
+            ).length>0){ 
+                        setInvited(true) 
+                setTimeout(() => { setIngredientLoaded(true) }, 1160)
+                       }else {
+                        setInvited(false)
+                setTimeout(() => { setIngredientLoaded(true) }, 1160)
+                        }
+                        
+        })
     }
+
+    
 
     const leavePotluck = () => {
         let token = localStorage.getItem("token")
@@ -164,10 +176,14 @@ function PotluckDetailed(props) {
         fetchPotluck()
     }, [invited])
 
-    
     return (
         <Background>  
+
+            
+
             <Top style={{ border: "none", width: "95vw", margin: "10px auto", background: "#F8F8F8", borderRadius: "10px" }}>
+            { topLoaded ?
+            <>
             <LeftCorner>
             <h1 >{name}</h1>
             <h3 >{location}, {date}</h3>
@@ -210,8 +226,19 @@ function PotluckDetailed(props) {
                     <h3>What You'll Be Eating</h3>
                     <SlideShow images={recipes} />
             </OuterRight>
-            
+            </>
+            :
+                    <Segment>
+                        <Dimmer active inverted>
+                            <Loader size='medium'>Loading</Loader>
+                        </Dimmer>
+
+                        <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+                    </Segment>
+            }
             </Top>
+            { ingredientLoaded ? 
+            <>
             {invited ? 
             <Segment style={{ margin: "10px 40px", height: "400px", overflowY:"scroll", overflowX: "hidden"}}>
                     <Grid columns={2} relaxed='very' style={{display: "flex", flexWrap: "wrap"}} >
@@ -266,9 +293,17 @@ function PotluckDetailed(props) {
                         </>
                     }
 
-            
-            
+                    </> :
 
+                <Segment>
+                    <Dimmer active inverted>
+                        <Loader size='medium'>Loading</Loader>
+                    </Dimmer>
+
+                    <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+                </Segment>
+    }
+    
         </Background>
         )
     }

@@ -15,6 +15,7 @@ function Profile(props) {
                 <Link style={{ textDecoration: 'none' }}>
                 <li onClick={() => props.history.push(`/user/profile/${person.id}`)}key={idx} style={{background: back, margin:"2px 0"}}> 
                     {person.name} 
+                    
                     <span style={{color: "grey", float:"right"}}> 
                         {person.email_address}
                     </span>
@@ -68,7 +69,7 @@ function Profile(props) {
         fetchRandom()
     }, [])
     
-    
+    console.log(props.user)
     return (<Background>
         <h1>{props.user.username}'s Profile</h1>
         
@@ -84,6 +85,7 @@ function Profile(props) {
                     <p>Username: {props.user.username}</p>
                     <p>Email: {props.user.email_address}</p>
                     <p>Location: {props.user.location}</p>
+                    <img src={props.user.profile} style={{width:"220px", maxHeight:"300px", borderRadius: "15px"}}/>
                     </div>
                 </Grid.Column>
                 <Grid.Column >

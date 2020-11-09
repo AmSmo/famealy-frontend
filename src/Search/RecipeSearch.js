@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import RecipeCard from './Cards/RecipeCard.js'
 import styled from 'styled-components'
 import { Pagination } from 'semantic-ui-react'
+import PhotoPlaceHolder from '../PlaceHolders/PhotoPlaceHolder.js'
 
 class RecipeSearch extends Component {
     state = {
@@ -11,7 +12,8 @@ class RecipeSearch extends Component {
         list: 0,
         max: 1,
         searched: false,
-        sortValue: ""
+        sortValue: "",
+        loaded: false
     }
 
     renderRecipes(){
@@ -54,7 +56,8 @@ class RecipeSearch extends Component {
                 recipes: recipes,
                 sorted: recipes,
                 list: 0,
-                max: recipes.length
+                max: recipes.length,
+                loaded: true
             })
             )
     }
@@ -69,6 +72,8 @@ class RecipeSearch extends Component {
         
         return (
             <Background>
+                {this.state.loaded  ?
+                <>
                 { this.props.match.keyword === null ?
                     <div>Search Form Here</div>
                     :
@@ -86,6 +91,10 @@ class RecipeSearch extends Component {
                         :
                         <div>No Results</div>
                 }
+                </>
+                :
+                <PhotoPlaceHolder />
+            }
             </Background>
         )
     }

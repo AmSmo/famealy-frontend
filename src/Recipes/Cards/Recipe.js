@@ -1,7 +1,8 @@
 import { withRouter } from 'react-router-dom'
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { Grid, Segment, Dropdown, Button } from 'semantic-ui-react'
+import { Grid, Segment, Dropdown, Button,Popup } from 'semantic-ui-react'
+import AddIngredientCard from '../../Pantry/card/AddIngredientCard'
 class Recipe extends Component {
     state = {
         recipe: {
@@ -12,7 +13,8 @@ class Recipe extends Component {
             spoon_id: 0
         },
         bringing: false,
-        potluck: 0
+        potluck: 0,
+        myIngredients: []
     }
 
     makingIt = (e) => {
@@ -51,10 +53,40 @@ class Recipe extends Component {
         this.setState({ potluck: result.value })
 
     }
-    ingredientList = () => {
 
-        return this.state.recipe.recipe_ingredients.map(ingredient => {
-            return <div>{ingredient.description}</div>
+    addPantry = (e, amount_type) => {
+        let token = localStorage.getItem("token")
+        e.preventDefault()
+        const ingredient_id = e.target.id.value
+        const amount = e.target.amount.value
+        let configObj = {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "content-type": "application/json",
+                "accepts": "application/json"
+            },
+            body: JSON.stringify({ pantry: { amount_type, amount }, other_info: { ingredient_id: ingredient_id } })
+        }
+
+        fetch("http://localhost:3001/users/add_pantry", configObj)
+            .then(resp => resp.json())
+            .then(data => this.props.changeTop())
+    }
+    ingredientList = () => {
+        let mine = this.props.info.ingredients.map(ingredient => ingredient.spoon_id)
+                return this.state.recipe.recipe_ingredients.map(ingredient => {
+            
+            let have = mine.includes(ingredient.ingredient.spoon_id) ? "blue" : "black"
+                    console.log("in here", ingredient)
+            return (
+
+                <Popup style={{ textAlign: "center" }} trigger={<div style={{ color: `${have}` }}>
+                    {ingredient.description}
+                </div>} on='click'>
+                                    <AddIngredientCard ingredient={[ingredient.ingredient]} addPantry={this.addPantry} / >
+                        </Popup>)
+                
         })
     }
 
@@ -65,6 +97,7 @@ class Recipe extends Component {
             return <div>{direction.step}.  {direction.details}</div>
         })
     }
+
 
     componentDidMount = () => {
         let token = localStorage.getItem("token")
@@ -77,7 +110,7 @@ class Recipe extends Component {
     }
 
     componentDidUpdate = (prevProps, prevState) => {
-        return this.state.recipe !== prevState.recipe
+        return this.state.recipe !== prevState.recipe || this.state.myIngredients !== prevState.myIngredients
     }
     render() {
         

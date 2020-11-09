@@ -1,43 +1,57 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MyRecipeCard from './Cards/MyRecipeCard.js'
-import {withRouter} from 'react-router-dom'
-
+import { withRouter } from 'react-router-dom'
+import PhotoPlaceHolder from '../PlaceHolders/PhotoPlaceHolder'
 import SearchForm from '../Search/SearchForm'
 import styled from 'styled-components'
-function MyRecipes(props){
-   
+function MyRecipes(props) {
+    let [loaded, setLoaded] = useState(false)
     const renderRecipes = () => {
-        return props.info.recipes.map(recipe => <MyRecipeCard key={recipe.id} recipe={recipe} history={ props.history} />)
+        return props.info.recipes.map(recipe => <MyRecipeCard key={recipe.id} recipe={recipe} history={props.history} />)
     }
 
-    return(
-        <Background>
-        <LeftCorner>
+        useEffect(() => {
+            setTimeout(() =>{setLoaded(true)}, 650)
+        })
 
-        </LeftCorner>
+    return (
+        <Background>
+            <LeftCorner>
+
+            </LeftCorner>
             <RightCorner>
 
             </RightCorner>
-         <Middle >
-                
-                {props.info.recipes.length > 0 ?
-                    <>
-                        <h2>Recipes</h2>
-                        <div style={{width: "80vw", margin: "0 auto", display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
-                            {renderRecipes()}
-                        </div>
-                        </>
-                    :
-                    <>
-                <h2>You don't have any recipes</h2>
-                <p>Search for some:</p>
-                <SearchForm />
-                </>
-                }
-
-            </Middle>
             
-            </Background>
+                {loaded ?
+                <Middle >
+                    {
+                        props.info.recipes.length > 0 ?
+                            <>
+                                <h2>Recipes</h2>
+                                <div style={{ width: "80vw", margin: "0 auto", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+                                    {renderRecipes()}
+
+
+
+                                </div>
+                            </>
+                            :
+                            <>
+                                <h2>You don't have any recipes</h2>
+                                <p>Search for some:</p>
+                                <SearchForm />
+                            </>
+                            
+                    }
+                </Middle>
+                    :
+                    <PhotoPlaceHolder/>
+                        }
+
+            
+            
+            </Background >
     )
 }
 

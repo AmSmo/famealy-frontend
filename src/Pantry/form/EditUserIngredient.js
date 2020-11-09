@@ -3,6 +3,7 @@ import { Dropdown } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 function EditUserIngredient(props) {
+    console.log(props)
     let [toType, setToType] = useState("oz")
     let [ingredient, setIngredient] = useState("")
     let [amount, setAmount] = useState(0)
@@ -60,8 +61,13 @@ function EditUserIngredient(props) {
             },
             body: JSON.stringify({ update: { amount, amount_type: toType} })
         }
-        
-        fetch(`http://localhost:3001/user_ingredient/${uiId}`, configObj)
+        let url
+        if(!!props.userIngredient.potluck_id){
+            url = `http://localhost:3001/supplied_ingredient/${uiId}` 
+        }else{
+            url= `http://localhost:3001/user_ingredient/${uiId}`
+        }
+            fetch(url, configObj)
             .then(resp => resp.json())
             .then(data => props.editIngredient(data))
     }
@@ -88,7 +94,7 @@ function EditUserIngredient(props) {
 
 
                 <br></br>
-               <Button>Update Pantry</Button>
+               <input type="submit" value="Update Pantry" style={Update}/>
             </form>
                <Button onClick={() => props.deleteIngredient(props.userIngredient.id)}>Delete From Pantry</Button>
         </>
@@ -97,7 +103,9 @@ function EditUserIngredient(props) {
 
 export default EditUserIngredient
 
-const Button = styled.button`
+const Button = styled.div`
+    text-decoration: none;
+    width: auto;
     margin: 5px auto;
     background-color: #22D9E3;
     border: 2px solid white;
@@ -111,3 +119,18 @@ const Button = styled.button`
     border-radius: 20px;
     
 `
+const Update = {
+    width: "auto",
+    margin: "5px auto",
+    backgroundColor: "#22D9E3",
+    border: "2px solid white",
+    color: "black",
+    padding: "2px 16px",
+    textAlign: "center",
+    textDecoration: "none",
+    display: "block",
+    fontSize: "16px",
+    fontWeight: "500",
+    borderRadius: "20px",
+    
+}

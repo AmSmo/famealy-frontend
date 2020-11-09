@@ -1,9 +1,9 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { Card, Button } from 'semantic-ui-react'
+import { Card, Button, Image } from 'semantic-ui-react'
 function Friend(props) {
-    let boxWidth = props.add ? "120px" : "230px"
-    
+    let boxWidth = props.add ? "160px" : "230px"
+    console.log("friend", props)
     return(
         <div>
             <Card style={{margin: "15px", width: boxWidth }} onClick={() => {
@@ -11,6 +11,8 @@ function Friend(props) {
                return props.add ? null :  props.history.push(`/user/profile/${props.person.id}`)}}
             >
                 <Card.Content>
+                    
+                    <Image src={props.person.profile} style={{maxHeight: "170px"}}/>
                     <Card.Header>{props.person.name}</Card.Header>
                     <Card.Meta>{props.person.email_address}</Card.Meta>
                     <Card.Description>{props.person.location}</Card.Description>

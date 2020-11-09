@@ -3,7 +3,9 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import { Dropdown } from 'semantic-ui-react'
 function AddIngredientCard(props) {
+    
     const ingredient = props.ingredient[0]
+    console.log("MOOO",ingredient)
     let [amountType, setAmountType] = useState("oz")
     const onChange = (e, result) => {
         setAmountType(result.value)
@@ -17,7 +19,7 @@ function AddIngredientCard(props) {
                 value: unit
             })
         })
-       
+
         
         return (
             <Ingredient>
