@@ -14,7 +14,7 @@ class MainCalendar extends Component{
             
             return({
             start: day.toString(), end: dayAfter.toString(), allDay:true, title: potluck.name, potluck_id: potluck.id})})
-        console.log(events)
+
     return (
         <div style={{height: "93vh"}}>
         <Calendar

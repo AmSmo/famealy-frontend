@@ -28,8 +28,9 @@ function IngredientSearchForm(props) {
             <h3>Find New Ingredient</h3>
          <form onSubmit={e => {
             e.preventDefault()
-            return props.searchHandler(e, ingredientSearch)}}>
-            <input type="text" name="query" placeholder="Ingredient" onChange={changeHandler}></input>
+            props.searchHandler(e, ingredientSearch)
+            return setIngredientSearch("")}}>
+            <input type="text" name="query" placeholder="Ingredient" value={ingredientSearch} onChange={changeHandler}></input>
             <Button>Search </Button>
         </form>
             
@@ -43,7 +44,7 @@ export default withRouter(IngredientSearchForm)
 const Button = styled.button`
     margin: 5px auto;
     background-color: #22D9E3;
-    border: 2px solid white;
+    border: 1px solid rgb(27, 19, 19);
     color: black;
     padding: 2px 16px;
     text-align: center;

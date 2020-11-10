@@ -5,7 +5,7 @@ import { Dropdown } from 'semantic-ui-react'
 function AddIngredientCard(props) {
     
     const ingredient = props.ingredient[0]
-    console.log("MOOO",ingredient)
+    
     let [amountType, setAmountType] = useState("oz")
     const onChange = (e, result) => {
         setAmountType(result.value)
@@ -64,5 +64,6 @@ const Button = styled.button`
     font-size: 16px;
     font-weight: 500;
     border-radius: 20px;
+
     
 `

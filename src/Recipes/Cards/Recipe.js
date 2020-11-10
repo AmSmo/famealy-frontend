@@ -71,14 +71,14 @@ class Recipe extends Component {
 
         fetch("http://localhost:3001/users/add_pantry", configObj)
             .then(resp => resp.json())
-            .then(data => this.props.changeTop())
+            .then(data => this.props.addIngredient(data))
     }
     ingredientList = () => {
         let mine = this.props.info.ingredients.map(ingredient => ingredient.spoon_id)
                 return this.state.recipe.recipe_ingredients.map(ingredient => {
             
             let have = mine.includes(ingredient.ingredient.spoon_id) ? "blue" : "black"
-                    console.log("in here", ingredient)
+                    
             return (
 
                 <Popup style={{ textAlign: "center" }} trigger={<div style={{ color: `${have}` }}>

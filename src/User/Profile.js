@@ -15,8 +15,8 @@ function Profile(props) {
                 <Link style={{ textDecoration: 'none' }}>
                 <li onClick={() => props.history.push(`/user/profile/${person.id}`)}key={idx} style={{background: back, margin:"2px 0"}}> 
                     {person.name} 
-                    
-                    <span style={{color: "grey", float:"right"}}> 
+                    <br></br>
+                    <span style={{color: "grey", textAlign:"right"}}> 
                         {person.email_address}
                     </span>
                 </li>
@@ -69,7 +69,7 @@ function Profile(props) {
         fetchRandom()
     }, [])
     
-    console.log(props.user)
+    
     return (<Background>
         <h1>{props.user.username}'s Profile</h1>
         
@@ -91,14 +91,14 @@ function Profile(props) {
                 <Grid.Column >
                 <h2>Their Friends</h2>
 
-                <ul style={{ listStyle: "none", textAlign: "left", display: "block", flexWrap: "wrap", height: "200px", overflowY:"scroll", maxWidth: "250px", marginLeft: "50px" }}>
+                <ul style={{ listStyle: "none", display: "list-item", textAlign: "left", flexWrap: "wrap", height: "200px", overflowY:"scroll", width: "290px" }}>
                     {props.user.friends ? renderFriends() : null}
                 </ul>
                 </Grid.Column>
                 <Grid.Column >
                 <h2>Their Potlucks</h2>
 
-                <ul style={{ listStyle: "none", textAlign: "left", display: "block", flexWrap: "wrap", height: "200px", overflowY:"scroll", maxWidth: "250px", marginLeft: "50px" }}>
+                <ul style={{ listStyle: "none", textAlign: "left", display: "block", flexWrap: "wrap", height: "200px", overflowY:"scroll", width: "250px"}}>
                     {props.user.potlucks ? renderPotlucks() : <li>None</li>}
                 </ul>
                 </Grid.Column>

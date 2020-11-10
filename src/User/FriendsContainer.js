@@ -151,7 +151,7 @@ padding-top: 10px;
 display: inline-table;
 background: url("/assets/farm-dinner.png");
 position: absolute;
-height: 90vh;
+height: 94vh;
 width: 100vw;
 background-size: cover;
 background-repeat: no-repeat;

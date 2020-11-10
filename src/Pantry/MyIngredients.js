@@ -153,12 +153,13 @@ function MyIngredients(props){
                     {!mine ?
             <Popup position='bottom center'
                 
-                
+                onOpen={handleOpen}
+                onClose={handleClose}
                 open={isOpen}
                 
                     trigger={<Button onClick={() => setIsOpen(!isOpen)}>Bulk Add Form</Button>} on='click'>
                 <div style={{display: "flex", width:"560px", flexWrap: "wrap"}}>
-                <BulkAdd ingredients={frequent} myIngredients={myIngredients} addBulk={addBulk} addList={addList}/>
+                    <BulkAdd ingredients={frequent} myIngredients={myIngredients} addBulk={addBulk} addList={addList}/>
                 </div>
             </Popup> :
             null}
@@ -192,7 +193,7 @@ height: 80vh;
 padding-top: 40px;
 padding-left: 30px;
 margin: 0px auto;
-background: url("/assets/fork2.png");
+// background: url("/assets/fork2.png");
 background-repeat: no-repeat;
 background-size: contain;
 background-position-x: 80px;
@@ -219,7 +220,7 @@ padding-top: 40px;
 
 margin: 0px auto;
 margin-right: 30px;
-background: url("/assets/knife2.png");
+// background: url("/assets/knife2.png");
 background-repeat: no-repeat;
 background-size: contain;
 background-position-x: 80px;
@@ -230,7 +231,7 @@ background-position-x: 80px;
 const Button = styled.button`
     margin: 0 auto;
     background-color: #22D9E3;
-    border: 2px solid white;
+    border: 1px solid rgb(27, 19, 19);
     color: black;
     padding: 2px 16px;
     text-align: center;

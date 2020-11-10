@@ -36,12 +36,12 @@ function IndieAdd(props){
 
                 return(
                 <form onChange={handleChange}>
-                    <div style={{ textTransform: "capitalize", textAlign: "center", display: "inline-flex", width: "260px" }}>
+                    <div style={{ textTransform: "capitalize", textAlign: "center", display: "inline-flex", width: "270px" }}>
                         <input type="checkbox" name="add" />
                         <span style={{ paddingTop: "4px", paddingLeft: "3px" }}> {props.ingredient.name}</span>
 
                         <p style={{ float: "right", marginLeft: "auto", marginRight: "20px" }}>
-                            <input type="number" min="0" value={amount} name="amount" step="0.1" style={{ width: "45px" }} />
+                            <input type="number" min="0" value={amount} name="amount" step="0.1" style={{ width: "45px", marginRight: "10px" }} />
                             <Dropdown
                                 style={{width: "65px"}}
                                 inline

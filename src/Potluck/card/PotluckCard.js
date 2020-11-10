@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { Card} from 'semantic-ui-react'
+import { Card, Image} from 'semantic-ui-react'
 
 function PotluckCard(props) {
     
@@ -13,6 +13,7 @@ function PotluckCard(props) {
         <div>
             <Card onClick={() => navigate(props.potluck.id)} style={{margin: "30px 15px"}}>
                 <Card.Content>
+                    <Image src={props.potluck.photo} style={{maxHeight: "180px"}} />
                     <Card.Header>{props.potluck.name}</Card.Header>
                     <Card.Meta>{props.potluck.location}</Card.Meta>
                     <Card.Description>{props.potluck.date}</Card.Description>

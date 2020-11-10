@@ -17,7 +17,7 @@ class PotluckCalendar extends Component {
     moveHandle = ({ event, start, end, isAllDay })=>{
         
         let token = localStorage.getItem("token")
-        console.log("start", start, "end", end, "event", event)
+        
         let idx = (this.state.events.findIndex(ri => ri.potluck_recipe_id === event.potluck_recipe_id))
         let toEdit = this.state.events
         

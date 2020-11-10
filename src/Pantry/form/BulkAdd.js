@@ -19,13 +19,17 @@ function BulkAdd(props) {
     
     return (<form onSubmit={props.addBulk} >
         <Segment >
-            <Grid columns={2} relaxed='very'>
+            <Grid columns={2} >
                 <Grid.Column>
                     {renderForm(sortedIngredients.slice(0,10))}
                 </Grid.Column>
+                { sortedIngredients.length < 11 ?
+                null
+                :
                 <Grid.Column>
                     {renderForm(sortedIngredients.slice(10,20))}
                 </Grid.Column>
+}
             </Grid>
             </Segment>
             <Button> Submit </Button>

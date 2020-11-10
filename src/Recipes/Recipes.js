@@ -51,15 +51,17 @@ class Recipes extends Component {
         .then(data => this.setState(data))
     }
 
+ 
+
     render() {
-        console.log("heher?", this.props)
+        
         return (
             <>
             
 
                     <Switch>
                         <Route path="/recipes/myrecipes" render={(routerprops) => <MyRecipes {...routerprops} info={this.state}   />} />
-                        <Route path="/recipes/:spoon_id" render={(routerprops) => <Recipe {...routerprops} info={this.state} addHandler={this.addHandler} deleteHandler={this.deleteHandler} changeTop={this.props.changeTop} />} />
+                        <Route path="/recipes/:spoon_id" render={(routerprops) => <Recipe {...routerprops} info={this.state} addHandler={this.addHandler} deleteHandler={this.deleteHandler} addIngredient={this.props.addIngredient} />} />
                     </Switch>
             </>
         )

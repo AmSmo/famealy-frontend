@@ -34,6 +34,7 @@ function PotluckForm(props) {
             <input type="text" placeholder="Name of Potluck" value={name} name="name" onChange={changeHandler}/>
             <input type="text" placeholder="Location of Potluck" value={location} name="location" onChange={changeHandler}/>
             <input type="date" name="date" onChange={changeHandler}/>
+            <input type="file" name="photo" style={{border: "none", marginLeft: "45px"}}/>
             <Button>Create Potluck </Button>
         </form>
     )

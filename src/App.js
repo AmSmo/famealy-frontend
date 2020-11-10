@@ -21,11 +21,16 @@ class App extends Component {
       location: "",
       email_address: "",
       recipes: [],
-      potlucks: []
+      potlucks: [],
+      ingredients: []
     },
     message: ""
   }
 
+  addIngredient = (ingredient) => {
+    return this.setState(prevState => {
+      return {user: {...prevState.user, ingredients:ingredient }}})
+  }
   componentDidMount = () => {
     this.getUser()
   }
@@ -149,7 +154,7 @@ class App extends Component {
 
               <Route path="/search" render={(routerprops) => <Search {...routerprops} />} />
               <Route path="/potlucks" render={(routerprops) => <PotluckContainer {...routerprops} changeTop={this.changeTop} fixGuests={this.fixGuests} />} />
-              <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} changeTop={this.getUser}  />} />
+              <Route path="/recipes" render={(routerprops) => <Recipes {...routerprops} changeTop={this.getUser} addIngredient={this.addIngredient}  />} />
               <Route path="/user" render={(routerprops) => <User {...routerprops} loginHandler={this.loginHandler} signupHandler={this.signupHandler} message={this.state.message} />} />
               <Route path="/pantry" render={(routerprops) => <PantryContainer {...routerprops} />} />
               <Route path="/friends" render={(routerprops) => <FriendsContainer {...routerprops} fixTop={this.fixTop} />} />
@@ -171,7 +176,7 @@ const Background = styled.div`
 padding-top: 10px;
 
 
-top: 39px;
+top: 37px;
 height: 90vh;
 width: 100vw;
 display: inline-table;

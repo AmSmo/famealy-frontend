@@ -11,13 +11,13 @@ export default function Edit(props){
         body: data
     }
 
-        fetch(BASE_API + `users/${props.user.id}`, configObj)
+        fetch(BASE_API + `potlucks/42`, configObj)
         
 }
-console.log(props)
+
 return(
     <form onSubmit={uploadPhoto}>
-        <input type="file" name="profile" />
+        <input type="file" name="photo" />
         <input type="submit" value="upload photo" />
         
     </form>

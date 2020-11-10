@@ -11,24 +11,24 @@ function MyRecipes(props) {
     }
 
         useEffect(() => {
-            setTimeout(() =>{setLoaded(true)}, 650)
+            setTimeout(() =>{setLoaded(true)}, 950)
         })
 
     return (
         <Background>
-            <LeftCorner>
+            {/* <LeftCorner>
 
             </LeftCorner>
             <RightCorner>
 
-            </RightCorner>
+            </RightCorner> */}
+            <h2>Recipes</h2>
             
                 {loaded ?
                 <Middle >
                     {
                         props.info.recipes.length > 0 ?
                             <>
-                                <h2>Recipes</h2>
                                 <div style={{ width: "80vw", margin: "0 auto", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
                                     {renderRecipes()}
 
@@ -66,7 +66,7 @@ height: 80vh;
 padding-top: 40px;
 padding-left: 30px;
 margin: 0px auto;
-background: url("/assets/fork2.png");
+// background: url("/assets/fork2.png");
 background-repeat: no-repeat;
 background-size: contain;
 background-position-x: 80px;
@@ -81,6 +81,8 @@ const Middle = styled.div`
 margin: 0 auto;
 text-align: center;
 display: flex;
+height:92vh;
+overflow-y: scroll;
 flex-wrap: wrap;
 justify-contents: space-around;
  h2 {
@@ -99,7 +101,7 @@ const RightCorner = styled.div`
     padding-top: 40px;
     margin: 0px auto;
     right: 20px;
-    background: url("/assets/knife2.png");
+    // background: url("/assets/knife2.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position-x: 80px;
@@ -110,7 +112,7 @@ const RightCorner = styled.div`
 
 const Background = styled.div`
 padding-top: 10px;
-background: url("/assets/tablefull2.png");
+// background: url("/assets/tablefull2.png");
 position: absolute;
 height: 93vh;
 width: 100vw;

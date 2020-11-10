@@ -1,7 +1,7 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 
-import {Card} from 'semantic-ui-react'
+import {Card, Image} from 'semantic-ui-react'
 
 function RecipeCard(props){
     
@@ -11,13 +11,37 @@ function RecipeCard(props){
     }
     return(
         <Card 
-            onClick={() => navigate(props.recipe.id)}
-            image={`https://spoonacular.com/recipeImages/${props.recipe.image}`}
-            header={props.recipe.title}
-            meta= {`Ready in ${props.recipe.readyInMinutes} minutes`  }
-            description= {`Servings: ${props.recipe.servings}`}
+            onClick={() => navigate(props.recipe.id)} style={{margin: "20px"}}>
+            <Image src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} style={{maxHeight: "280px"}} />
+            <Card.Header>{props.recipe.title}</Card.Header>
+            <Card.Meta> {`Ready in ${props.recipe.readyInMinutes} minutes`}</Card.Meta>
+            <Card.Description>{`Servings: ${props.recipe.servings}`}</Card.Description>
                 
-        />
+        </Card>
+
+
+        //  <Card style={{margin: "15px", width: boxWidth }} onClick={() => {
+                
+        //        return props.add ? null :  props.history.push(`/user/profile/${props.person.id}`)}}
+        //     >
+        //         <Card.Content>
+                    
+        //             <Image src={props.person.profile} style={{maxHeight: "170px"}}/>
+        //             <Card.Header>{props.person.name}</Card.Header>
+        //             <Card.Meta>{props.person.email_address}</Card.Meta>
+        //             <Card.Description>{props.person.location}</Card.Description>
+
+        //             {props.add ?
+        //             <Card.Content extra>
+                        
+        //                 <Button basic color="green" onClick={() => props.addFriend(props.person.id)}>Add Friend</Button>
+                        
+        //             </Card.Content>
+        //                 :
+        //                 null}
+        //         </Card.Content>
+        //     </Card>
+
         
     )
 }

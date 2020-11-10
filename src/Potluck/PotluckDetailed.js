@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import PotluckRecipeCard from './card/PotluckRecipeCard.js'
-import { Icon, Grid, Segment, Popup, Dimmer, Loader, Image } from 'semantic-ui-react'
+import { Icon, Grid, Segment, Popup, Dimmer, Loader, Image, Card, Placeholder } from 'semantic-ui-react'
 import RequiredIngredient from './card/RequiredIngredient'
 import SuppliedIngredient from './card/SuppliedIngredient'
 import SlideShow from './card/SlideShow'
 import PotluckIngredientSearch from './form/PotluckIngredientSearch'
+
 function PotluckDetailed(props) {
     const [name, setName] =useState("")
     const [date, setDate] =useState("")
@@ -16,8 +17,8 @@ function PotluckDetailed(props) {
     const [recipes, setRecipes] =useState([])
     const [guests, setGuests] = useState([])
     const [invited, setInvited] = useState()
+    const [potPhoto, setPotPhoto] = useState("")
     const [potId, setPotId] = useState(0)
-    
     const [suppliedIngredients, setSuppliedIngredients] =useState([])
     const [popUp, setPopUp] =useState({})
     const [ingredientLoaded, setIngredientLoaded] = useState(false)
@@ -34,9 +35,8 @@ function PotluckDetailed(props) {
                 <Link style={{ textDecoration: 'none' }}>
                     <li onClick={() => props.history.push(`/user/profile/${person.id}`)} key={idx} style={{ background: back, margin: "2px 0" }}>
                         {person.name}
-                        <span style={{ color: "grey", float: "right", marginRight:"15px" }}>
-                            {person.email_address}
-                        </span>
+                        <br></br>
+                        
                     </li>
                 </Link>
             )
@@ -44,7 +44,7 @@ function PotluckDetailed(props) {
     }
 
     const renderRecipes = () => {
-        return recipes.map((recipe, idx) => <PotluckRecipeCard key={idx} idx={idx}  recipe={recipe}  / >)
+        return recipes.map((recipe, idx) => <PotluckRecipeCard key={idx} idx={idx}  recipe={recipe}  deleteRecipe={deleteRecipe}/ >)
     }
 
     const supplyIngredient = (e,result) =>{
@@ -70,11 +70,31 @@ function PotluckDetailed(props) {
         fetch(`http://localhost:3001/potlucks/eat_ingredient/${ingredient.id}`, {
             method: "POST",
             headers:{"content-type": "application/json",
-                "accents": "application/json",
+                "accepts": "application/json",
             Authorization: `Bearer ${token}`}
         }).then(resp=> resp.json())
         .then(fetchPotluck())
     }
+
+    const deleteRecipe = (potluckRecipeId)=> {
+        let token = localStorage.getItem("token")
+        fetch(`http://localhost:3001/potlucks/delete_food/${potluckRecipeId}`, {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                "accepts": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }).then(resp => resp.json())
+        .then(removeRecipe(potluckRecipeId))
+    }
+
+    const removeRecipe = (id) => {
+        let recipeCopy = recipes
+        let newRecipes = recipes.filter(recipe => recipe.potluck_recipe_id !== id)
+        setRecipes(newRecipes)
+    }
+
     const sendToPopUp =(ingredient) =>{
         
         setPopUp(ingredient)
@@ -82,7 +102,7 @@ function PotluckDetailed(props) {
     }
 
     const renderIngredients = () => {
-        return ingredients.map((ingredient ,idx) => <RequiredIngredient key={idx} ingredient={ingredient} suppliedIngredients={suppliedIngredients} sendToPopUp={sendToPopUp} supplyIngredient={supplyIngredient}/>)
+        return ingredients.map((ingredient ,idx) => <RequiredIngredient key={idx} idx={idx} ingredient={ingredient} suppliedIngredients={suppliedIngredients} sendToPopUp={sendToPopUp} supplyIngredient={supplyIngredient}/>)
     }
 
     const renderSupplied = () => {
@@ -98,6 +118,7 @@ function PotluckDetailed(props) {
             .then(data => {
                 let pot = data
                 
+                setPotPhoto(data.photo)
                 setName(pot.name)
                 setPotId(pot.id)
                 setLocation(pot.location)
@@ -113,7 +134,7 @@ function PotluckDetailed(props) {
             if (guests.filter(guest => guest.id === parseInt(localStorage.getItem("user"))
             ).length>0){ 
                         setInvited(true) 
-                setTimeout(() => { setIngredientLoaded(true) }, 1160)
+                        setTimeout(() => { setIngredientLoaded(true) }, 2300)
                        }else {
                         setInvited(false)
                 setTimeout(() => { setIngredientLoaded(true) }, 1160)
@@ -186,6 +207,7 @@ function PotluckDetailed(props) {
             <>
             <LeftCorner>
             <h1 >{name}</h1>
+            <Image src={potPhoto} style={{maxHeight: "180px", borderRadius: "15px", margin: "0 auto"}} />
             <h3 >{location}, {date}</h3>
                     {invited ?
                     <>
@@ -246,7 +268,12 @@ function PotluckDetailed(props) {
                         {recipes.length > 0 ?
                                 <div style={{ borderRight: "0.2px solid #F8F2F2"}}>
                                 <Ing>Ingredients Required</Ing>
-                                <Sub>(click to add) </Sub>
+                                <Sub>
+                                    (click to add)<br></br> 
+                                                <span style={{ color: "blue", position: "absolute", left: "40px" }}>Blue means you have enough</span>
+                                                <span style={{ color: "red", position:"absolute", right: "40px" }}>Red means you need more</span>
+                                </Sub>
+                                <br></br>
                                 <Recipes style={{display: "flexbox"}}>
                                     {renderIngredients()}
                                 </Recipes>

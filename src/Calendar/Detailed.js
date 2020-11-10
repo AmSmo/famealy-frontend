@@ -21,7 +21,7 @@ class Detailed extends Component {
     }
 
     resizeEvent = (resizeType, { event, start, end }) => {
-        console.log("resize", resizeType,  "event ", event, "start ", start,"end ", end)
+        
         const { events } = this.state;
 
         const nextEvents = events.map(existingEvent => {
@@ -44,7 +44,7 @@ class Detailed extends Component {
                     <DragAndDropCalendar
                         style={{ top: "55px", lineHeight:"16px", minHeight: "15px"}}
                         
-                        onSelectEvent={e => console.log(e)}
+                        
                         events={this.props.info.events}
                         step={15}
                         showMultiDayTimes
@@ -56,7 +56,7 @@ class Detailed extends Component {
                         localizer={momentLocalizer(moment)}
                         defaultView={Views.DAY}
                         views={["day", "month"]}
-                        onEventResize={console.log("DASKDASKF")}
+                        
                         onEventDrop={this.props.moveHandle}
                     />
 

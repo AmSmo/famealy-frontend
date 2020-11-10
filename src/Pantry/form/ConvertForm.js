@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Dropdown} from 'semantic-ui-react'
+import {Dropdown, Message} from 'semantic-ui-react'
 import styled from 'styled-components'
 function ConvertForm(props) {
     let [fromType, setFromType] = useState("oz")
@@ -102,7 +102,7 @@ function ConvertForm(props) {
                 <Button>Calculate</Button>
             </form>
             {answer !== "" ?
-            <div>{answer.slice(0, answer.length-1)}s</div>
+            <Message>{answer.slice(0, answer.length-1)}s</Message>
             :
             null}
         </>
@@ -114,7 +114,7 @@ export default ConvertForm
 const Button = styled.button`
     margin: 0 auto;
     background-color: #22D9E3;
-    border: 2px solid white;
+    border: 1px solid rgb(27, 19, 19);
     color: black;
     padding: 2px 16px;
     text-align: center;

@@ -104,17 +104,18 @@ export default withRouter(RecipeSearch)
 
 const SearchContainer = styled.div`
     display: flex;
-    margin: 80px;
+    margin: 5px 50px;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     text-align: center;
+    overflow-y: scroll;
+    height: 700px;
 `
 
 const Background = styled.div`
 padding-top: 10px;
-
-background: url("/assets/tablefull2.png");
+{/* background: url("/assets/tablefull2.png"); */}
 position: absolute;
 height: 93vh;
 width: 100vw;

@@ -3,7 +3,7 @@ import { Dropdown } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 function EditUserIngredient(props) {
-    console.log(props)
+    
     let [toType, setToType] = useState("oz")
     let [ingredient, setIngredient] = useState("")
     let [amount, setAmount] = useState(0)
@@ -108,7 +108,7 @@ const Button = styled.div`
     width: auto;
     margin: 5px auto;
     background-color: #22D9E3;
-    border: 2px solid white;
+    border: 1px solid rgb(27, 19, 19);
     color: black;
     padding: 2px 16px;
     text-align: center;
@@ -123,7 +123,7 @@ const Update = {
     width: "auto",
     margin: "5px auto",
     backgroundColor: "#22D9E3",
-    border: "2px solid white",
+    border: "1px solid rgb(27, 19, 19)",
     color: "black",
     padding: "2px 16px",
     textAlign: "center",

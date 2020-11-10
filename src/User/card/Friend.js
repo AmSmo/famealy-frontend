@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { Card, Button, Image } from 'semantic-ui-react'
 function Friend(props) {
     let boxWidth = props.add ? "160px" : "230px"
-    console.log("friend", props)
+    
     return(
         <div>
             <Card style={{margin: "15px", width: boxWidth }} onClick={() => {

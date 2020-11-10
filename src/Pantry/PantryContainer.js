@@ -16,7 +16,7 @@ class PantryContainer extends Component {
     }
     
     editIngredient = (ing) => {
-        console.log("top level", ing)
+        
         let arrayCopy
         if (ing.potluck_id){
             arrayCopy = this.state.mySuppliedIngredients
@@ -104,7 +104,7 @@ export default withRouter(PantryContainer)
 const Background = styled.div`
 padding-top: 10px;
 
-background: url("/assets/tablefull2.png");
+// background: url("/assets/tablefull2.png");
 position: absolute;
 height: 93vh;
 width: 100vw;

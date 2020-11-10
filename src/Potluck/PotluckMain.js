@@ -4,32 +4,34 @@ import {withRouter }from 'react-router-dom'
 import PotluckForm from './form/PotluckForm'
 import { Radio} from 'semantic-ui-react'
 import styled from 'styled-components'
+import PhotoPlaceHolder from '../PlaceHolders/PhotoPlaceHolder'
 function PotluckMain(props) {
     let [myPotlucks, setMyPotlucks] = useState([])
     let [friendPotlucks, setFriendPotlucks] = useState([])
     let [viewPotluck, setViewPotluck] = useState(false)
+    let [loaded, setLoaded] = useState(false)
+
     const changeView = (e, result) => {
         
         setViewPotluck(result.checked)
     }
 
     const createPotluck = (e) =>{
+        e.preventDefault()
+        const data = new FormData(e.target)
         let token = localStorage.getItem("token")
-        let {name, location, date} = e.target
-        
         let configObj={
             method: "POST",
-            headers: {"content-type": "application/json",
-                    "accepts": "application/json",
+            headers: {"accepts": "application/json",
                 Authorization: `Bearer ${token}`},
-                body: JSON.stringify({potluck: {name: name.value, date: date.value, location: location.value}})
+                body: data
         }
         fetch("http://localhost:3001/potlucks", configObj)
         .then(resp=> resp.json())
-            .then(data => {
+            .then(answer => {
 
-                setMyPotlucks(data.my_potlucks)
-                setFriendPotlucks(data.friends_potlucks)
+                setMyPotlucks(answer.my_potlucks)
+                setFriendPotlucks(answer.friends_potlucks)
     })
     }
     const renderMyPotlucks = () => {
@@ -50,6 +52,7 @@ function PotluckMain(props) {
                 
                setMyPotlucks(data.my_potlucks)
                setFriendPotlucks(data.friends_potlucks)
+               setLoaded(true)
             }
             )
     }
@@ -61,18 +64,20 @@ function PotluckMain(props) {
     
     return (
         <Background>
-        <LeftCorner>
-            <h2>Create a Potluck</h2>
-            <PotluckForm createPotluck={createPotluck} />
-        </LeftCorner>
-
             <Middle>
                     <Choice>My Potlucks
                 
                     <Radio slider onChange={changeView} />
                 
                    Friends Potlucks</Choice>
-                
+            </Middle>
+        <LeftCorner>
+            <h2>Create a Potluck</h2>
+            <PotluckForm createPotluck={createPotluck} />
+        </LeftCorner>
+
+              {loaded ?
+              <>  
             { !viewPotluck ?
                 <>
             {myPotlucks.length > 0 ?
@@ -96,8 +101,11 @@ function PotluckMain(props) {
             </>
             
         }
+        </>
+            :
+            <PhotoPlaceHolder />
+            }
             
-            </Middle>
         </Background>
     )
 }
@@ -116,10 +124,11 @@ margin: 0px auto;
 `
 
 const Middle = styled.div`
-    padding: 0 50px;
-    margin: 0 220px 0 220px;
-    maxWidth: 80vw;
-    display: flow-root;
+    
+    margin: 0 auto;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
     text-align: center;
 `
@@ -139,12 +148,12 @@ const Background = styled.div`
 padding-top: 10px;
 
 background: url("/assets/farm-dinner.png");
-position: absolute;
-height: 90vh;
+display: inline-table;
+height: 93.5vh;
 width: 100vw;
 background-size: cover;
 background-repeat: no-repeat;
 text-align: center;
 margin: 0 auto;
-position: relative;
+position: static;
 `

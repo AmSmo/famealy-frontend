@@ -12,7 +12,7 @@ function MyRecipeCard(props) {
 
 // style={{border: "0.5px #fff solid", background: "rgba(255,255,255,0.5)"}} 
     return (
-        <div style={{ width: "250px", margin: "20px", display: "grid", border: "0.5px #fff solid", background: "rgba(255,255,255,0.5)", borderRadius: "10px"}}>
+        <div style={{ width: "250px", height: "280px", margin: "20px", display: "grid", border: "0.5px grey solid", background: "rgba(247, 238, 238)", borderRadius: "10px"}}>
             
             <Popup  trigger={<Link><img alt={`${props.recipe.name}`} onClick={() => props.history.push(`/recipes/${props.recipe.spoon_id}`)} style={{ width: "220px", maxHeight:"180px" }} src={props.recipe.image_url} /></Link>} basic hoverable style={style}>
                 Head to Recipe

@@ -156,8 +156,9 @@ const loginStyle = {
 
 const Background = styled.div`
     background-image: url("/assets/splashback.jpg");
-    height: 91vh;
+    height: 95vh;
     width: 100vw;
+    display: inline-table;
     
 `
 
