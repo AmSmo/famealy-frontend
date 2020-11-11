@@ -21,13 +21,13 @@ function FriendSearchForm(props){
 export default withRouter(FriendSearchForm)
 
 const Radio = styled.div`
-width: 80px;
+width: 90px;
 input{
 vertical-align:middle;}
 `
 
 const submitButton = {
-    margin: "0 auto",
+    margin: "10px auto",
     backgroundColor: "#22D9E3",
     border: "2px solid white",
     color: "black",

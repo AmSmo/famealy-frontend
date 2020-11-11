@@ -117,7 +117,7 @@ display: block;
 width: 220px;
 float: left;
 height: 80vh;
-padding-top: 40px;
+padding-top: 20px;
 padding-left: 30px;
 margin: 0px auto;
 

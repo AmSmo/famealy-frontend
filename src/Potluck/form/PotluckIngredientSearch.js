@@ -42,7 +42,7 @@ function PotluckIngredientSearch(props) {
                 
                 return searchHandler(e, searchVal)
             }}>
-                <input type="text" name="query" placeholder="Ingredient" onChange={changeHandler}></input>
+                <input type="text" name="query" placeholder="Ingredient" onChange={changeHandler} required></input>
                 <Button>Search </Button>
             </form>
             {results.length > 0 ?

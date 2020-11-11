@@ -32,7 +32,11 @@ const Slideshow = (props) => {
         <div>
                 
                     <div style={{height: "220px"}}>
-                        {slide(props.images[slideCount])}
+                    {props.images[slideCount]?
+                        
+                        slide(props.images[slideCount])
+                    :
+                    null}
                     </div>
                     
                 

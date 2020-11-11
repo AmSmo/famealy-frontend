@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 function PotluckForm(props) {
     const [name, setName] = useState("")
     const [location, setLocation] = useState("")
-    const [date, setDate]= useState("")
+    const [date, setDate] = useState("")
 
     const createPotluck = (e) => {
         e.preventDefault()
@@ -12,10 +12,10 @@ function PotluckForm(props) {
         setName("")
         setLocation("")
     }
-    const changeHandler = (e) =>{
-        
-        
-        switch (e.target.name){
+    const changeHandler = (e) => {
+
+
+        switch (e.target.name) {
             case "name":
                 setName(e.target.value)
                 break;
@@ -25,16 +25,22 @@ function PotluckForm(props) {
             case "date":
                 setDate(e.target.value)
                 break;
-            default: 
+            default:
                 break;
         }
     }
     return (
         <form onSubmit={(e) => createPotluck(e)}>
-            <input type="text" placeholder="Name of Potluck" value={name} name="name" onChange={changeHandler}/>
-            <input type="text" placeholder="Location of Potluck" value={location} name="location" onChange={changeHandler}/>
-            <input type="date" name="date" onChange={changeHandler}/>
-            <input type="file" name="photo" style={{border: "none", marginLeft: "45px"}}/>
+            <input type="text" placeholder="Name of Potluck" value={name} name="name" onChange={changeHandler} style={{
+                marginTop: "7px"
+            }} />
+            <input type="text" placeholder="Location of Potluck" value={location} name="location" onChange={changeHandler} style={{
+                marginTop: "7px"
+            }} />
+            <input type="date" name="date" onChange={changeHandler} style={{
+                marginTop: "7px"
+            }} />
+            <input type="file" name="photo" style={{ marginTop: "7px", border: "none", marginLeft: "45px" }} />
             <Button>Create Potluck </Button>
         </form>
     )

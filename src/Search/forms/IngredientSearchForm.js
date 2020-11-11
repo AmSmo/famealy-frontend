@@ -8,7 +8,7 @@ function IngredientSearchForm(props) {
 
 
     const changeHandler = (e) => {
-        switch (e.target.name){
+        switch (e.target.name) {
             case "query":
                 setIngredientSearch(e.target.value)
                 break;
@@ -16,24 +16,25 @@ function IngredientSearchForm(props) {
                 setMyIngredientSearch(e.target.value)
                 props.sortIngredients(e.target.value)
                 break;
-                default:
-                    break;
-                }
+            default:
+                break;
+        }
     }
-    
-        return (
-            <>
+
+    return (
+        <>
             <h3>Search My Ingredients</h3>
             <input type="text" name="myIngredients" onChange={changeHandler} value={myIngredientSearch} />
             <h3>Find New Ingredient</h3>
-         <form onSubmit={e => {
-            e.preventDefault()
-            props.searchHandler(e, ingredientSearch)
-            return setIngredientSearch("")}}>
-            <input type="text" name="query" placeholder="Ingredient" value={ingredientSearch} onChange={changeHandler}></input>
-            <Button>Search </Button>
-        </form>
-            
+            <form onSubmit={e => {
+                e.preventDefault()
+                props.searchHandler(e, ingredientSearch)
+                return setIngredientSearch("")
+            }}>
+                <input type="text" name="query" placeholder="Ingredient" value={ingredientSearch} onChange={changeHandler} required></input>
+                <Button>Search </Button>
+            </form>
+
         </>
     )
 

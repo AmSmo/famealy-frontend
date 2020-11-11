@@ -105,7 +105,7 @@ const loginStyle = {
 
 const Background = styled.div`
     background-image: url("/assets/splashback.jpg");
-    height: 94vh;
+    height: 95.3vh;
     width: 100vw;
     background-size: cover;
     background-repeat: no-repeat

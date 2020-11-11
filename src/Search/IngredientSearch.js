@@ -40,7 +40,12 @@ class IngredientSearch extends Component {
         
         
         if (this.state.ingredients.length > 0){
-            return <AddIngredientCard addPantry={this.props.addPantry} ingredient={this.state.ingredients} myingredients={this.props.myingredients}/> }
+            return <AddIngredientCard addPantry={this.addPantry} ingredient={this.state.ingredients} myingredients={this.props.myingredients}/> }
+    }
+
+    addPantry = (e, amountType) => {
+        this.props.addPantry(e, amountType)
+        this.setState({ingredients: []})
     }
             
     

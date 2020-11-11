@@ -115,6 +115,12 @@ function MyIngredients(props){
         }
     }, [sortedIngredients, sortedSupplied])
 
+    const editIngredient = (e) =>{
+        console.log("edit", e)
+        
+        props.editIngredient(e)
+    }
+
     const sortIngredients = (value) => {
         
         
@@ -140,7 +146,7 @@ function MyIngredients(props){
                 <ConvertForm convertIngredient={props.convertIngredient} toEdit={toEdit} />
                 {toEdit ?
 
-                    <EditUserIngredient userIngredient={toEdit} editIngredient={props.editIngredient} deleteIngredient={props.deleteIngredient} /> :
+                    <EditUserIngredient userIngredient={toEdit} editIngredient={editIngredient} deleteIngredient={props.deleteIngredient} /> :
                     null}
                 
         </RightCorner>

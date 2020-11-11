@@ -3,14 +3,14 @@ import { Dropdown } from 'semantic-ui-react'
 import styled from 'styled-components'
 
 function EditUserIngredient(props) {
-    
+
     let [toType, setToType] = useState("oz")
     let [ingredient, setIngredient] = useState("")
     let [amount, setAmount] = useState(0)
     let [ingredientId, setIngredientId] = useState(0)
     let [uiId, setUiId] = useState(0)
 
-    
+
     let options = props.userIngredient.ingredient.possible_units.map(type => {
         return { key: type, text: type, value: type }
     })
@@ -26,7 +26,7 @@ function EditUserIngredient(props) {
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setToType(props.userIngredient.amount_type)
         setIngredient(props.userIngredient.ingredient.name)
         setAmount(props.userIngredient.amount)
@@ -50,7 +50,7 @@ function EditUserIngredient(props) {
 
     const editUserIngredient = (e, result) => {
         e.preventDefault()
-        
+
         let token = localStorage.getItem("token")
         let configObj = {
             method: "PATCH",
@@ -59,15 +59,15 @@ function EditUserIngredient(props) {
                 "content-type": "application/json",
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({ update: { amount, amount_type: toType} })
+            body: JSON.stringify({ update: { amount, amount_type: toType } })
         }
         let url
-        if(!!props.userIngredient.potluck_id){
-            url = `http://localhost:3001/supplied_ingredient/${uiId}` 
-        }else{
-            url= `http://localhost:3001/user_ingredient/${uiId}`
+        if (!!props.userIngredient.potluck_id) {
+            url = `http://localhost:3001/supplied_ingredient/${uiId}`
+        } else {
+            url = `http://localhost:3001/user_ingredient/${uiId}`
         }
-            fetch(url, configObj)
+        fetch(url, configObj)
             .then(resp => resp.json())
             .then(data => props.editIngredient(data))
     }
@@ -77,26 +77,26 @@ function EditUserIngredient(props) {
             <h3>Edit My Pantry</h3>
             <form onSubmit={(e) => editUserIngredient(e)} style={{ textAlign: "left" }}>
                 <div style={{ margin: "3px auto", display: "flex", justifyContent: "space-evenly" }}>
-                    <div style={{textTransform: "capitalize", fontSize:"20px"}}>{ingredient}</div>
-                    </div>
+                    <div style={{ textTransform: "capitalize", fontSize: "20px" }}>{ingredient}</div>
+                </div>
                 <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                     <input style={{ width: "60px" }} value={amount} type="number" min="0" name="amount" step="0.1" required onChange={onTypeChange} />
 
                     <Dropdown
-                        
+
                         value={toType}
                         name="toType"
                         options={options}
                         onChange={onChange}
-                        
-                        />
+
+                    />
                 </div>
 
 
                 <br></br>
-               <input type="submit" value="Update Pantry" style={Update}/>
+                <input type="submit" value="Update Pantry" style={Update} />
             </form>
-               <Button onClick={() => props.deleteIngredient(props.userIngredient.id)}>Delete From Pantry</Button>
+            <Button onClick={() => props.deleteIngredient(props.userIngredient.id)}>Delete From Pantry</Button>
         </>
     )
 }
@@ -132,5 +132,5 @@ const Update = {
     fontSize: "16px",
     fontWeight: "500",
     borderRadius: "20px",
-    
+
 }

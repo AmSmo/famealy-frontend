@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import FriendSearchForm from '../Search/forms/FriendSearchForm'
 import Friend from './card/Friend'
 
 function FriendsContainer(props) {
-    let [friends, setFriends]= useState([])
-    let [searchedFriends, setSearchedFriends]= useState([])
+    let [friends, setFriends] = useState([])
+    let [searchedFriends, setSearchedFriends] = useState([])
 
     // const unFriend = (friend_id) => {
     //     let token= localStorage.getItem("token")
@@ -23,34 +23,36 @@ function FriendsContainer(props) {
 
     // }
     const renderFriends = (people) => {
-        return people.map(person =>{
-            return( <div>
-            <Friend person={person} />
-            {/* <button onClick={() => unFriend(person.friendship)}>Delete Friend</button> */}
-            </div>)})
+        return people.map(person => {
+            return (<div>
+                <Friend person={person} />
+                {/* <button onClick={() => unFriend(person.friendship)}>Delete Friend</button> */}
+            </div>)
+        })
     }
     const renderSearchedFriends = (people) => {
-        return people.map(person => <Friend person={person} add={"true"} addFriend={addFriend}/>)
+        return people.map(person => <Friend person={person} add={"true"} addFriend={addFriend} />)
     }
 
     const addFriend = (friendId) => {
-        
+
         let token = localStorage.getItem("token")
         let configObj = {
             method: "POST",
-            headers: { "content-type": "application/json", "accepts": "application/json", Authorization: `Bearer ${token}`},
-            body: JSON.stringify({friendId})
+            headers: { "content-type": "application/json", "accepts": "application/json", Authorization: `Bearer ${token}` },
+            body: JSON.stringify({ friendId })
 
         }
         fetch("http://localhost:3001/users/add_friend", configObj)
-        .then(resp => resp.json())
-        .then(data=> {
-            setFriends(data)
-            setSearchedFriends([])
-            props.fixTop(data)})
+            .then(resp => resp.json())
+            .then(data => {
+                setFriends(data)
+                setSearchedFriends([])
+                props.fixTop(data)
+            })
     }
 
-    async function fetchFriends(){
+    async function fetchFriends() {
         let token = localStorage.getItem("token")
         await fetch("http://localhost:3001/users/friends", { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => resp.json())
@@ -63,8 +65,9 @@ function FriendsContainer(props) {
             setSearchedFriends([]);
         };
     }, []);
-   useEffect(() => {
-        fetchFriends()}, [])
+    useEffect(() => {
+        fetchFriends()
+    }, [])
 
     const searchHandler = (e) => {
         e.preventDefault()
@@ -82,37 +85,37 @@ function FriendsContainer(props) {
             .then(data => setSearchedFriends(data))
         e.preventDefault()
 
-    } 
-    
-    return(
+    }
+
+    return (
         <Background>
-        
-        <Corner>
-            <h4>Search For Members You Don't Know</h4>
-            <FriendSearchForm searchHandler= {searchHandler} />
-            
-            {searchedFriends.length > 0 ? 
-                    
-                    <Result style={{paddingLeft: "30px"}}>
+
+            <Corner>
+                <h4>Search Members</h4>
+                <FriendSearchForm searchHandler={searchHandler} />
+
+                {searchedFriends.length > 0 ?
+
+                    <Result style={{ paddingLeft: "30px" }}>
                         {renderSearchedFriends(searchedFriends)}
                     </Result>
-                : 
-            null}
-        </Corner>
-                <h2 style={{marginTop: "15px"}}>Friends</h2>
-        <Middle>
-          
-        {friends.length > 0 ? 
-        <>
-            {renderFriends(friends)}
-            </>
-            :
-            <div>No Friends Added.... yet</div>}
-            
-        </Middle>
-            </Background>
+                    :
+                    null}
+            </Corner>
+            <h2 style={{ marginTop: "15px" }}>Friends</h2>
+            <Middle>
+
+                {friends.length > 0 ?
+                    <>
+                        {renderFriends(friends)}
+                    </>
+                    :
+                    <div>No Friends Added.... yet</div>}
+
+            </Middle>
+        </Background>
     )
-    
+
 
 }
 
@@ -123,13 +126,13 @@ flex-wrap: wrap;
 flex-shrink:2;
 width: 100px;
 `
-const Corner= styled.div`
+const Corner = styled.div`
 display: block;
 width: 270px;
 float: left;
 max-height: 92vh;
 padding-top: 20px;
-padding-left: 30px;
+padding-left: 20px;
 margin: 0px auto;
 overflow-Y: scroll;
 

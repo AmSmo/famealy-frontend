@@ -146,10 +146,10 @@ const Button = styled.button`
 const loginStyle = {
     background: "rgba(255,255,255,0.5)",
     width: "250px",
-    height: "400px",
+    height: "430px",
     border: ".1px solid black",
     display: "block",
-    margin: "30px auto",
+    margin: "20px auto",
     padding: "20px",
     borderRadius: "10px"
 }

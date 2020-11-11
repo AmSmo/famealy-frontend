@@ -36,7 +36,7 @@ function IndieAdd(props){
 
                 return(
                 <form onChange={handleChange}>
-                    <div style={{ textTransform: "capitalize", textAlign: "center", display: "inline-flex", width: "270px" }}>
+                    <div style={{ textTransform: "capitalize", textAlign: "center", display: "inline-flex", width: "280px" }}>
                         <input type="checkbox" name="add" />
                         <span style={{ paddingTop: "4px", paddingLeft: "3px" }}> {props.ingredient.name}</span>
 

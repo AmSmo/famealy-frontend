@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.8px;
 }
 
 code {
@@ -25,7 +26,7 @@ a:hover {
 
 
 ::-webkit-file-upload-button {
-  
+     
     display: block;
     width: 115px;
     background-color: #22D9E3;

@@ -120,7 +120,7 @@ class Recipe extends Component {
                     <Background>
                         <h2>{this.state.recipe.name}</h2>
                         <TopCard>
-                            <Photo src={this.state.recipe.image_url} />
+                            <Photo src={this.state.recipe.image_url} style={{borderRadius: "10px"}}/>
                             <Description>
                                 {this.state.recipe.description}
                             </Description>
@@ -205,9 +205,9 @@ class Recipe extends Component {
 
 export default withRouter(Recipe)
 const RecipeButton = styled.button`
-    margin: 0 auto;
+    margin: 10px auto;
     background-color: #22D9E3;
-    border: 2px solid white;
+    border: 1px solid rgb(27, 19, 19);
     color: black;
     width: 180px;
     text-align: center;
@@ -249,7 +249,7 @@ width: 220px;
 const Background = styled.div`
 padding-top: 10px;
 
-background: url("/assets/tablefull2.png");
+{/* background: url("/assets/tablefull2.png"); */}
 position: absolute;
 height: 93vh;
 width: 100vw;

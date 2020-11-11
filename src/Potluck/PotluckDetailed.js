@@ -23,7 +23,7 @@ function PotluckDetailed(props) {
     const [popUp, setPopUp] =useState({})
     const [ingredientLoaded, setIngredientLoaded] = useState(false)
     const [topLoaded, setTopLoaded] = useState(false)
-    
+    const [isOpen, setIsOpen] = useState(false)
     // const renderGuests = () => {
     //     return guests.map(guest => <Friend person={guest} />)
     // }
@@ -62,10 +62,14 @@ function PotluckDetailed(props) {
         .then(resp=> resp.json())
         .then(data => {
         
-           setSuppliedIngredients([...suppliedIngredients, data])})
+           setSuppliedIngredients([...suppliedIngredients, data])
+            setIsOpen(false)})
     }
 
     const deleteSupplied = (ingredient) => {
+        let newArray = suppliedIngredients.filter(ing => ing !== ingredient)
+        setSuppliedIngredients(newArray)
+
         let token = localStorage.getItem("token")
         fetch(`http://localhost:3001/potlucks/eat_ingredient/${ingredient.id}`, {
             method: "POST",
@@ -73,7 +77,7 @@ function PotluckDetailed(props) {
                 "accepts": "application/json",
             Authorization: `Bearer ${token}`}
         }).then(resp=> resp.json())
-        .then(fetchPotluck())
+        .then(console.log)
     }
 
     const deleteRecipe = (potluckRecipeId)=> {
@@ -107,6 +111,14 @@ function PotluckDetailed(props) {
 
     const renderSupplied = () => {
         return suppliedIngredients.map((ingredient , idx) => <SuppliedIngredient key={idx} ingredient={ingredient} deleteSupplied={deleteSupplied} />)
+    }
+
+    const handleOpen = () =>{
+        setIsOpen(true)
+    }
+
+    const handleClose = () =>{
+        setIsOpen(false)
     }
 
     async function fetchPotluck() {
@@ -294,7 +306,7 @@ function PotluckDetailed(props) {
                             <Ing>In Stock</Ing>
                             <Sub>(hover over to see who's bringing it) </Sub>
                             <span style={{float:"right"}}>
-                                <Popup style={{ textAlign: "center" }} trigger={<Link><Icon name="plus" size="large" /></Link>} on='click'>
+                                <Popup style={{ textAlign: "center" }} open={isOpen} onClose={handleClose} onOpen={handleOpen} trigger={<Link><Icon name="plus" size="large" /></Link>} on='click'>
                                     <PotluckIngredientSearch addPantry={supplyIngredient} / >
                                 </Popup>
                             </span>
