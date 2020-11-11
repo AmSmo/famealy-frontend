@@ -6,7 +6,7 @@ function Friend(props) {
     
     return(
         <div>
-            <Card style={{margin: "15px", width: boxWidth }} onClick={() => {
+            <Card className="fade-in" style={{margin: "15px", width: boxWidth }} onClick={() => {
                 
                return props.add ? null :  props.history.push(`/user/profile/${props.person.id}`)}}
             >

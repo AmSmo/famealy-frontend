@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+   
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import PotluckRecipeCard from './card/PotluckRecipeCard.js'
@@ -214,24 +214,24 @@ function PotluckDetailed(props) {
 
             
 
-            <Top style={{ border: "none", width: "95vw", margin: "10px auto", background: "#F8F8F8", borderRadius: "10px" }}>
+            <Top  className="fade-in" style={{ border: "none", width: "95vw", margin: "10px auto", background: "#F8F8F8", borderRadius: "10px" }}>
             { topLoaded ?
             <>
-            <LeftCorner>
+                        <LeftCorner className="fed">
             <h1 >{name}</h1>
             <Image src={potPhoto} style={{maxHeight: "180px", borderRadius: "15px", margin: "0 auto"}} />
             <h3 >{location}, {date}</h3>
                     {invited ?
-                    <>
+                    <div className="scale-in-ver-top">
                         <Button onClick={() => leavePotluck()}>Leave Potluck</Button> 
                         <Button onClick={() => props.history.push(`/calendar/potluck/${potId}`)}>Go To Potluck Schedule</Button> 
-                    </>
+                    </div>
                         :
                        null
                     }
                 
             </LeftCorner>
-        <Middle>
+                        <Middle className="fed">
             {guests.length > 0 ?
             <>
                 <h3>Guests</h3>
@@ -244,7 +244,7 @@ function PotluckDetailed(props) {
                 <div>No Ones Coming!</div>
             }
         </Middle>
-        <MidRight>
+                        <MidRight className="fed">
                     {recipes.length > 0 ?
                         <>
                             <h3>Recipes</h3>
@@ -256,7 +256,7 @@ function PotluckDetailed(props) {
                         <div>No one has decided what to make... Be The First!</div>
                     }
             </MidRight>
-            <OuterRight>
+                        <OuterRight className="fed">
                     <h3>What You'll Be Eating</h3>
                     <SlideShow images={recipes} />
             </OuterRight>
@@ -274,6 +274,7 @@ function PotluckDetailed(props) {
             { ingredientLoaded ? 
             <>
             {invited ? 
+                       
             <Segment style={{ margin: "10px 40px", height: "400px", overflowY:"scroll", overflowX: "hidden"}}>
                     <Grid columns={2} relaxed='very' style={{display: "flex", flexWrap: "wrap"}} >
                         <Grid.Column style={{ height: "380px", overflowY: "scroll"}} >
@@ -287,6 +288,7 @@ function PotluckDetailed(props) {
                                 </Sub>
                                 <br></br>
                                 <Recipes style={{display: "flexbox"}}>
+                                    
                                     {renderIngredients()}
                                 </Recipes>
                             </div>
@@ -311,10 +313,11 @@ function PotluckDetailed(props) {
                                 </Popup>
                             </span>
                             
-                        <Ingredients>                            
+                                                 
+                        <Ingredients>         
                             {renderSupplied()}
-                            
                         </Ingredients>
+                                       
                             
                     </Grid.Column>
                     
@@ -324,6 +327,7 @@ function PotluckDetailed(props) {
                 
                 
             </Segment>
+            
             :           
             <>
                         <h2> No Details Available</h2>
@@ -428,7 +432,7 @@ const Background = styled.div`
 padding-top: 10px;
 background: url("/assets/farm-dinner.png");
 display: inline-table;   
-height: 90vh;
+height: 95.5vh;
 width: 100vw;
 background-size: cover;
 background-repeat: no-repeat;

@@ -11,9 +11,15 @@ function PotluckCard(props) {
     return (
 
         <div>
-            <Card onClick={() => navigate(props.potluck.id)} style={{margin: "30px 15px"}}>
+            <Card className="fade-in" onClick={() => navigate(props.potluck.id)} style={{margin: "30px 15px", height: "320px"}}>
+                <div style={{
+                    background: `url("${props.potluck.photo}")`,
+                    animationFillMode: "backwards", opacity: "0.9", backgroundSize: "cover",
+                    backgroundPosition: "center", height:"220px"}} >
+                </div>
                 <Card.Content>
-                    <Image src={props.potluck.photo} style={{maxHeight: "180px"}} />
+
+                    
                     <Card.Header>{props.potluck.name}</Card.Header>
                     <Card.Meta>{props.potluck.location}</Card.Meta>
                     <Card.Description>{props.potluck.date}</Card.Description>

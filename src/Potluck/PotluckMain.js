@@ -63,7 +63,7 @@ function PotluckMain(props) {
     }, [])
     
     return (
-        <Background>
+        <Background className="fade-in">
             <Middle>
                     <Choice>My Potlucks
                 
@@ -139,7 +139,7 @@ const Choice = styled.h3`
 `
 
 const PotluckDiv = styled.div`
-    display: flexbox;
+    display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 `

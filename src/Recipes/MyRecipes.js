@@ -22,7 +22,7 @@ function MyRecipes(props) {
             <RightCorner>
 
             </RightCorner> */}
-            <h2>Recipes</h2>
+            
             
                 {loaded ?
                 <Middle >

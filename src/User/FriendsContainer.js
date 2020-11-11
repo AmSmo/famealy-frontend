@@ -3,11 +3,11 @@ import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import FriendSearchForm from '../Search/forms/FriendSearchForm'
 import Friend from './card/Friend'
-
+import PhotoPlaceHolder from '../PlaceHolders/PhotoPlaceHolder'
 function FriendsContainer(props) {
     let [friends, setFriends] = useState([])
     let [searchedFriends, setSearchedFriends] = useState([])
-
+    let [loaded, setLoaded] = useState(false)
     // const unFriend = (friend_id) => {
     //     let token= localStorage.getItem("token")
     //     let configObj = {
@@ -56,8 +56,8 @@ function FriendsContainer(props) {
         let token = localStorage.getItem("token")
         await fetch("http://localhost:3001/users/friends", { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => resp.json())
-            .then(data => setFriends(data)
-            )
+            .then(data => setFriends(data))
+            .then(la=>setLoaded(true))
     }
 
     useEffect(() => {
@@ -88,7 +88,7 @@ function FriendsContainer(props) {
     }
 
     return (
-        <Background>
+        <Background className="fade-in">
 
             <Corner>
                 <h4>Search Members</h4>
@@ -102,16 +102,20 @@ function FriendsContainer(props) {
                     :
                     null}
             </Corner>
-            <h2 style={{ marginTop: "15px" }}>Friends</h2>
+            
             <Middle>
-
+                        {loaded ? 
+                        <>
                 {friends.length > 0 ?
                     <>
                         {renderFriends(friends)}
                     </>
                     :
                     <div>No Friends Added.... yet</div>}
-
+                    </>
+                    :
+                    <PhotoPlaceHolder smaller/>
+                    }
             </Middle>
         </Background>
     )
@@ -142,7 +146,7 @@ const Middle = styled.div`
 
 padding-left: 100px;
 margin: 0 auto;
-max-height: 88vh;
+max-height: 90vh;
 max-width: 80vw;
 display: flexbox;
 flex-wrap: wrap;
@@ -154,7 +158,7 @@ padding-top: 10px;
 display: inline-table;
 background: url("/assets/farm-dinner.png");
 position: absolute;
-height: 94vh;
+height: 95vh;
 width: 100vw;
 background-size: cover;
 background-repeat: no-repeat;

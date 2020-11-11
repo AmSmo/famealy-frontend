@@ -11,8 +11,8 @@ function RecipeCard(props){
     }
     return(
         <Card 
-            onClick={() => navigate(props.recipe.id)} style={{margin: "20px"}}>
-            <Image src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} style={{ maxHeight: "280px", width: "auto", overflow: "hidden", verticalAlign:"middle", position: "relative"}} />
+            onClick={() => navigate(props.recipe.id)} style={{margin: "20px", flexGrow: "1", height: "330px"}}>
+            <Image src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} style={{ maxHeight: "280px", width: "auto", overflow: "hidden", verticalAlign:"middle", objectFit: "cover"}} />
             <Card.Header>{props.recipe.title}</Card.Header>
             <Card.Meta> {`Ready in ${props.recipe.readyInMinutes} minutes`}</Card.Meta>
             <Card.Description>{`Servings: ${props.recipe.servings}`}</Card.Description>

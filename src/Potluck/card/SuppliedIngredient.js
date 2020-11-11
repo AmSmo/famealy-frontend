@@ -8,7 +8,7 @@ function SuppliedIngredient(props) {
     return (
 
 
-        <Ingredient >
+        <Ingredient className="scale-in-hor-right">
                 {parseInt(localStorage.getItem("user")) === props.ingredient.user_id ? <Link><Icon name="minus" onClick={() => props.deleteSupplied(props.ingredient)}/></Link> : null}
                 <Popup trigger={
                 <span>{props.ingredient.amount} {props.ingredient.amount_type}{props.ingredient.amount > 1 && !notPlural.includes(props.ingredient.amount_type)  && props.ingredient.amount_type[props.ingredient.amount_type.length - 1] !== "s" ? "s" : null} <span style={{ textTransform: 'capitalize' }}><strong>{props.ingredient.ingredient_name}</strong></span></span>

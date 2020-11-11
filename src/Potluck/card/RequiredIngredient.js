@@ -40,7 +40,7 @@ function RequiredIngredient(props) {
     
         
             <Popup trigger={
-        <Ingredient onClick={()=> props.sendToPopUp(props.ingredient)} style={{color: `${have()}`}}>    
+            <Ingredient className="scale-in-hor-left" onClick={()=> props.sendToPopUp(props.ingredient)} style={{color: `${have()}`}}>    
             {props.ingredient.amount_type ?
             <>{props.ingredient.amount} {props.ingredient.amount_type}{props.ingredient.amount > 1 && props.ingredient.amount_type !== "" && props.ingredient.amount_type !== null && props.ingredient.amount_type[props.ingredient.amount_type.length - 1] !== "s"  ? "s" : null} <span style={{ textTransform: 'capitalize' }}><strong>{props.ingredient.ingredient_name}</strong></span></>
             :

@@ -109,8 +109,8 @@ const SearchContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     text-align: center;
-    overflow-y: scroll;
-    height: 700px;
+
+
 `
 
 const Background = styled.div`

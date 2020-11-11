@@ -73,15 +73,17 @@ class Recipe extends Component {
             .then(resp => resp.json())
             .then(data => this.props.addIngredient(data))
     }
-    ingredientList = () => {
-        let mine = this.props.info.ingredients.map(ingredient => ingredient.spoon_id)
-                return this.state.recipe.recipe_ingredients.map(ingredient => {
-            
-            let have = mine.includes(ingredient.ingredient.spoon_id) ? "blue" : "black"
+        ingredientList = () => {
+        let mine = this.props.info.ingredients.map((ingredient) => ingredient.spoon_id)
+        return this.state.recipe.recipe_ingredients.map((ingredient, idx) => {
+                    let color = idx % 2 === 0 ? "white" : "whitesmoke"
+                    
+                       
+            let have = mine.includes(ingredient.ingredient.spoon_id) ? "#6666FF" : "black"
                     
             return (
 
-                <Popup style={{ textAlign: "center" }} trigger={<div style={{ color: `${have}` }}>
+                <Popup style={{ textAlign: "center" }} trigger={<div style={{ color: `${have}`, background: color, border: "0.5px solid #E0E0E0" }}>
                     {ingredient.description}
                 </div>} on='click'>
                                     <AddIngredientCard ingredient={[ingredient.ingredient]} addPantry={this.addPantry} / >
@@ -93,8 +95,9 @@ class Recipe extends Component {
 
     directions = () => {
 
-        return this.state.recipe.directions_json.map(direction => {
-            return <div>{direction.step}.  {direction.details}</div>
+        return this.state.recipe.directions_json.map((direction, idx) => {
+            let color = idx % 2 === 0 ? "white" : "whitesmoke"
+            return <div style={{ background: color, border: "0.5px solid #E0E0E0" }}>{direction.step}.  {direction.details}</div>
         })
     }
 
@@ -117,7 +120,7 @@ class Recipe extends Component {
         return (
             <>
                 {this.state.recipe.name !== "" ?
-                    <Background>
+                    <Background className="fade-in">
                         <h2>{this.state.recipe.name}</h2>
                         <TopCard>
                             <Photo src={this.state.recipe.image_url} style={{borderRadius: "10px"}}/>
