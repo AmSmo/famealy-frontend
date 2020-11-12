@@ -33,7 +33,7 @@ function RequiredIngredient(props) {
         } else {
             return "black"
         }
-        return "black"
+        
     }
     
     return (

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { List, Image, Popup } from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 function IngredientShow(props) {

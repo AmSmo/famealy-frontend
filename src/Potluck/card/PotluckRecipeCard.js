@@ -7,7 +7,7 @@ function PotluckRecipeCard(props) {
     
     
     let back = props.idx % 2 === 0 ? "white" : "#D3D3D3"
-    console.log("prc", props)
+    
         
              return (
                  <>

@@ -11,7 +11,7 @@ function MyRecipes(props) {
     }
 
         useEffect(() => {
-            setTimeout(() =>{setLoaded(true)}, 950)
+            setTimeout(() =>{setLoaded(true)}, 1100)
         })
 
     return (
@@ -37,11 +37,7 @@ function MyRecipes(props) {
                                 </div>
                             </>
                             :
-                            <>
-                                <h2>You don't have any recipes</h2>
-                                <p>Search for some:</p>
-                                <SearchForm />
-                            </>
+                            null
                             
                     }
                 </Middle>
@@ -58,22 +54,7 @@ function MyRecipes(props) {
 export default withRouter(MyRecipes)
 
 
-const LeftCorner = styled.div`
-display: block;
-width: 220px;
-float: left;
-height: 80vh;
-padding-top: 40px;
-padding-left: 30px;
-margin: 0px auto;
-// background: url("/assets/fork2.png");
-background-repeat: no-repeat;
-background-size: contain;
-background-position-x: 80px;
 
-// background-position-y: 20px;
-
-`
 
 
 const Middle = styled.div`
@@ -91,23 +72,6 @@ justify-contents: space-around;
 
 `
 
-
-const RightCorner = styled.div`
-   
-    display: block;
-    width: 220px;
-    float: right;
-    height: 80vh;
-    padding-top: 40px;
-    margin: 0px auto;
-    right: 20px;
-    // background: url("/assets/knife2.png");
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position-x: 80px;
-    // background-position-y: 20px;
-   
-`
 
 
 const Background = styled.div`

@@ -23,7 +23,7 @@ function AddIngredientCard(props) {
         
         return (
             <Ingredient>
-                <img width="50px" src={ingredient.image_url} />
+                <img alt="ingredient.name" width="50px" src={ingredient.image_url} />
                 <div style={{textTransform: 'capitalize'}}>{ingredient.name}</div>
                 <br></br>
                 <form onSubmit={(e) => props.addPantry(e, amountType)}>

@@ -16,7 +16,7 @@ function MyIngredients(props){
     let [mySuppliedIngredients, setMySuppliedIngredients] = useState([])
     let [toEdit, setToEdit] = useState(null)
     let [mine, setMine] = useState(false)
-    let [toSort, setToSort] = useState(myIngredients)
+    
     let [max, setMax] = useState(0)
     let [list, setList] = useState(0)
     let [frequent, setFrequent] = useState([])
@@ -116,19 +116,12 @@ function MyIngredients(props){
     }, [sortedIngredients, sortedSupplied])
 
     const editIngredient = (e) =>{
-        console.log("edit", e)
-        
         props.editIngredient(e)
     }
 
     const sortIngredients = (value) => {
-        
-        
-        setSortedIngredients(myIngredients.filter(ing => ing.ingredient.name.toLowerCase().includes(value.toLowerCase())))
-        
+        setSortedIngredients(myIngredients.filter(ing => ing.ingredient.name.toLowerCase().includes(value.toLowerCase())))        
         setSortedSupplied(mySuppliedIngredients.filter(ing => ing.ingredient_name.toLowerCase().includes(value.toLowerCase())))
-        
-        
     }
     
 

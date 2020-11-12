@@ -63,7 +63,7 @@ class RecipeSearch extends Component {
     }
     
     sortChange = (e) => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: e.target.value, list: 0})
         let sorted = this.state.recipes.filter(recipe => recipe.title.toLowerCase().includes(e.target.value.toLowerCase()))
         this.setState({ sorted: sorted, max: sorted.length })
     }

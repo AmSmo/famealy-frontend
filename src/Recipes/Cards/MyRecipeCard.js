@@ -33,7 +33,7 @@ function MyRecipeCard(props) {
                 }}>
 
 
-                <div style={{ alignContent: "middle", background: "whitesmoke", border: "0.5 solid black", height: "fit-content", width: "fit-content", justifySelf: "center", alignSelf: "center", padding: "10px", borderRadius: "15px", opacity: ".8", fontWeight: "700", alignSelf: "end" }}>{props.recipe.name}</div>
+                <div style={{ alignContent: "middle", background: "whitesmoke", border: "0.5 solid black", height: "fit-content", width: "fit-content", justifySelf: "center", padding: "10px", borderRadius: "15px", opacity: ".8", fontWeight: "700", alignSelf: "end" }}>{props.recipe.name}</div>
 
                 <Modal inverted style={{textAlign: "center"}} onClick={handleClose}open={isOpen} onClose={handleClose} onOpen={handleOpen} trigger={<Button> Quick Details</Button>} flowing hoverable on='click'>
                     <h2>{props.recipe.name}</h2>

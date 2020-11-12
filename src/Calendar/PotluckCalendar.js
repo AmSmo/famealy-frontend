@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
-import moment from 'moment';
+
+
 import {withRouter} from 'react-router-dom'
 import styled from 'styled-components'
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+
 import Detailed from './Detailed.js'
 class PotluckCalendar extends Component {
     state = {

@@ -1,7 +1,7 @@
 import React from 'react'
 import {withRouter} from 'react-router-dom'
 
-import {Card, Image} from 'semantic-ui-react'
+import {Card, CardContent, Image} from 'semantic-ui-react'
 
 function RecipeCard(props){
     
@@ -11,12 +11,13 @@ function RecipeCard(props){
     }
     return(
         <Card 
-            onClick={() => navigate(props.recipe.id)} style={{margin: "20px", flexGrow: "1", height: "330px"}}>
-            <Image src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} style={{ maxHeight: "280px", width: "auto", overflow: "hidden", verticalAlign:"middle", objectFit: "cover"}} />
-            <Card.Header>{props.recipe.title}</Card.Header>
+            onClick={() => navigate(props.recipe.id)} style={{margin: "20px", flexGrow: "1", height: "390px"}}>
+            <Image src={`https://spoonacular.com/recipeImages/${props.recipe.image}`} style={{ height: "280px", width: "auto", overflow: "hidden", verticalAlign:"middle", objectFit: "cover"}} />
+            <CardContent style={{alignContent: "center"}}>
+            <Card.Header style={{fontSize: "17"}}>{props.recipe.title}</Card.Header>
             <Card.Meta> {`Ready in ${props.recipe.readyInMinutes} minutes`}</Card.Meta>
             <Card.Description>{`Servings: ${props.recipe.servings}`}</Card.Description>
-                
+            </CardContent>
         </Card>
 
 

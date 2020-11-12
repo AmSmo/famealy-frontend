@@ -95,7 +95,7 @@ function Profile(props) {
                     <p>Username: {props.user.username}</p>
                     <p>Email: {props.user.email_address}</p>
                     <p>Location: {props.user.location}</p>
-                    <img src={props.user.profile} style={{width:"220px", maxHeight:"300px", borderRadius: "15px"}}/>
+                    <img alt={props.user.name} src={props.user.profile} style={{width:"220px", maxHeight:"300px", borderRadius: "15px"}}/>
                     </div>
                 </Grid.Column>
                 <Grid.Column >

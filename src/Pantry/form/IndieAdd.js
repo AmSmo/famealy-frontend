@@ -2,11 +2,11 @@ import React, { useState} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 
 function IndieAdd(props){
-    let [spoonId, setSpoonId] = useState(0)
+    
     let [amount, setAmount] = useState(0)
     let [amountType, setAmountType] = useState("oz")
     let [add, setAdd] = useState(false)
-    let [item, setItem] = useState({ add: add, spoon_id: props.ingredient.spoon_id, amount: amount, amount_type: amountType })
+    
     
     const handleChange = (e, result) => {
         

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import PotluckRecipeCard from './card/PotluckRecipeCard.js'
-import { Icon, Grid, Segment, Popup, Dimmer, Loader, Image, Card, Placeholder } from 'semantic-ui-react'
+import { Icon, Grid, Segment, Popup, Dimmer, Loader, Image } from 'semantic-ui-react'
 import RequiredIngredient from './card/RequiredIngredient'
 import SuppliedIngredient from './card/SuppliedIngredient'
 import SlideShow from './card/SlideShow'
@@ -24,9 +24,7 @@ function PotluckDetailed(props) {
     const [ingredientLoaded, setIngredientLoaded] = useState(false)
     const [topLoaded, setTopLoaded] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
-    // const renderGuests = () => {
-    //     return guests.map(guest => <Friend person={guest} />)
-    // }
+  
 
     const renderGuests = () => {
         return guests.map((person, idx) => {
@@ -94,7 +92,6 @@ function PotluckDetailed(props) {
     }
 
     const removeRecipe = (id) => {
-        let recipeCopy = recipes
         let newRecipes = recipes.filter(recipe => recipe.potluck_recipe_id !== id)
         setRecipes(newRecipes)
     }
@@ -146,7 +143,7 @@ function PotluckDetailed(props) {
             if (guests.filter(guest => guest.id === parseInt(localStorage.getItem("user"))
             ).length>0){ 
                         setInvited(true) 
-                        setTimeout(() => { setIngredientLoaded(true) }, 2300)
+                        setTimeout(() => { setIngredientLoaded(true) }, 2700)
                        }else {
                         setInvited(false)
                 setTimeout(() => { setIngredientLoaded(true) }, 1160)

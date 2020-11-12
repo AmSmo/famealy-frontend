@@ -19,7 +19,7 @@ const Slideshow = (props) => {
 
     const slide = (recipe) => { return (
             <>
-            <img src={recipe.recipe.image_url} style={{ width: "auto", height: "150px", borderRadius: "30px" }}/>
+            <img alt={recipe.recipe.name} src={recipe.recipe.image_url} style={{ width: "auto", height: "150px", borderRadius: "30px" }}/>
                 <div>{recipe.recipe.name}</div>
             </>)
         }

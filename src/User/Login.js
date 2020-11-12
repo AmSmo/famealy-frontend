@@ -33,7 +33,7 @@ function Login(props) {
         result =
                 <Background>
                 <p style={head}>Welcome to</p>
-                <img src={"/assets/famealy.png"} style={{width: "40vw"}} />
+                <img alt="logo" src={"/assets/famealy.png"} style={{width: "40vw"}} />
                 <p style={{fontWeight: "700", fontSize: "2em"}}>Let's Start Cooking!</p>
                 
                 <div style={loginStyle}>

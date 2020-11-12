@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { Card, Image} from 'semantic-ui-react'
+import { Card } from 'semantic-ui-react'
 
 function PotluckCard(props) {
     

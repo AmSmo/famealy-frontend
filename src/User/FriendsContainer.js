@@ -8,25 +8,12 @@ function FriendsContainer(props) {
     let [friends, setFriends] = useState([])
     let [searchedFriends, setSearchedFriends] = useState([])
     let [loaded, setLoaded] = useState(false)
-    // const unFriend = (friend_id) => {
-    //     let token= localStorage.getItem("token")
-    //     let configObj = {
-    //         method: "POST",
-    //         headers: {"content-type": "application/json",
-    //                 "accepts": "application/json",
-    //                 Authorization: `Bearer ${token}`},
-    //         body: JSON.stringify({user:{friend_id}})
-    //     }
-    //     fetch("http://localhost:3001/users/unfriend", configObj)
-    //     .then(resp=> resp.json())
-    //     .then(data => setFriends(data))
-
-    // }
+    
     const renderFriends = (people) => {
         return people.map(person => {
             return (<div>
                 <Friend person={person} />
-                {/* <button onClick={() => unFriend(person.friendship)}>Delete Friend</button> */}
+                
             </div>)
         })
     }

@@ -72,7 +72,7 @@ function Signup(props) {
         result =
             <Background>
                 <p style={head}>Welcome to</p>
-            <img src={"/assets/famealy.png"} style={{ width: "40vw" }} />
+            <img alt="logo" src={"/assets/famealy.png"} style={{ width: "40vw" }} />
                 <div style={loginStyle}>
 
                     <div style={{ maxWidth: 450 }}>
