@@ -27,7 +27,7 @@ class PotluckCalendar extends Component {
             time = null
             
         }
-        console.log("final time", newObj)
+        
         toEdit[idx] = newObj
         this.setState({events: toEdit})
         let configObj = {method: "POST", headers:{

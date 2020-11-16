@@ -18,6 +18,7 @@ function ConvertForm(props) {
         setIngredient(props.toEdit.ingredient.name)
         setAmount(props.toEdit.amount)
         setFromType(props.toEdit.amount_type)}
+        setAnswer("")
     }, [props.toEdit])
 
     const onChange = (e, result) => {

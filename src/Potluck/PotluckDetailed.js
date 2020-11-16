@@ -121,7 +121,7 @@ function PotluckDetailed(props) {
     async function fetchPotluck() {
         let token = localStorage.getItem("token")
         let currentPotluck = props.match.params.potluckId
-        
+        let userId = parseInt(localStorage.getItem("user"))
         await fetch(`http://localhost:3001/potlucks/${currentPotluck}`, { headers: { Authorization: `Bearer ${token}` } })
             .then(resp => resp.json())
             .then(data => {
@@ -140,16 +140,15 @@ function PotluckDetailed(props) {
             }
         )
         .then(() => {
-            if (guests.filter(guest => guest.id === parseInt(localStorage.getItem("user"))
-            ).length>0){ 
+            if (guests.find(guest => guest.id === userId)){ 
                         setInvited(true) 
-                        setTimeout(() => { setIngredientLoaded(true) }, 2700)
+                        
                        }else {
                         setInvited(false)
-                setTimeout(() => { setIngredientLoaded(true) }, 1160)
+                        
                         }
                         
-        })
+        }).then(setTimeout(() => { setIngredientLoaded(true) }, 3000))
     }
 
     
