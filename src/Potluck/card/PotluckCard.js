@@ -14,7 +14,7 @@ function PotluckCard(props) {
             <Card className="fade-in" onClick={() => navigate(props.potluck.id)} style={{margin: "30px 15px", height: "320px"}}>
                 <div style={{
                     background: `url("${props.potluck.photo}")`,
-                    animationFillMode: "backwards", opacity: "0.9", backgroundSize: "cover",
+                    animationFillMode: "backwards", opacity: "0.9", backgroundSize: "contain", backgroundRepeat: "no-repeat",
                     backgroundPosition: "center", height:"220px"}} >
                 </div>
                 <Card.Content>
