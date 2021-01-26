@@ -53,7 +53,7 @@ function ConvertForm(props) {
 
     const convertIngredient = (e, result) => {
         e.preventDefault()
-        
+        if (amount !== 0){
         let token = localStorage.getItem("token")
         let configObj = {
             method: "POST",
@@ -66,7 +66,7 @@ function ConvertForm(props) {
         }
         fetch("http://localhost:3001/ingredients/convert", configObj)
         .then(resp => resp.json())
-        .then(data => setAnswer(data["answer"]))
+        .then(data => setAnswer(data["answer"]))}
     }
    
     return (
@@ -76,7 +76,7 @@ function ConvertForm(props) {
                 <div style={{ margin: "3px auto", display: "block", textAlign:"center" }}>
                 <input type="text" name="ingredient" value={ingredient} placeholder="Ingredient" required  onChange={onTypeChange}/><br></br>
                 
-                <input style={{ width: "60px" }} value={amount} type="number" min="0" name="amount" step="0.05" required onChange={onTypeChange}/>
+                <input style={{ width: "60px", marginTop: "5px" }} value={amount} type="number" min="0" name="amount" step="0.05" required onChange={onTypeChange}/>
                 
                 <Dropdown
                     value={fromType}
@@ -102,7 +102,7 @@ function ConvertForm(props) {
                 <br></br>
                 <Button>Calculate</Button>
             </form>
-            {answer !== "" ?
+            {answer !== ""  ?
             <Message>{answer.slice(0, answer.length-1)}s</Message>
             :
             null}
