@@ -1,20 +1,22 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Menu, Input} from 'semantic-ui-react'
+import { Menu, Input } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+import { logout } from '../actions/session_actions';
 
-
-class NavBar extends React.Component{
+class NavBar extends React.Component {
     state = { activeItem: 'bio', searchValue: "" }
 
     handleItemClick = (e, { name }) => {
-        if (name === "logout"){
+        if (name === "logout") {
             this.props.logoutHandler()
         }
-        return this.setState({ activeItem: name })}
+        return this.setState({ activeItem: name })
+    }
     keyHandler = (e) => {
         if (e.keyCode === 13) {
             this.props.history.push(`/search/recipe/${this.state.searchValue}`)
-            this.setState({searchValue: ""})
+            this.setState({ searchValue: "" })
         }
     }
 
@@ -23,36 +25,36 @@ class NavBar extends React.Component{
         this.setState({ searchValue: e.target.value })
     }
 
-    render(){
-            
-        return(
-            
-        <Menu tabular style={{position: "fixed", width: "100vw", zIndex: "10", background: "white"}}>
-            
-            {   !this.props.user ?
+    render() {
+        console.log(this.props)
+        return (
+
+            <Menu tabular style={{ position: "fixed", width: "100vw", zIndex: "10", background: "white" }}>
+
+                {   this.props.user.username === "" ?
                     <>
-                    <Menu.Item
-                        name='login'
-                        active={this.state.activeItem === 'login'}
-                        onClick={this.handleItemClick}
-                        as={Link}
-                        to="/user/login"
-                    >
-                        Login
+                        <Menu.Item
+                            name='login'
+                            active={this.state.activeItem === 'login'}
+                            onClick={this.handleItemClick}
+                            as={Link}
+                            to="/user/login"
+                        >
+                            Login
                         </Menu.Item>
-                    
-                    <Menu.Item
-                        name='signup'
-                        active={this.state.activeItem === 'signup'}
-                        onClick={this.handleItemClick}
+
+                        <Menu.Item
+                            name='signup'
+                            active={this.state.activeItem === 'signup'}
+                            onClick={this.handleItemClick}
                             as={Link}
                             to="/user/signup"
-                    >
+                        >
 
-                    Signup
+                            Signup
                         </Menu.Item>
-                        </>
-                        :
+                    </>
+                    :
                     <>
                         <Menu.Item
                             name='logout'
@@ -125,13 +127,21 @@ class NavBar extends React.Component{
                             </form>
                         </Menu.Menu>
                     </>
-                        }
-                        
-        </Menu>
-            
-    )
+                }
+
+            </Menu>
+
+        )
     }
 }
+const mapDispatchToProps = dispatch => {
+    return {
+        logoutHandler: () => dispatch(logout())
+    }
+}
+const mapStateToProps = state => {
+    return state
+}
 
-export default withRouter(NavBar)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NavBar))
 

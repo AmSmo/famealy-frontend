@@ -2,18 +2,18 @@ import styled from 'styled-components'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Message } from 'semantic-ui-react'
-
+import { connect } from 'react-redux'
+import { login } from "../actions/session_actions"
 function Login(props) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
-    const loginHandler = (e, user) => {
-        if (props.loginHandler(e, user)){
+    const loginHandler = (e) => {
+        e.preventDefault()
+        props.login({ username, password })
         setUsername("")
         setPassword("")
-        props.history.push("/")}
     }
-
     const changeHandler = (e) => {
         switch (e.target.name) {
             case "username":
@@ -30,49 +30,58 @@ function Login(props) {
     }
     let result = <></>
     if (!localStorage.getItem("token")) {
-        result =
-                <Background>
+        result = (
+            <Background>
                 <p style={head}>Welcome to</p>
-                <img alt="logo" src={"/assets/famealy.png"} style={{width: "40vw"}} />
-                <p style={{fontWeight: "700", fontSize: "2em"}}>Let's Start Cooking!</p>
-                
+                <img alt="logo" src={"/assets/famealy.png"} style={{ width: "40vw" }} />
+                <p style={{ fontWeight: "700", fontSize: "2em" }}>Let's Start Cooking!</p>
+
                 <div style={loginStyle}>
-                
+
                     <div style={{ maxWidth: 450 }}>
                         <h2>
                             Log-in to your account
                         </h2>
-                    <form onSubmit={(e) => loginHandler(e, { username, password })} size='large'>
+                        <form onSubmit={loginHandler} size='large'>
                             <Fields>
                                 <input type="text" onChange={changeHandler} value={username} name="username" placeholder='Username' />
                                 <input type="password"
-                                    
+
                                     icon='lock'
                                     name="password"
-                                    
+
                                     placeholder='Password'
                                     onChange={changeHandler}
                                     value={password}
                                 />
 
-                                <Button onClick={(e) => loginHandler(e, {username, password})}>
+                                <Button onClick={loginHandler}>
                                     Login
                                 </Button>
-                                { props.message !== "" ? <Message>{props.message}</Message> :null}
+                                {props.message !== "" ? <Message>{props.message}</Message> : null}
                             </Fields>
                         </form>
-                        <div style={{fontSize:"17px", fontWeight: "600"}}>
+                        <div style={{ fontSize: "17px", fontWeight: "600" }}>
                             New to us? <NavLink to="/user/signup">Sign Up</NavLink>
                         </div>
                     </div>
-                
-            </div>
-            </Background>
+
+                </div>
+            </Background>)
 
     }
     return (result)
 }
-export default Login
+
+const mapStateToProps = state => {
+    return state
+}
+const mapDispatchToProps = dispatch => {
+    return {
+        login: (user) => dispatch(login(user))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
 
 const Button = styled.button`
     margin: 0 auto;
